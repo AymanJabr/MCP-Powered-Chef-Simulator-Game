@@ -11,6 +11,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.50.4",
     "@mantine/core": "^8.0.0",
     "@mantine/hooks": "^8.0.0",
     "@tabler/icons-react": "^3.31.0",
@@ -18,7 +19,9 @@
     "howler": "^2.2.4",
     "immer": "^10.1.1",
     "jotai": "^2.12.4",
+    "mcp-sdk": "^0.1.0",
     "next": "15.3.2",
+    "openai": "^4.98.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "zustand": "^5.0.4"

@@ -116,14 +116,16 @@
       /__tests__          # Game state tests
     /player               # Player state
       /__tests__          # Player state tests
-    /mcp                  # MCP state
-      /__tests__          # MCP state tests
+    /mcp       
+      /server           
+        /__tests__          # MCP server tests
+      /client  
+        /__tests__          # MCP client tests
   /types                  # TypeScript type definitions
   /mcp                    # MCP integration (from 1.2)
   /assets                 # Static assets that need processing
 /public                   # Static assets
   /assets                 # Following the structure in documentation
-/tests                    # Test files
 ```
 
 ## 2. State Management Architecture
