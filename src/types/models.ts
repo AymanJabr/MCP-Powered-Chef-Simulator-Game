@@ -121,4 +121,65 @@ export interface SavedCommand {
     name: string
     command: string
     tags: string[]
+}
+
+// MCP Assistant model
+export interface MCPAssistant {
+    isActive: boolean
+    currentCommand: string | null
+    commandHistory: MCPCommand[]
+    performanceMetrics: MCPPerformanceMetrics
+    provider: LLMProvider
+    status: 'idle' | 'processing' | 'executing'
+}
+
+// MCP Command
+export interface MCPCommand {
+    id: string
+    input: string // What the user told the assistant to do
+    response: string | null // The assistant's response
+    actions: MCPAction[] // Actions the assistant took based on the command
+    startTime: number
+    completionTime: number | null
+    success: boolean | null // Whether the command was successful
+}
+
+// MCP Action
+export interface MCPAction {
+    id: string
+    type: MCPActionType
+    target: string
+    params: Record<string, any>
+    status: 'pending' | 'successful' | 'failed'
+    timestamp: number
+    result?: any
+}
+
+// MCP Action Type
+export type MCPActionType =
+    | 'greet_customer'
+    | 'take_order'
+    | 'serve_order'
+    | 'prepare_ingredient'
+    | 'cook_ingredient'
+    | 'plate_dish'
+    | 'purchase_ingredients'
+
+// MCP Performance Metrics
+export interface MCPPerformanceMetrics {
+    successRate: number
+    averageResponseTime: number
+    customerSatisfactionDelta: number
+    ordersPerMinute: number
+    commandsExecuted: number
+    failedCommands: number
+}
+
+// LLM Provider
+export interface LLMProvider {
+    name: 'claude' | 'gpt' | 'gemini' | 'mock'
+    model: string
+    apiKey?: string
+    temperature: number
+    maxTokens: number
 } 
