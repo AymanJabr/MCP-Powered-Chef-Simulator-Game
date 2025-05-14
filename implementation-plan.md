@@ -27,28 +27,30 @@
    ```
 
 5. Create Jest configuration
-   ```javascript
-   // jest.config.js
-   const nextJest = require('next/jest')
+   ```typescript
+   // jest.config.ts
+   import type { Config } from 'jest'
+  import nextJest from 'next/jest'
 
-   const createJestConfig = nextJest({
-     dir: './',
-   })
+  const createJestConfig = nextJest({
+      dir: './',
+  })
 
-   const customJestConfig = {
-     setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-     testEnvironment: 'jest-environment-jsdom',
-     moduleNameMapper: {
-       '^@/(.*)$': '<rootDir>/src/$1',
-     },
-   }
+  const customJestConfig: Config = {
+      setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+      testEnvironment: 'jest-environment-jsdom',
+      moduleNameMapper: {
+          '^@/(.*)$': '<rootDir>/src/$1',
+      },
+      testMatch: ['**/*.test.ts', '**/*.test.tsx'],
+  }
 
-   module.exports = createJestConfig(customJestConfig)
+  export default createJestConfig(customJestConfig) 
    ```
 
 6. Create Jest setup file
-   ```javascript
-   // jest.setup.js
+   ```typescript
+   // jest.setup.ts
    import '@testing-library/jest-dom'
    ```
 
