@@ -1,5 +1,5 @@
 import { usePlayerStore } from '../playerStore'
-import { PlayerActionType, Position, SavedCommand } from '@/types/models'
+import { Position, SavedCommand } from '@/types/models'
 
 // Mock Date.now to return a consistent value for testing
 const originalDateNow = Date.now

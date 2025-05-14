@@ -1,5 +1,5 @@
 import { useMCPStore, setLLMService, LLMService } from '../mcpStore'
-import { LLMProvider, MCPAction, MCPActionType } from '@/types/models'
+import { LLMProvider, MCPActionType } from '@/types/models'
 
 // Mock Date.now to return a consistent value for testing
 const originalDateNow = Date.now
