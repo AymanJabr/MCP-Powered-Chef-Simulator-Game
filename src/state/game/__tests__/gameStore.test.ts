@@ -7,18 +7,18 @@ describe('Game Store', () => {
     })
 
     it('should initialize with default values', () => {
-        const state = useGameStore.getState()
-        expect(state.gameMode).toBe('manual')
-        expect(state.difficulty).toBe(1)
-        expect(state.timeElapsed).toBe(0)
-        expect(state.isPaused).toBe(false)
-        expect(state.gamePhase).toBe('preGame')
+        const { game } = useGameStore.getState()
+        expect(game.gameMode).toBe('manual')
+        expect(game.difficulty).toBe(1)
+        expect(game.timeElapsed).toBe(0)
+        expect(game.isPaused).toBe(false)
+        expect(game.gamePhase).toBe('preGame')
     })
 
     it('should set game mode correctly', () => {
         const { actions } = useGameStore.getState()
         actions.setGameMode('mcp')
-        expect(useGameStore.getState().gameMode).toBe('mcp')
+        expect(useGameStore.getState().game.gameMode).toBe('mcp')
     })
 
     it('should increase time and difficulty', () => {
@@ -27,20 +27,20 @@ describe('Game Store', () => {
         // Increase by 60 seconds to trigger difficulty increase
         actions.increaseTime(60)
 
-        const state = useGameStore.getState()
-        expect(state.timeElapsed).toBe(60)
-        expect(state.difficulty).toBeCloseTo(1.1)
+        const { game } = useGameStore.getState()
+        expect(game.timeElapsed).toBe(60)
+        expect(game.difficulty).toBeCloseTo(1.1)
     })
 
     it('should toggle pause state', () => {
         const { actions } = useGameStore.getState()
-        const initialPauseState = useGameStore.getState().isPaused
+        const initialPauseState = useGameStore.getState().game.isPaused
 
         actions.togglePause()
-        expect(useGameStore.getState().isPaused).toBe(!initialPauseState)
+        expect(useGameStore.getState().game.isPaused).toBe(!initialPauseState)
 
         actions.togglePause()
-        expect(useGameStore.getState().isPaused).toBe(initialPauseState)
+        expect(useGameStore.getState().game.isPaused).toBe(initialPauseState)
     })
 
     it('should reset the game state', () => {
@@ -53,18 +53,18 @@ describe('Game Store', () => {
         // Reset
         actions.resetGame()
 
-        const state = useGameStore.getState()
-        expect(state.timeElapsed).toBe(0)
-        expect(state.difficulty).toBe(1)
-        expect(state.gamePhase).toBe('preGame')
+        const { game } = useGameStore.getState()
+        expect(game.timeElapsed).toBe(0)
+        expect(game.difficulty).toBe(1)
+        expect(game.gamePhase).toBe('preGame')
 
         // gameMode should not be reset as it's a user preference
-        expect(state.gameMode).toBe('mcp')
+        expect(game.gameMode).toBe('mcp')
     })
 
     it('should set difficulty correctly', () => {
         const { actions } = useGameStore.getState()
         actions.setDifficulty(5)
-        expect(useGameStore.getState().difficulty).toBe(5)
+        expect(useGameStore.getState().game.difficulty).toBe(5)
     })
 }) 

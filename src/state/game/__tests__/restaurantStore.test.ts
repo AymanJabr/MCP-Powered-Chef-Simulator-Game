@@ -60,38 +60,40 @@ describe('Restaurant Store', () => {
     beforeEach(() => {
         // Reset store to a predictable state for testing
         useRestaurantStore.setState({
-            name: 'MCP-Powered Chef Restaurant',
-            level: 1,
-            reputation: 50,
-            funds: 1000,
-            customerCapacity: 8,
-            activeCustomers: [],
-            customerQueue: [],
-            activeOrders: [],
-            completedOrders: [],
-            inventory: [{ ...mockIngredient }], // Copy to avoid reference issues
-            equipment: [{ ...mockEquipment }]
+            restaurant: {
+                name: 'MCP-Powered Chef Restaurant',
+                level: 1,
+                reputation: 50,
+                funds: 1000,
+                customerCapacity: 8,
+                activeCustomers: [],
+                customerQueue: [],
+                activeOrders: [],
+                completedOrders: [],
+                inventory: [{ ...mockIngredient }], // Copy to avoid reference issues
+                equipment: [{ ...mockEquipment }]
+            }
         })
     })
 
     it('should initialize with default values', () => {
-        const state = useRestaurantStore.getState()
-        expect(state.name).toBe('MCP-Powered Chef Restaurant')
-        expect(state.level).toBe(1)
-        expect(state.reputation).toBe(50)
-        expect(state.funds).toBe(1000)
-        expect(state.customerCapacity).toBe(8)
-        expect(state.activeCustomers).toEqual([])
-        expect(state.customerQueue).toEqual([])
+        const { restaurant } = useRestaurantStore.getState()
+        expect(restaurant.name).toBe('MCP-Powered Chef Restaurant')
+        expect(restaurant.level).toBe(1)
+        expect(restaurant.reputation).toBe(50)
+        expect(restaurant.funds).toBe(1000)
+        expect(restaurant.customerCapacity).toBe(8)
+        expect(restaurant.activeCustomers).toEqual([])
+        expect(restaurant.customerQueue).toEqual([])
     })
 
     it('should add customer to queue', () => {
         const { actions } = useRestaurantStore.getState()
         actions.addCustomerToQueue({ ...mockCustomer })
 
-        const state = useRestaurantStore.getState()
-        expect(state.customerQueue).toHaveLength(1)
-        expect(state.customerQueue[0].id).toBe('customer_1')
+        const { restaurant } = useRestaurantStore.getState()
+        expect(restaurant.customerQueue).toHaveLength(1)
+        expect(restaurant.customerQueue[0].id).toBe('customer_1')
     })
 
     it('should remove customer from queue', () => {
@@ -99,13 +101,13 @@ describe('Restaurant Store', () => {
         actions.addCustomerToQueue({ ...mockCustomer })
 
         // Check customer was added
-        expect(useRestaurantStore.getState().customerQueue).toHaveLength(1)
+        expect(useRestaurantStore.getState().restaurant.customerQueue).toHaveLength(1)
 
         // Remove the customer
         actions.removeCustomerFromQueue('customer_1')
 
         // Check customer was removed
-        expect(useRestaurantStore.getState().customerQueue).toHaveLength(0)
+        expect(useRestaurantStore.getState().restaurant.customerQueue).toHaveLength(0)
     })
 
     it('should seat customer', () => {
@@ -116,12 +118,12 @@ describe('Restaurant Store', () => {
 
         expect(result.success).toBe(true)
 
-        const state = useRestaurantStore.getState()
-        expect(state.customerQueue).toHaveLength(0)
-        expect(state.activeCustomers).toHaveLength(1)
-        expect(state.activeCustomers[0].id).toBe('customer_1')
-        expect(state.activeCustomers[0].tableId).toBe('table_1')
-        expect(state.activeCustomers[0].status).toBe('seated')
+        const { restaurant } = useRestaurantStore.getState()
+        expect(restaurant.customerQueue).toHaveLength(0)
+        expect(restaurant.activeCustomers).toHaveLength(1)
+        expect(restaurant.activeCustomers[0].id).toBe('customer_1')
+        expect(restaurant.activeCustomers[0].tableId).toBe('table_1')
+        expect(restaurant.activeCustomers[0].status).toBe('seated')
     })
 
     it('should fail when seating non-existent customer', () => {
@@ -164,21 +166,21 @@ describe('Restaurant Store', () => {
         // Add an order
         actions.addActiveOrder({ ...mockOrder })
 
-        let state = useRestaurantStore.getState()
-        expect(state.activeOrders).toHaveLength(1)
+        let { restaurant } = useRestaurantStore.getState()
+        expect(restaurant.activeOrders).toHaveLength(1)
 
         // Update order status
         actions.updateOrderStatus('order_1', 'cooking')
 
-        state = useRestaurantStore.getState()
-        expect(state.activeOrders[0].status).toBe('cooking')
+        restaurant = useRestaurantStore.getState().restaurant
+        expect(restaurant.activeOrders[0].status).toBe('cooking')
 
         // Set to served and check completion time is set
         actions.updateOrderStatus('order_1', 'served')
 
-        state = useRestaurantStore.getState()
-        expect(state.activeOrders[0].status).toBe('served')
-        expect(state.activeOrders[0].completionTime).not.toBeNull()
+        restaurant = useRestaurantStore.getState().restaurant
+        expect(restaurant.activeOrders[0].status).toBe('served')
+        expect(restaurant.activeOrders[0].completionTime).not.toBeNull()
     })
 
     it('should complete an order and update customer status', () => {
@@ -194,15 +196,15 @@ describe('Restaurant Store', () => {
         // Complete the order
         actions.completeOrder('order_1', 5)
 
-        const state = useRestaurantStore.getState()
+        const { restaurant } = useRestaurantStore.getState()
 
         // Order should be moved to completed orders
-        expect(state.activeOrders).toHaveLength(0)
-        expect(state.completedOrders).toHaveLength(1)
-        expect(state.completedOrders[0].tip).toBe(5)
+        expect(restaurant.activeOrders).toHaveLength(0)
+        expect(restaurant.completedOrders).toHaveLength(1)
+        expect(restaurant.completedOrders[0].tip).toBe(5)
 
         // Customer should be marked as served
-        expect(state.activeCustomers[0].status).toBe('served')
+        expect(restaurant.activeCustomers[0].status).toBe('served')
     })
 
     it('should update customer satisfaction and calculate tips', () => {
@@ -215,16 +217,16 @@ describe('Restaurant Store', () => {
         // Update satisfaction to a high value
         actions.updateCustomerSatisfaction('customer_1', 80)
 
-        const state = useRestaurantStore.getState()
-        expect(state.activeCustomers[0].satisfaction).toBe(80)
+        const { restaurant } = useRestaurantStore.getState()
+        expect(restaurant.activeCustomers[0].satisfaction).toBe(80)
 
         // Tips should be calculated based on satisfaction
         // Using the formula tipPercentage = satisfaction / 100, then tip = Math.floor(tipPercentage * 5)
         const expectedTip = Math.floor((80 / 100) * 5)
-        expect(state.activeCustomers[0].tip).toBe(expectedTip)
+        expect(restaurant.activeCustomers[0].tip).toBe(expectedTip)
 
         // Reputation should have increased (80 - 50) / 10 = 3
-        expect(state.reputation).toBe(53)
+        expect(restaurant.reputation).toBe(53)
     })
 
     it('should update ingredient quantity', () => {
@@ -233,14 +235,14 @@ describe('Restaurant Store', () => {
         // Increase quantity
         actions.updateIngredientQuantity('ingredient_1', 5)
 
-        let state = useRestaurantStore.getState()
-        expect(state.inventory[0].quantity).toBe(15) // 10 + 5
+        let { restaurant } = useRestaurantStore.getState()
+        expect(restaurant.inventory[0].quantity).toBe(15) // 10 + 5
 
         // Decrease quantity
         actions.updateIngredientQuantity('ingredient_1', -3)
 
-        state = useRestaurantStore.getState()
-        expect(state.inventory[0].quantity).toBe(12) // 15 - 3
+        restaurant = useRestaurantStore.getState().restaurant
+        expect(restaurant.inventory[0].quantity).toBe(12) // 15 - 3
     })
 
     it('should update equipment status', () => {
@@ -249,13 +251,13 @@ describe('Restaurant Store', () => {
         // Update equipment to in_use
         actions.updateEquipmentStatus('equipment_1', 'in_use')
 
-        let state = useRestaurantStore.getState()
-        expect(state.equipment[0].status).toBe('in_use')
+        let { restaurant } = useRestaurantStore.getState()
+        expect(restaurant.equipment[0].status).toBe('in_use')
 
         // Update equipment to broken
         actions.updateEquipmentStatus('equipment_1', 'broken')
 
-        state = useRestaurantStore.getState()
-        expect(state.equipment[0].status).toBe('broken')
+        restaurant = useRestaurantStore.getState().restaurant
+        expect(restaurant.equipment[0].status).toBe('broken')
     })
 }) 

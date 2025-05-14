@@ -72,6 +72,45 @@ export interface Equipment {
 // Cooking action type
 export type CookingActionType = 'chop' | 'dice' | 'mince' | 'fry' | 'boil' | 'grill' | 'bake' | 'simmer'
 
+// Game model
+export type GamePhase = 'tutorial' | 'preGame' | 'active' | 'gameOver'
+export type GameMode = 'manual' | 'mcp'
+
+export interface Game {
+    gameMode: GameMode
+    difficulty: number
+    timeElapsed: number
+    isPaused: boolean
+    gamePhase: GamePhase
+    performanceMetrics: {
+        customerSatisfaction: number
+        orderCompletionTime: number
+        financialPerformance: number
+        efficiency: number
+    }
+    settings: {
+        audioEnabled: boolean
+        sfxVolume: number
+        musicVolume: number
+        tutorialCompleted: boolean
+    }
+}
+
+// Restaurant model
+export interface Restaurant {
+    name: string
+    level: number
+    reputation: number
+    funds: number
+    customerCapacity: number
+    activeCustomers: Customer[]
+    customerQueue: Customer[]
+    activeOrders: Order[]
+    completedOrders: Order[]
+    inventory: Ingredient[]
+    equipment: Equipment[]
+}
+
 // Player model
 export interface Player {
     id: string
