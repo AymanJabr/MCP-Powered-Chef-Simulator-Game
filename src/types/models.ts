@@ -70,4 +70,55 @@ export interface Equipment {
 }
 
 // Cooking action type
-export type CookingActionType = 'chop' | 'dice' | 'mince' | 'fry' | 'boil' | 'grill' | 'bake' | 'simmer' 
+export type CookingActionType = 'chop' | 'dice' | 'mince' | 'fry' | 'boil' | 'grill' | 'bake' | 'simmer'
+
+// Player model
+export interface Player {
+    id: string
+    name: string
+    score: number
+    speed: number
+    skill: number
+    position: Position
+    currentAction: PlayerAction | null
+    actionQueue: PlayerAction[]
+    actionHistory: PlayerAction[]
+    savedCommands: SavedCommand[]
+}
+
+// Player position
+export interface Position {
+    x: number
+    y: number
+    area: 'kitchen' | 'dining' | 'storage'
+}
+
+// Player action
+export interface PlayerAction {
+    id: string
+    type: PlayerActionType
+    target: string // ID of the target (ingredient, equipment, customer, etc.)
+    startTime: number
+    duration: number
+    status: 'queued' | 'in_progress' | 'completed' | 'failed'
+    completionTime: number | null
+}
+
+// Player action type
+export type PlayerActionType =
+    | 'move'
+    | 'prepare_ingredient'
+    | 'cook'
+    | 'plate'
+    | 'serve'
+    | 'clean'
+    | 'greet_customer'
+    | 'take_order'
+
+// Saved command for MCP
+export interface SavedCommand {
+    id: string
+    name: string
+    command: string
+    tags: string[]
+} 
