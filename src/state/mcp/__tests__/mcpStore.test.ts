@@ -1,29 +1,27 @@
-import { useMCPStore } from '../mcpStore'
+import { useMCPStore, setLLMService, LLMService } from '../mcpStore'
 import { LLMProvider, MCPAction, MCPActionType } from '@/types/models'
 
 // Mock Date.now to return a consistent value for testing
 const originalDateNow = Date.now
 const mockNow = 1619784000000 // May 1, 2021
 
-// Mock the mockLLMResponse function implementation to return immediately in tests
-jest.mock('../mcpStore', () => {
-    // Get the actual implementation
-    const originalModule = jest.requireActual('../mcpStore')
-
-    // Return the module with the mocked function
-    return {
-        ...originalModule,
-        // Override the internal mockLLMResponse function
-        mockLLMResponse: jest.fn().mockImplementation(async (input) => {
-            return `I'll help you with "${input}"`
-        })
+// Create a mock LLM service for testing
+class MockLLMService implements LLMService {
+    async generateResponse(input: string): Promise<string> {
+        return `I'll help you with "${input}"`
     }
-})
+}
+
+// Setup our mock service
+const mockLLMService = new MockLLMService();
 
 describe('MCP Store', () => {
     beforeAll(() => {
         // Mock Date.now
         Date.now = jest.fn(() => mockNow)
+
+        // Set our mock LLM service
+        setLLMService(mockLLMService);
     })
 
     afterAll(() => {
@@ -115,6 +113,9 @@ describe('MCP Store', () => {
     it('should send a command and receive a response', async () => {
         const { actions } = useMCPStore.getState()
 
+        // Spy on the mock service
+        const generateResponseSpy = jest.spyOn(mockLLMService, 'generateResponse')
+
         // Send a test command
         const commandPromise = actions.sendCommand('Test command')
 
@@ -128,6 +129,9 @@ describe('MCP Store', () => {
 
         // Wait for the command to complete
         await commandPromise
+
+        // Verify the service was called
+        expect(generateResponseSpy).toHaveBeenCalledWith('Test command')
 
         // Verify updated state
         state = useMCPStore.getState()
@@ -319,7 +323,7 @@ describe('MCP Store', () => {
         expect(metrics.failedCommands).toBe(0)
         expect(metrics.successRate).toBe(0)
         expect(metrics.averageResponseTime).toBe(0)
-    }, 10000) // Increase timeout for this test
+    })
 
     it('should limit command history to 50 items', async () => {
         const { actions } = useMCPStore.getState()
@@ -338,5 +342,5 @@ describe('MCP Store', () => {
         // Newest commands should be at the beginning
         expect(commandHistory[0].input).toBe('Command 54')
         expect(commandHistory[49].input).toBe('Command 5')
-    }, 30000) // Increase timeout for this long-running test
+    })
 }) 

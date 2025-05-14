@@ -9,6 +9,30 @@ import {
     SavedCommand
 } from '@/types/models'
 
+// Define interface for LLM service
+export interface LLMService {
+    generateResponse(input: string): Promise<string>;
+}
+
+// Default implementation of LLM service
+export class DefaultLLMService implements LLMService {
+    async generateResponse(input: string): Promise<string> {
+        // In a real implementation, this would call the actual LLM API
+        // For now, return a simple response
+        // This will be mocked in tests
+        await new Promise(resolve => setTimeout(resolve, 500));
+        return `I'll help you with "${input}"`;
+    }
+}
+
+// Create a singleton instance of the LLM service
+let llmService: LLMService = new DefaultLLMService();
+
+// Export function to set LLM service (useful for testing)
+export const setLLMService = (service: LLMService): void => {
+    llmService = service;
+}
+
 interface MCPState {
     assistant: MCPAssistant
     suggestedCommands: SavedCommand[]
@@ -40,14 +64,6 @@ const DEFAULT_PROVIDER: LLMProvider = {
     model: 'mock-1.0',
     temperature: 0.7,
     maxTokens: 1000
-}
-
-// Mock LLM response implementation for testing
-// Exported to allow for mocking in tests
-export const mockLLMResponse = async (input: string): Promise<string> => {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 500))
-    return `I'll help you with "${input}"`
 }
 
 export const useMCPStore = create<MCPState>()(
@@ -132,8 +148,8 @@ export const useMCPStore = create<MCPState>()(
                 })
 
                 try {
-                    // Get LLM response
-                    const response = await mockLLMResponse(command)
+                    // Get LLM response using the service
+                    const response = await llmService.generateResponse(command)
 
                     // Update state with response
                     set((state) => {
