@@ -21,7 +21,11 @@ export interface Order {
     completionTime: number | null
     qualityScore: number
     tip: number
+    isPriority?: boolean
 }
+
+// after Order interface add type alias
+export type OrderStatus = 'received' | 'cooking' | 'plated' | 'served'
 
 // Dish model
 export interface Dish {
@@ -298,4 +302,25 @@ export interface PlatingTask {
     startTime: number
     qualityScore?: number
     status: PlatingStatus
+}
+
+// Order fulfillment result types
+export interface ServeResult {
+    success: boolean
+    message: string
+    orderId?: string
+    customerSatisfaction?: number
+}
+
+export interface OrderStatusInfo {
+    orderId: string
+    status: OrderStatus
+    elapsedTime: number
+    isPriority: boolean
+}
+
+export interface RushResult {
+    success: boolean
+    orderId: string
+    isPriority: boolean
 } 
