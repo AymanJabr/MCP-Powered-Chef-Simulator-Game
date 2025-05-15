@@ -47,8 +47,8 @@ export const useGameStore = create<GameState>()(
             increaseTime: (seconds) => set((state) => {
                 state.game.timeElapsed += seconds
 
-                // Increase difficulty with time
-                if (state.game.timeElapsed % 60 === 0 && state.game.difficulty < 10) {
+                // Increase difficulty with time – grows unbounded (modifiers clamp extreme values)
+                if (state.game.timeElapsed % 60 === 0) {
                     state.game.difficulty += 0.1
                 }
             }),

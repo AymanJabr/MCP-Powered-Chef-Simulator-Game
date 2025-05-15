@@ -3,7 +3,6 @@ import { eventBus } from '@/lib/eventBus'
 import { CookingMethod } from '@/types/models'
 
 jest.mock('@/state/game/kitchenStore', () => {
-    const now = Date.now()
     const mockKitchenState = {
         cookingStations: [
             { id: 'station_1', type: 'stove', status: 'idle', temperature: 0 },

@@ -36,6 +36,7 @@ export interface Dish {
     cookingDifficulty: number
     preparationTime: number
     plateAppearance: number
+    unlockDifficulty?: number
 }
 
 // Recipe model
