@@ -249,4 +249,32 @@ export interface PreparationTask {
     stationId: string
     qualityScore?: number
     status: PreparationStatus
+}
+
+// Cooking station and process types
+
+export type CookingStationType = 'stove' | 'oven' | 'grill' | 'fryer' | 'steamer'
+export type CookingStationStatus = 'idle' | 'busy' | 'broken'
+
+export interface CookingStation {
+    id: string
+    type: CookingStationType
+    status: CookingStationStatus
+    temperature: number // °C
+}
+
+export type CookingMethod = 'fry' | 'grill' | 'bake' | 'boil' | 'steam'
+
+export type CookingProcessStatus = 'in_progress' | 'completed' | 'failed'
+
+export interface CookingProcess {
+    id: string
+    stationId: string
+    ingredients: string[]
+    cookingMethod: CookingMethod
+    startTime: number
+    optimalCookingTime: number // ms
+    progress: number // 0-100+
+    status: CookingProcessStatus
+    qualityScore?: number
 } 
