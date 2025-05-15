@@ -2164,7 +2164,7 @@
 ## 4. MCP Integration
 
 ### 4.1 MCP Server Setup
-1. Set up basic MCP server with required endpoints
+1. Set up an MCP server with required endpoints
    ```typescript
    // src/mcp/server/index.ts
    import { MCPServer } from 'mcp-sdk'

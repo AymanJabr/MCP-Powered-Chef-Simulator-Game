@@ -1,5 +1,5 @@
 import { useKitchenStore } from '@/state/game/kitchenStore'
-import { PrepStation, PreparationType } from '@/types/models'
+import { PrepStation } from '@/types/models'
 
 describe('Kitchen Store', () => {
     beforeEach(() => {

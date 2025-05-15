@@ -1,5 +1,4 @@
 import { useRestaurantStore } from '@/state/game/restaurantStore'
-import { Order } from '@/types/models'
 import { eventBus } from './eventBus'
 
 // ---------------------------------------------------------------------------
