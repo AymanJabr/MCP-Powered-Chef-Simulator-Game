@@ -221,4 +221,32 @@ export interface LLMProvider {
     apiKey?: string
     temperature: number
     maxTokens: number
+}
+export type PrepStationType =
+    | 'cutting_board'
+    | 'mixing_bowl'
+    | 'blender'
+    | 'rolling_pin'
+    | 'mortar_pestle'
+
+export type PrepStationStatus = 'idle' | 'busy'
+
+export interface PrepStation {
+    id: string
+    type: PrepStationType
+    status: PrepStationStatus
+}
+
+export type PreparationStatus = 'in_progress' | 'completed' | 'failed'
+
+export type PreparationType = 'chop' | 'dice' | 'mince' | 'slice' | 'mix' | 'marinate'
+
+export interface PreparationTask {
+    id: string
+    ingredientId: string
+    preparationType: PreparationType
+    startTime: number
+    stationId: string
+    qualityScore?: number
+    status: PreparationStatus
 } 
