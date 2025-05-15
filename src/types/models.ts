@@ -277,4 +277,25 @@ export interface CookingProcess {
     progress: number // 0-100+
     status: CookingProcessStatus
     qualityScore?: number
+}
+
+// Plating models
+
+export type PlatingStationStatus = 'idle' | 'busy'
+export interface PlatingStation {
+    id: string
+    status: PlatingStationStatus
+}
+
+export type PlatingStatus = 'in_progress' | 'completed' | 'failed'
+
+export interface PlatingTask {
+    id: string
+    stationId: string
+    orderId: string
+    items: string[]
+    garnishes: string[]
+    startTime: number
+    qualityScore?: number
+    status: PlatingStatus
 } 

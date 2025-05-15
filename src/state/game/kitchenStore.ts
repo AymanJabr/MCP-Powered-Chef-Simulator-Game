@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
-import { PrepStation, PreparationTask, CookingStation, CookingProcess } from '@/types/models'
+import { PrepStation, PreparationTask, CookingStation, CookingProcess, PlatingStation, PlatingTask } from '@/types/models'
 
 // Basic types for kitchen elements used in preparation system
 export interface KitchenState {
@@ -8,6 +8,8 @@ export interface KitchenState {
     cookingStations: CookingStation[]
     activePreparations: Record<string, PreparationTask> // key = preparationId
     activeCookingProcesses: CookingProcess[]
+    platingStations: PlatingStation[]
+    activePlating: Record<string, PlatingTask>
     actions: {
         startPreparation: (stationId: string, task: Omit<PreparationTask, 'status' | 'qualityScore'>) => void
         completePreparation: (stationId: string, preparationId: string, qualityScore: number) => void
@@ -15,6 +17,10 @@ export interface KitchenState {
         startCookingProcess: (stationId: string, process: Omit<CookingProcess, 'status' | 'progress' | 'qualityScore'>) => string
         updateCookingProgress: (processId: string, progress: number, overcooked: boolean) => void
         finishCookingProcess: (processId: string, qualityScore: number) => void
+        startPlating: (stationId: string, orderId: string, platingId: string) => void
+        addItemToPlate: (platingId: string, itemId: string) => void
+        addGarnishToPlate: (platingId: string, garnishId: string) => void
+        completePlating: (platingId: string, qualityScore: number) => void
     }
 }
 
@@ -30,6 +36,8 @@ export const useKitchenStore = create<KitchenState>()(
         ],
         activePreparations: {},
         activeCookingProcesses: [],
+        platingStations: [{ id: 'plating_1', status: 'idle' }],
+        activePlating: {},
         actions: {
             addPrepStation: (station) => set((state) => {
                 state.prepStations.push(station)
@@ -78,6 +86,36 @@ export const useKitchenStore = create<KitchenState>()(
                     const station = state.cookingStations.find((s) => s.id === proc.stationId)
                     if (station) station.status = 'idle'
                 }
+            }),
+            startPlating: (stationId, orderId, platingId) => set((state) => {
+                const st = state.platingStations.find((s) => s.id === stationId)
+                if (!st || st.status === 'busy') return
+                st.status = 'busy'
+                state.activePlating[platingId] = {
+                    id: platingId,
+                    stationId,
+                    orderId,
+                    items: [],
+                    garnishes: [],
+                    startTime: Date.now(),
+                    status: 'in_progress',
+                }
+            }),
+            addItemToPlate: (platingId, itemId) => set((state) => {
+                const p = state.activePlating[platingId]
+                if (p && !p.items.includes(itemId)) p.items.push(itemId)
+            }),
+            addGarnishToPlate: (platingId, garnishId) => set((state) => {
+                const p = state.activePlating[platingId]
+                if (p && !p.garnishes.includes(garnishId)) p.garnishes.push(garnishId)
+            }),
+            completePlating: (platingId, qualityScore) => set((state) => {
+                const p = state.activePlating[platingId]
+                if (!p) return
+                p.status = 'completed'
+                p.qualityScore = qualityScore
+                const st = state.platingStations.find((s) => s.id === p.stationId)
+                if (st) st.status = 'idle'
             }),
         },
     }))
