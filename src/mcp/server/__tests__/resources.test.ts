@@ -56,4 +56,11 @@ describe('MCP Resources', () => {
             expect(() => r.get()).not.toThrow()
         })
     })
+
+    it('performance_metrics resource merges game and mcp metrics', () => {
+        const perfRes = resources.find((r) => r.name === 'performance_metrics')!
+        const data = perfRes.get()
+        expect(data).toHaveProperty('gameMetrics')
+        expect(data).toHaveProperty('mcpMetrics')
+    })
 }) 
