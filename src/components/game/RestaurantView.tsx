@@ -3,9 +3,11 @@
 import { Grid, Paper } from '@mantine/core'
 import { useGameStore } from '@/state/game/gameStore'
 import CustomerArea from './CustomerArea'
-import Inventory from './Inventory'
 import PerformanceMetrics from './PerformanceMetrics'
 import KitchenArea from './KitchenArea'
+import ManualControls from './ManualControls'
+import MCPInterface from '../mcp/MCPInterface'
+import Inventory from './Inventory'
 
 export default function RestaurantView() {
     const { game } = useGameStore()
@@ -22,6 +24,7 @@ export default function RestaurantView() {
             {/* Sidebar – inventory + metrics */}
             <Grid.Col span={{ base: 12, md: 4 }}>
                 <Paper p="md" shadow="sm" mb="md">
+                    {game.gameMode === 'mcp' ? <MCPInterface /> : <ManualControls />}
                     <Inventory />
                 </Paper>
                 <Paper p="md" shadow="sm">
