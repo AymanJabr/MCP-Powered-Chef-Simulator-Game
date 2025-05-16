@@ -1,7 +1,8 @@
 import { useRestaurantStore } from '@/state/game/restaurantStore'
 import { useKitchenStore } from '@/state/game/kitchenStore'
 import { eventBus } from '@/lib/eventBus'
-import { Order, Dish, CookingProcess, PreparationTask } from '@/types/models'
+import { Order, Dish, CookingProcess, PreparationTask, PlayerActionType } from '@/types/models'
+import { usePlayerStore } from '@/state/player/playerStore'
 
 /* -------------------------------------------------------------------------- */
 /* Helper utilities                                                            */
@@ -202,6 +203,35 @@ export const tools = [
             actions.updateIngredientQuantity(ingredient_id, quantity)
             eventBus.emit('ingredient_purchased', { ingredient_id, quantity, totalCost })
             return { success: true, remainingFunds: restaurant.funds - totalCost }
+        }
+    },
+    {
+        name: 'move_player',
+        description: 'Move the player to a specified area/coordinate.',
+        parameters: {
+            area: { type: 'string', description: 'Destination area (kitchen, dining, storage)' },
+            x: { type: 'number', description: 'X coordinate within the area' },
+            y: { type: 'number', description: 'Y coordinate within the area' }
+        },
+        execute: async ({ area, x, y }: { area: 'kitchen' | 'dining' | 'storage'; x: number; y: number }) => {
+            const { actions, player } = usePlayerStore.getState() as any
+            actions.moveToArea(area, x, y)
+            eventBus.emit('player_moved', { playerId: player.id, area, x, y })
+            return { success: true, position: { area, x, y } }
+        }
+    },
+    {
+        name: 'clean_area',
+        description: 'Perform a cleaning action on a target (table, station, etc.).',
+        parameters: {
+            target_id: { type: 'string', description: 'ID of the thing to clean' },
+            duration_ms: { type: 'number', description: 'Expected cleaning time in milliseconds' }
+        },
+        execute: async ({ target_id, duration_ms }: { target_id: string; duration_ms: number }) => {
+            const { actions, player } = usePlayerStore.getState() as any
+            const actionId = actions.startAction('clean' as PlayerActionType, target_id, duration_ms)
+            eventBus.emit('player_action_started', { playerId: player.id, type: 'clean', target_id, duration_ms, actionId })
+            return { success: true, actionId }
         }
     }
 ] as const 
