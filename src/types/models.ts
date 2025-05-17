@@ -324,4 +324,17 @@ export interface RushResult {
     success: boolean
     orderId: string
     isPriority: boolean
-} 
+}
+
+export type SfxName =
+    | 'cookingStart'
+    | 'cookingComplete'
+    | 'chop'
+    | 'sizzle'
+    | 'customerHappy'
+    | 'customerAngry'
+    | 'bell'
+
+export type MusicIntensity = 'calm' | 'medium' | 'intense'
+
+export type AnimationPreset = 'fade' | 'slideInRight' | 'popIn' | 'shake' 
