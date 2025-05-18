@@ -23,9 +23,6 @@
       /dishes          # Dish information (JSON)
       /ingredients     # Ingredient properties (JSON)
       /equipment       # Equipment specifications (JSON)
-      /tutorials       # Tutorial scenarios (JSON)
-      /levels          # Difficulty level configurations (JSON)
-      /templates       # MCP command templates (JSON)
 ```
 
 ## Asset Types and Usage

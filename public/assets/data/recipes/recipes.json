@@ -1,0 +1,1183 @@
+[
+    {
+        "id": "recipe_classic_burger",
+        "ingredients": [
+            "ingredient_beef_patty",
+            "ingredient_burger_bun",
+            "ingredient_lettuce_head",
+            "ingredient_tomato",
+            "ingredient_onion",
+            "ingredient_cheese_slice",
+            "ingredient_ketchup",
+            "ingredient_mayonnaise"
+        ],
+        "cookingSteps": [
+            {
+                "type": "grill",
+                "duration": 300,
+                "ingredientId": "ingredient_beef_patty",
+                "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "bake",
+                "duration": 60,
+                "ingredientId": "ingredient_burger_bun",
+                "equipmentId": "equipment_bun_toaster"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_lettuce_head",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_tomato",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_onion",
+                "equipmentId": "equipment_cutting_board"
+            }
+        ]
+    },
+    {
+        "id": "recipe_chicken_burger",
+        "ingredients": [
+            "ingredient_chicken_breast",
+            "ingredient_burger_bun",
+            "ingredient_lettuce_head",
+            "ingredient_tomato",
+            "ingredient_mayonnaise"
+        ],
+        "cookingSteps": [
+            {
+                "type": "grill",
+                "duration": 360,
+                "ingredientId": "ingredient_chicken_breast",
+                "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "bake",
+                "duration": 60,
+                "ingredientId": "ingredient_burger_bun",
+                "equipmentId": "equipment_bun_toaster"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_lettuce_head",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_tomato",
+                "equipmentId": "equipment_cutting_board"
+            }
+        ]
+    },
+    {
+        "id": "recipe_fish_burger",
+        "ingredients": [
+            "ingredient_fish_fillet",
+            "ingredient_burger_bun",
+            "ingredient_lettuce_head",
+            "ingredient_mayonnaise"
+        ],
+        "cookingSteps": [
+            {
+                "type": "fry",
+                "duration": 240,
+                "ingredientId": "ingredient_fish_fillet",
+                "equipmentId": "equipment_deep_fryer"
+            },
+            {
+                "type": "bake",
+                "duration": 60,
+                "ingredientId": "ingredient_burger_bun",
+                "equipmentId": "equipment_bun_toaster"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_lettuce_head",
+                "equipmentId": "equipment_cutting_board"
+            }
+        ]
+    },
+    {
+        "id": "recipe_bacon_cheeseburger",
+        "ingredients": [
+            "ingredient_beef_patty",
+            "ingredient_bacon_strips",
+            "ingredient_burger_bun",
+            "ingredient_cheese_slice",
+            "ingredient_ketchup"
+        ],
+        "cookingSteps": [
+            {
+                "type": "grill",
+                "duration": 300,
+                "ingredientId": "ingredient_beef_patty",
+                "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "grill",
+                "duration": 180,
+                "ingredientId": "ingredient_bacon_strips",
+                "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "bake",
+                "duration": 60,
+                "ingredientId": "ingredient_burger_bun",
+                "equipmentId": "equipment_bun_toaster"
+            }
+        ]
+    },
+    {
+        "id": "recipe_veggie_burger",
+        "ingredients": [
+            "ingredient_tofu",
+            "ingredient_burger_bun",
+            "ingredient_lettuce_head",
+            "ingredient_tomato",
+            "ingredient_onion",
+            "ingredient_mushroom",
+            "ingredient_mayonnaise"
+        ],
+        "cookingSteps": [
+            {
+                "type": "grill",
+                "duration": 240,
+                "ingredientId": "ingredient_tofu",
+                "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "grill",
+                "duration": 180,
+                "ingredientId": "ingredient_mushroom",
+                "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "bake",
+                "duration": 60,
+                "ingredientId": "ingredient_burger_bun",
+                "equipmentId": "equipment_bun_toaster"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_lettuce_head",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_tomato",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_onion",
+                "equipmentId": "equipment_cutting_board"
+            }
+        ]
+    },
+    {
+        "id": "recipe_french_fries",
+        "ingredients": [
+            "ingredient_potato",
+            "ingredient_salt"
+        ],
+        "cookingSteps": [
+            {
+                "type": "chop",
+                "duration": 120,
+                "ingredientId": "ingredient_potato",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "fry",
+                "duration": 300,
+                "ingredientId": "ingredient_potato",
+                "equipmentId": "equipment_deep_fryer"
+            }
+        ]
+    },
+    {
+        "id": "recipe_onion_rings",
+        "ingredients": [
+            "ingredient_onion",
+            "ingredient_flour",
+            "ingredient_egg",
+            "ingredient_milk"
+        ],
+        "cookingSteps": [
+            {
+                "type": "chop",
+                "duration": 90,
+                "ingredientId": "ingredient_onion",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "fry",
+                "duration": 240,
+                "ingredientId": "ingredient_onion",
+                "equipmentId": "equipment_deep_fryer"
+            }
+        ]
+    },
+    {
+        "id": "recipe_chicken_nuggets",
+        "ingredients": [
+            "ingredient_chicken_breast",
+            "ingredient_flour",
+            "ingredient_egg"
+        ],
+        "cookingSteps": [
+            {
+                "type": "chop",
+                "duration": 180,
+                "ingredientId": "ingredient_chicken_breast",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "fry",
+                "duration": 300,
+                "ingredientId": "ingredient_chicken_breast",
+                "equipmentId": "equipment_deep_fryer"
+            }
+        ]
+    },
+    {
+        "id": "recipe_garden_salad",
+        "ingredients": [
+            "ingredient_lettuce_head",
+            "ingredient_tomato",
+            "ingredient_cucumber",
+            "ingredient_carrot",
+            "ingredient_bell_pepper",
+            "ingredient_olive_oil"
+        ],
+        "cookingSteps": [
+            {
+                "type": "chop",
+                "duration": 45,
+                "ingredientId": "ingredient_lettuce_head",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_tomato",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_cucumber",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_carrot",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_bell_pepper",
+                "equipmentId": "equipment_cutting_board"
+            }
+        ]
+    },
+    {
+        "id": "recipe_grilled_chicken_salad",
+        "ingredients": [
+            "ingredient_chicken_breast",
+            "ingredient_lettuce_head",
+            "ingredient_tomato",
+            "ingredient_cucumber",
+            "ingredient_olive_oil"
+        ],
+        "cookingSteps": [
+            {
+                "type": "grill",
+                "duration": 360,
+                "ingredientId": "ingredient_chicken_breast",
+                "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "chop",
+                "duration": 45,
+                "ingredientId": "ingredient_lettuce_head",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_tomato",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_cucumber",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 60,
+                "ingredientId": "ingredient_chicken_breast",
+                "equipmentId": "equipment_cutting_board"
+            }
+        ]
+    },
+    {
+        "id": "recipe_pasta_with_tomato_sauce",
+        "ingredients": [
+            "ingredient_pasta",
+            "ingredient_pasta_sauce",
+            "ingredient_garlic",
+            "ingredient_olive_oil",
+            "ingredient_salt",
+            "ingredient_pepper"
+        ],
+        "cookingSteps": [
+            {
+                "type": "boil",
+                "duration": 600,
+                "ingredientId": "ingredient_pasta",
+                "equipmentId": "equipment_rice_cooker"
+            },
+            {
+                "type": "mince",
+                "duration": 60,
+                "ingredientId": "ingredient_garlic",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "simmer",
+                "duration": 300,
+                "ingredientId": "ingredient_pasta_sauce",
+                "equipmentId": "equipment_sauce_station"
+            }
+        ]
+    },
+    {
+        "id": "recipe_rice_bowl_chicken",
+        "ingredients": [
+            "ingredient_rice",
+            "ingredient_chicken_breast",
+            "ingredient_soy_sauce",
+            "ingredient_carrot",
+            "ingredient_bell_pepper"
+        ],
+        "cookingSteps": [
+            {
+                "type": "boil",
+                "duration": 900,
+                "ingredientId": "ingredient_rice",
+                "equipmentId": "equipment_rice_cooker"
+            },
+            {
+                "type": "grill",
+                "duration": 360,
+                "ingredientId": "ingredient_chicken_breast",
+                "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "chop",
+                "duration": 60,
+                "ingredientId": "ingredient_chicken_breast",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_carrot",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_bell_pepper",
+                "equipmentId": "equipment_cutting_board"
+            }
+        ]
+    },
+    {
+        "id": "recipe_rice_bowl_tofu",
+        "ingredients": [
+            "ingredient_rice",
+            "ingredient_tofu",
+            "ingredient_soy_sauce",
+            "ingredient_mushroom",
+            "ingredient_bell_pepper"
+        ],
+        "cookingSteps": [
+            {
+                "type": "boil",
+                "duration": 900,
+                "ingredientId": "ingredient_rice",
+                "equipmentId": "equipment_rice_cooker"
+            },
+            {
+                "type": "grill",
+                "duration": 240,
+                "ingredientId": "ingredient_tofu",
+                "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_mushroom",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_bell_pepper",
+                "equipmentId": "equipment_cutting_board"
+            }
+        ]
+    },
+    {
+        "id": "recipe_baked_potato",
+        "ingredients": [
+            "ingredient_potato",
+            "ingredient_butter",
+            "ingredient_cheese_slice",
+            "ingredient_salt",
+            "ingredient_pepper"
+        ],
+        "cookingSteps": [
+            {
+                "type": "bake",
+                "duration": 3600,
+                "ingredientId": "ingredient_potato",
+                "equipmentId": "equipment_oven"
+            }
+        ]
+    },
+    {
+        "id": "recipe_grilled_cheese_sandwich",
+        "ingredients": [
+            "ingredient_bread_slice",
+            "ingredient_cheese_slice",
+            "ingredient_butter"
+        ],
+        "cookingSteps": [
+            {
+                "type": "grill",
+                "duration": 180,
+                "ingredientId": "ingredient_bread_slice",
+                "equipmentId": "equipment_grill"
+            }
+        ]
+    },
+    {
+        "id": "recipe_scrambled_eggs",
+        "ingredients": [
+            "ingredient_egg",
+            "ingredient_milk",
+            "ingredient_butter",
+            "ingredient_salt",
+            "ingredient_pepper"
+        ],
+        "cookingSteps": [
+            {
+                "type": "simmer",
+                "duration": 180,
+                "ingredientId": "ingredient_egg",
+                "equipmentId": "equipment_sauce_station"
+            }
+        ]
+    },
+    {
+        "id": "recipe_pancakes",
+        "ingredients": [
+            "ingredient_flour",
+            "ingredient_egg",
+            "ingredient_milk",
+            "ingredient_sugar",
+            "ingredient_butter",
+            "ingredient_salt"
+        ],
+        "cookingSteps": [
+            {
+                "type": "simmer",
+                "duration": 240,
+                "ingredientId": "ingredient_flour",
+                "equipmentId": "equipment_sauce_station"
+            }
+        ]
+    },
+    {
+        "id": "recipe_salmon_with_rice",
+        "ingredients": [
+            "ingredient_salmon_fillet",
+            "ingredient_rice",
+            "ingredient_olive_oil",
+            "ingredient_lemon_wedge",
+            "ingredient_salt",
+            "ingredient_pepper"
+        ],
+        "cookingSteps": [
+            {
+                "type": "grill",
+                "duration": 480,
+                "ingredientId": "ingredient_salmon_fillet",
+                "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "boil",
+                "duration": 900,
+                "ingredientId": "ingredient_rice",
+                "equipmentId": "equipment_rice_cooker"
+            }
+        ]
+    },
+    {
+        "id": "recipe_mushroom_swiss_burger",
+        "ingredients": [
+            "ingredient_beef_patty",
+            "ingredient_burger_bun",
+            "ingredient_mushroom",
+            "ingredient_cheese_slice",
+            "ingredient_mayonnaise"
+        ],
+        "cookingSteps": [
+            {
+                "type": "grill",
+                "duration": 300,
+                "ingredientId": "ingredient_beef_patty",
+                "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "grill",
+                "duration": 180,
+                "ingredientId": "ingredient_mushroom",
+                "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "bake",
+                "duration": 60,
+                "ingredientId": "ingredient_burger_bun",
+                "equipmentId": "equipment_bun_toaster"
+            }
+        ]
+    },
+    {
+        "id": "recipe_blt_sandwich",
+        "ingredients": [
+            "ingredient_bread_slice",
+            "ingredient_bacon_strips",
+            "ingredient_lettuce_head",
+            "ingredient_tomato",
+            "ingredient_mayonnaise"
+        ],
+        "cookingSteps": [
+            {
+                "type": "bake",
+                "duration": 90,
+                "ingredientId": "ingredient_bread_slice",
+                "equipmentId": "equipment_bun_toaster"
+            },
+            {
+                "type": "grill",
+                "duration": 180,
+                "ingredientId": "ingredient_bacon_strips",
+                "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_lettuce_head",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_tomato",
+                "equipmentId": "equipment_cutting_board"
+            }
+        ]
+    },
+    {
+        "id": "recipe_chicken_tenders_fries",
+        "ingredients": [
+            "ingredient_chicken_breast",
+            "ingredient_flour",
+            "ingredient_egg",
+            "ingredient_potato",
+            "ingredient_salt"
+        ],
+        "cookingSteps": [
+            {
+                "type": "chop",
+                "duration": 180,
+                "ingredientId": "ingredient_chicken_breast",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "fry",
+                "duration": 300,
+                "ingredientId": "ingredient_chicken_breast",
+                "equipmentId": "equipment_deep_fryer"
+            },
+            {
+                "type": "chop",
+                "duration": 120,
+                "ingredientId": "ingredient_potato",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "fry",
+                "duration": 300,
+                "ingredientId": "ingredient_potato",
+                "equipmentId": "equipment_deep_fryer"
+            }
+        ]
+    },
+    {
+        "id": "recipe_fish_and_chips",
+        "ingredients": [
+            "ingredient_fish_fillet",
+            "ingredient_flour",
+            "ingredient_egg",
+            "ingredient_potato",
+            "ingredient_salt"
+        ],
+        "cookingSteps": [
+            {
+                "type": "fry",
+                "duration": 300,
+                "ingredientId": "ingredient_fish_fillet",
+                "equipmentId": "equipment_deep_fryer"
+            },
+            {
+                "type": "chop",
+                "duration": 120,
+                "ingredientId": "ingredient_potato",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "fry",
+                "duration": 300,
+                "ingredientId": "ingredient_potato",
+                "equipmentId": "equipment_deep_fryer"
+            }
+        ]
+    },
+    {
+        "id": "recipe_omelette",
+        "ingredients": [
+            "ingredient_egg",
+            "ingredient_cheese_slice",
+            "ingredient_bell_pepper",
+            "ingredient_onion",
+            "ingredient_mushroom",
+            "ingredient_butter",
+            "ingredient_salt",
+            "ingredient_pepper"
+        ],
+        "cookingSteps": [
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_bell_pepper",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_onion",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_mushroom",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "simmer",
+                "duration": 240,
+                "ingredientId": "ingredient_egg",
+                "equipmentId": "equipment_sauce_station"
+            }
+        ]
+    },
+    {
+        "id": "recipe_carrot_sticks",
+        "ingredients": [
+            "ingredient_carrot"
+        ],
+        "cookingSteps": [
+            {
+                "type": "chop",
+                "duration": 90,
+                "ingredientId": "ingredient_carrot",
+                "equipmentId": "equipment_cutting_board"
+            }
+        ]
+    },
+    {
+        "id": "recipe_cucumber_slices",
+        "ingredients": [
+            "ingredient_cucumber"
+        ],
+        "cookingSteps": [
+            {
+                "type": "chop",
+                "duration": 60,
+                "ingredientId": "ingredient_cucumber",
+                "equipmentId": "equipment_cutting_board"
+            }
+        ]
+    },
+    {
+        "id": "recipe_baked_chicken_wings",
+        "ingredients": [
+            "ingredient_chicken_breast",
+            "ingredient_flour",
+            "ingredient_soy_sauce",
+            "ingredient_garlic",
+            "ingredient_sugar"
+        ],
+        "cookingSteps": [
+            {
+                "type": "chop",
+                "duration": 120,
+                "ingredientId": "ingredient_chicken_breast",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "mince",
+                "duration": 60,
+                "ingredientId": "ingredient_garlic",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "bake",
+                "duration": 1800,
+                "ingredientId": "ingredient_chicken_breast",
+                "equipmentId": "equipment_oven"
+            }
+        ]
+    },
+    {
+        "id": "recipe_mashed_potatoes",
+        "ingredients": [
+            "ingredient_potato",
+            "ingredient_milk",
+            "ingredient_butter",
+            "ingredient_salt"
+        ],
+        "cookingSteps": [
+            {
+                "type": "boil",
+                "duration": 1200,
+                "ingredientId": "ingredient_potato",
+                "equipmentId": "equipment_rice_cooker"
+            },
+            {
+                "type": "chop",
+                "duration": 180,
+                "ingredientId": "ingredient_potato",
+                "equipmentId": "equipment_cutting_board"
+            }
+        ]
+    },
+    {
+        "id": "recipe_beef_stir_fry",
+        "ingredients": [
+            "ingredient_beef_patty",
+            "ingredient_rice",
+            "ingredient_bell_pepper",
+            "ingredient_onion",
+            "ingredient_carrot",
+            "ingredient_soy_sauce",
+            "ingredient_olive_oil"
+        ],
+        "cookingSteps": [
+            {
+                "type": "chop",
+                "duration": 180,
+                "ingredientId": "ingredient_beef_patty",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "boil",
+                "duration": 900,
+                "ingredientId": "ingredient_rice",
+                "equipmentId": "equipment_rice_cooker"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_bell_pepper",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_onion",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_carrot",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "grill",
+                "duration": 300,
+                "ingredientId": "ingredient_beef_patty",
+                "equipmentId": "equipment_grill"
+            }
+        ]
+    },
+    {
+        "id": "recipe_simple_toast",
+        "ingredients": [
+            "ingredient_bread_slice",
+            "ingredient_butter"
+        ],
+        "cookingSteps": [
+            {
+                "type": "bake",
+                "duration": 90,
+                "ingredientId": "ingredient_bread_slice",
+                "equipmentId": "equipment_bun_toaster"
+            }
+        ]
+    },
+    {
+        "id": "recipe_hot_dog",
+        "ingredients": [
+            "ingredient_sausage",
+            "ingredient_burger_bun",
+            "ingredient_ketchup",
+            "ingredient_mustard"
+        ],
+        "cookingSteps": [
+            {
+                "type": "grill",
+                "duration": 240,
+                "ingredientId": "ingredient_sausage",
+                "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "bake",
+                "duration": 60,
+                "ingredientId": "ingredient_burger_bun",
+                "equipmentId": "equipment_bun_toaster"
+            }
+        ]
+    },
+    {
+        "id": "recipe_fried_rice",
+        "ingredients": [
+            "ingredient_rice",
+            "ingredient_egg",
+            "ingredient_carrot",
+            "ingredient_onion",
+            "ingredient_soy_sauce",
+            "ingredient_olive_oil"
+        ],
+        "cookingSteps": [
+            {
+                "type": "boil",
+                "duration": 900,
+                "ingredientId": "ingredient_rice",
+                "equipmentId": "equipment_rice_cooker"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_carrot",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_onion",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "simmer",
+                "duration": 240,
+                "ingredientId": "ingredient_egg",
+                "equipmentId": "equipment_sauce_station"
+            },
+            {
+                "type": "simmer",
+                "duration": 300,
+                "ingredientId": "ingredient_rice",
+                "equipmentId": "equipment_sauce_station"
+            }
+        ]
+    },
+    {
+        "id": "recipe_garlic_bread",
+        "ingredients": [
+            "ingredient_bread_slice",
+            "ingredient_butter",
+            "ingredient_garlic",
+            "ingredient_salt"
+        ],
+        "cookingSteps": [
+            {
+                "type": "mince",
+                "duration": 60,
+                "ingredientId": "ingredient_garlic",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "bake",
+                "duration": 300,
+                "ingredientId": "ingredient_bread_slice",
+                "equipmentId": "equipment_oven"
+            }
+        ]
+    },
+    {
+        "id": "recipe_baked_salmon",
+        "ingredients": [
+            "ingredient_salmon_fillet",
+            "ingredient_olive_oil",
+            "ingredient_lemon_wedge",
+            "ingredient_salt",
+            "ingredient_pepper",
+            "ingredient_garlic"
+        ],
+        "cookingSteps": [
+            {
+                "type": "mince",
+                "duration": 30,
+                "ingredientId": "ingredient_garlic",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "bake",
+                "duration": 900,
+                "ingredientId": "ingredient_salmon_fillet",
+                "equipmentId": "equipment_oven"
+            }
+        ]
+    },
+    {
+        "id": "recipe_chicken_caesar_wrap",
+        "ingredients": [
+            "ingredient_chicken_breast",
+            "ingredient_flour_tortilla",
+            "ingredient_lettuce_head",
+            "ingredient_parmesan_cheese",
+            "ingredient_caesar_dressing"
+        ],
+        "cookingSteps": [
+            {
+                "type": "grill",
+                "duration": 360,
+                "ingredientId": "ingredient_chicken_breast",
+                "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "chop",
+                "duration": 120,
+                "ingredientId": "ingredient_chicken_breast",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 60,
+                "ingredientId": "ingredient_lettuce_head",
+                "equipmentId": "equipment_cutting_board"
+            }
+        ]
+    },
+    {
+        "id": "recipe_potato_wedges",
+        "ingredients": [
+            "ingredient_potato",
+            "ingredient_olive_oil",
+            "ingredient_salt",
+            "ingredient_pepper",
+            "ingredient_garlic_powder"
+        ],
+        "cookingSteps": [
+            {
+                "type": "chop",
+                "duration": 150,
+                "ingredientId": "ingredient_potato",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "bake",
+                "duration": 1500,
+                "ingredientId": "ingredient_potato",
+                "equipmentId": "equipment_oven"
+            }
+        ]
+    },
+    {
+        "id": "recipe_sweet_potato_fries",
+        "ingredients": [
+            "ingredient_sweet_potato",
+            "ingredient_olive_oil",
+            "ingredient_salt"
+        ],
+        "cookingSteps": [
+            {
+                "type": "chop",
+                "duration": 150,
+                "ingredientId": "ingredient_sweet_potato",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "fry",
+                "duration": 360,
+                "ingredientId": "ingredient_sweet_potato",
+                "equipmentId": "equipment_deep_fryer"
+            }
+        ]
+    },
+    {
+        "id": "recipe_tomato_soup",
+        "ingredients": [
+            "ingredient_tomato",
+            "ingredient_onion",
+            "ingredient_garlic",
+            "ingredient_vegetable_broth",
+            "ingredient_olive_oil",
+            "ingredient_salt",
+            "ingredient_pepper"
+        ],
+        "cookingSteps": [
+            {
+                "type": "chop",
+                "duration": 60,
+                "ingredientId": "ingredient_tomato",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_onion",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "mince",
+                "duration": 30,
+                "ingredientId": "ingredient_garlic",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "simmer",
+                "duration": 1200,
+                "ingredientId": "ingredient_tomato",
+                "equipmentId": "equipment_sauce_station"
+            }
+        ]
+    },
+    {
+        "id": "recipe_chicken_noodle_soup",
+        "ingredients": [
+            "ingredient_chicken_breast",
+            "ingredient_pasta",
+            "ingredient_carrot",
+            "ingredient_onion",
+            "ingredient_celery",
+            "ingredient_chicken_broth",
+            "ingredient_salt",
+            "ingredient_pepper"
+        ],
+        "cookingSteps": [
+            {
+                "type": "boil",
+                "duration": 900,
+                "ingredientId": "ingredient_chicken_breast",
+                "equipmentId": "equipment_rice_cooker"
+            },
+            {
+                "type": "chop",
+                "duration": 120,
+                "ingredientId": "ingredient_chicken_breast",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "boil",
+                "duration": 600,
+                "ingredientId": "ingredient_pasta",
+                "equipmentId": "equipment_rice_cooker"
+            },
+            {
+                "type": "chop",
+                "duration": 45,
+                "ingredientId": "ingredient_carrot",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 30,
+                "ingredientId": "ingredient_onion",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 45,
+                "ingredientId": "ingredient_celery",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "simmer",
+                "duration": 1800,
+                "ingredientId": "ingredient_chicken_broth",
+                "equipmentId": "equipment_sauce_station"
+            }
+        ]
+    },
+    {
+        "id": "recipe_fruit_smoothie",
+        "ingredients": [
+            "ingredient_milk",
+            "ingredient_banana",
+            "ingredient_strawberry",
+            "ingredient_sugar"
+        ],
+        "cookingSteps": [
+            {
+                "type": "chop",
+                "duration": 60,
+                "ingredientId": "ingredient_banana",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 60,
+                "ingredientId": "ingredient_strawberry",
+                "equipmentId": "equipment_cutting_board"
+            }
+        ]
+    },
+    {
+        "id": "recipe_milkshake",
+        "ingredients": [
+            "ingredient_milk",
+            "ingredient_ice_cream",
+            "ingredient_sugar",
+            "ingredient_chocolate_syrup"
+        ],
+        "cookingSteps": []
+    }
+]

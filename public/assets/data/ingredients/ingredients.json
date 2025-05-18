@@ -1,0 +1,258 @@
+[
+    {
+        "id": "ingredient_beef_patty",
+        "name": "Beef Patty",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 1,
+        "cost": 2.50
+    },
+    {
+        "id": "ingredient_chicken_breast",
+        "name": "Chicken Breast",
+        "category": "meat",
+        "quality": 85,
+        "quantity": 1,
+        "cost": 3.00
+    },
+    {
+        "id": "ingredient_bacon_strips",
+        "name": "Bacon Strips",
+        "category": "meat",
+        "quality": 75,
+        "quantity": 1,
+        "cost": 1.50
+    },
+    {
+        "id": "ingredient_fish_fillet",
+        "name": "Fish Fillet",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 1,
+        "cost": 3.50
+    },
+    {
+        "id": "ingredient_tomato",
+        "name": "Tomato",
+        "category": "vegetable",
+        "quality": 90,
+        "quantity": 1,
+        "cost": 0.50
+    },
+    {
+        "id": "ingredient_lettuce_head",
+        "name": "Lettuce Head",
+        "category": "vegetable",
+        "quality": 85,
+        "quantity": 1,
+        "cost": 1.00
+    },
+    {
+        "id": "ingredient_onion",
+        "name": "Onion",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 1,
+        "cost": 0.30
+    },
+    {
+        "id": "ingredient_potato",
+        "name": "Potato",
+        "category": "vegetable",
+        "quality": 85,
+        "quantity": 1,
+        "cost": 0.40
+    },
+    {
+        "id": "ingredient_mushroom",
+        "name": "Mushroom",
+        "category": "vegetable",
+        "quality": 75,
+        "quantity": 1,
+        "cost": 0.80
+    },
+    {
+        "id": "ingredient_carrot",
+        "name": "Carrot",
+        "category": "vegetable",
+        "quality": 90,
+        "quantity": 1,
+        "cost": 0.30
+    },
+    {
+        "id": "ingredient_bell_pepper",
+        "name": "Bell Pepper",
+        "category": "vegetable",
+        "quality": 85,
+        "quantity": 1,
+        "cost": 0.70
+    },
+    {
+        "id": "ingredient_cheese_slice",
+        "name": "Cheese Slice",
+        "category": "dairy",
+        "quality": 80,
+        "quantity": 1,
+        "cost": 0.50
+    },
+    {
+        "id": "ingredient_milk",
+        "name": "Milk",
+        "category": "dairy",
+        "quality": 90,
+        "quantity": 1,
+        "cost": 1.50
+    },
+    {
+        "id": "ingredient_butter",
+        "name": "Butter",
+        "category": "dairy",
+        "quality": 85,
+        "quantity": 1,
+        "cost": 2.00
+    },
+    {
+        "id": "ingredient_burger_bun",
+        "name": "Burger Bun",
+        "category": "grain",
+        "quality": 75,
+        "quantity": 1,
+        "cost": 0.60
+    },
+    {
+        "id": "ingredient_bread_slice",
+        "name": "Bread Slice",
+        "category": "grain",
+        "quality": 70,
+        "quantity": 1,
+        "cost": 0.20
+    },
+    {
+        "id": "ingredient_pasta",
+        "name": "Pasta",
+        "category": "grain",
+        "quality": 80,
+        "quantity": 1,
+        "cost": 1.00
+    },
+    {
+        "id": "ingredient_ketchup",
+        "name": "Ketchup",
+        "category": "sauce",
+        "quality": 70,
+        "quantity": 1,
+        "cost": 1.20
+    },
+    {
+        "id": "ingredient_mayonnaise",
+        "name": "Mayonnaise",
+        "category": "sauce",
+        "quality": 75,
+        "quantity": 1,
+        "cost": 1.50
+    },
+    {
+        "id": "ingredient_pasta_sauce",
+        "name": "Pasta Sauce",
+        "category": "sauce",
+        "quality": 80,
+        "quantity": 1,
+        "cost": 1.80
+    },
+    {
+        "id": "ingredient_salt",
+        "name": "Salt",
+        "category": "spice",
+        "quality": 100,
+        "quantity": 1,
+        "cost": 0.50
+    },
+    {
+        "id": "ingredient_pepper",
+        "name": "Pepper",
+        "category": "spice",
+        "quality": 100,
+        "quantity": 1,
+        "cost": 0.80
+    },
+    {
+        "id": "ingredient_egg",
+        "name": "Egg",
+        "category": "dairy",
+        "quality": 88,
+        "quantity": 1,
+        "cost": 0.40
+    },
+    {
+        "id": "ingredient_flour",
+        "name": "Flour",
+        "category": "grain",
+        "quality": 90,
+        "quantity": 1,
+        "cost": 0.70
+    },
+    {
+        "id": "ingredient_sugar",
+        "name": "Sugar",
+        "category": "spice",
+        "quality": 95,
+        "quantity": 1,
+        "cost": 0.60
+    },
+    {
+        "id": "ingredient_olive_oil",
+        "name": "Olive Oil",
+        "category": "sauce",
+        "quality": 92,
+        "quantity": 1,
+        "cost": 2.20
+    },
+    {
+        "id": "ingredient_garlic",
+        "name": "Garlic",
+        "category": "vegetable",
+        "quality": 85,
+        "quantity": 1,
+        "cost": 0.25
+    },
+    {
+        "id": "ingredient_cucumber",
+        "name": "Cucumber",
+        "category": "vegetable",
+        "quality": 87,
+        "quantity": 1,
+        "cost": 0.45
+    },
+    {
+        "id": "ingredient_rice",
+        "name": "Rice",
+        "category": "grain",
+        "quality": 80,
+        "quantity": 1,
+        "cost": 0.90
+    },
+    {
+        "id": "ingredient_salmon_fillet",
+        "name": "Salmon Fillet",
+        "category": "meat",
+        "quality": 90,
+        "quantity": 1,
+        "cost": 4.50
+    },
+    {
+        "id": "ingredient_soy_sauce",
+        "name": "Soy Sauce",
+        "category": "sauce",
+        "quality": 78,
+        "quantity": 1,
+        "cost": 1.30
+    },
+    {
+        "id": "ingredient_tofu",
+        "name": "Tofu",
+        "category": "vegetable",
+        "quality": 82,
+        "quantity": 1,
+        "cost": 1.70
+    }
+]

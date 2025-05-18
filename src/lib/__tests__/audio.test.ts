@@ -21,7 +21,6 @@ jest.mock('howler', () => {
 
 // Helper to access mocks from the mocked module --------------------------------
 function getMocks() {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
     return (jest.requireMock('howler') as any)._mocks as {
         mockPlay: jest.Mock
         mockStop: jest.Mock

@@ -1,0 +1,385 @@
+[
+    {
+        "id": "dish_classic_burger",
+        "name": "Classic Burger",
+        "basePrice": 7.99,
+        "recipeId": "recipe_classic_burger",
+        "cookingDifficulty": 3,
+        "preparationTime": 546,
+        "plateAppearance": 85,
+        "unlockDifficulty": 1
+    },
+    {
+        "id": "dish_chicken_burger",
+        "name": "Chicken Burger",
+        "basePrice": 8.49,
+        "recipeId": "recipe_chicken_burger",
+        "cookingDifficulty": 3,
+        "preparationTime": 576,
+        "plateAppearance": 80,
+        "unlockDifficulty": 1
+    },
+    {
+        "id": "dish_fish_burger",
+        "name": "Fish Burger",
+        "basePrice": 7.79,
+        "recipeId": "recipe_fish_burger",
+        "cookingDifficulty": 2,
+        "preparationTime": 396,
+        "plateAppearance": 75,
+        "unlockDifficulty": 1
+    },
+    {
+        "id": "dish_bacon_cheeseburger",
+        "name": "Bacon Cheeseburger",
+        "basePrice": 9.29,
+        "recipeId": "recipe_bacon_cheeseburger",
+        "cookingDifficulty": 4,
+        "preparationTime": 648,
+        "plateAppearance": 90,
+        "unlockDifficulty": 2
+    },
+    {
+        "id": "dish_veggie_burger",
+        "name": "Veggie Burger",
+        "basePrice": 7.99,
+        "recipeId": "recipe_veggie_burger",
+        "cookingDifficulty": 3,
+        "preparationTime": 660,
+        "plateAppearance": 82,
+        "unlockDifficulty": 2
+    },
+    {
+        "id": "dish_french_fries",
+        "name": "French Fries",
+        "basePrice": 3.49,
+        "recipeId": "recipe_french_fries",
+        "cookingDifficulty": 1,
+        "preparationTime": 504,
+        "plateAppearance": 70
+    },
+    {
+        "id": "dish_onion_rings",
+        "name": "Onion Rings",
+        "basePrice": 4.29,
+        "recipeId": "recipe_onion_rings",
+        "cookingDifficulty": 2,
+        "preparationTime": 396,
+        "plateAppearance": 78
+    },
+    {
+        "id": "dish_chicken_nuggets",
+        "name": "Chicken Nuggets",
+        "basePrice": 5.99,
+        "recipeId": "recipe_chicken_nuggets",
+        "cookingDifficulty": 2,
+        "preparationTime": 576,
+        "plateAppearance": 75
+    },
+    {
+        "id": "dish_garden_salad",
+        "name": "Garden Salad",
+        "basePrice": 6.99,
+        "recipeId": "recipe_garden_salad",
+        "cookingDifficulty": 1,
+        "preparationTime": 222,
+        "plateAppearance": 88,
+        "unlockDifficulty": 1
+    },
+    {
+        "id": "dish_grilled_chicken_salad",
+        "name": "Grilled Chicken Salad",
+        "basePrice": 9.49,
+        "recipeId": "recipe_grilled_chicken_salad",
+        "cookingDifficulty": 3,
+        "preparationTime": 630,
+        "plateAppearance": 90,
+        "unlockDifficulty": 2
+    },
+    {
+        "id": "dish_pasta_with_tomato_sauce",
+        "name": "Pasta with Tomato Sauce",
+        "basePrice": 10.99,
+        "recipeId": "recipe_pasta_with_tomato_sauce",
+        "cookingDifficulty": 2,
+        "preparationTime": 1152,
+        "plateAppearance": 80,
+        "unlockDifficulty": 2
+    },
+    {
+        "id": "dish_rice_bowl_chicken",
+        "name": "Chicken Rice Bowl",
+        "basePrice": 11.49,
+        "recipeId": "recipe_rice_bowl_chicken",
+        "cookingDifficulty": 3,
+        "preparationTime": 1692,
+        "plateAppearance": 85,
+        "unlockDifficulty": 3
+    },
+    {
+        "id": "dish_rice_bowl_tofu",
+        "name": "Tofu Rice Bowl",
+        "basePrice": 10.49,
+        "recipeId": "recipe_rice_bowl_tofu",
+        "cookingDifficulty": 3,
+        "preparationTime": 1440,
+        "plateAppearance": 83,
+        "unlockDifficulty": 3
+    },
+    {
+        "id": "dish_baked_potato",
+        "name": "Loaded Baked Potato",
+        "basePrice": 5.99,
+        "recipeId": "recipe_baked_potato",
+        "cookingDifficulty": 2,
+        "preparationTime": 4320,
+        "plateAppearance": 78,
+        "unlockDifficulty": 3
+    },
+    {
+        "id": "dish_grilled_cheese_sandwich",
+        "name": "Grilled Cheese Sandwich",
+        "basePrice": 5.49,
+        "recipeId": "recipe_grilled_cheese_sandwich",
+        "cookingDifficulty": 1,
+        "preparationTime": 216,
+        "plateAppearance": 70
+    },
+    {
+        "id": "dish_scrambled_eggs",
+        "name": "Scrambled Eggs",
+        "basePrice": 4.99,
+        "recipeId": "recipe_scrambled_eggs",
+        "cookingDifficulty": 1,
+        "preparationTime": 216,
+        "plateAppearance": 72
+    },
+    {
+        "id": "dish_pancakes",
+        "name": "Pancakes (Stack of 3)",
+        "basePrice": 6.79,
+        "recipeId": "recipe_pancakes",
+        "cookingDifficulty": 2,
+        "preparationTime": 288,
+        "plateAppearance": 80,
+        "unlockDifficulty": 1
+    },
+    {
+        "id": "dish_salmon_with_rice",
+        "name": "Grilled Salmon with Rice",
+        "basePrice": 14.99,
+        "recipeId": "recipe_salmon_with_rice",
+        "cookingDifficulty": 4,
+        "preparationTime": 1656,
+        "plateAppearance": 92,
+        "unlockDifficulty": 4
+    },
+    {
+        "id": "dish_mushroom_swiss_burger",
+        "name": "Mushroom Swiss Burger",
+        "basePrice": 9.79,
+        "recipeId": "recipe_mushroom_swiss_burger",
+        "cookingDifficulty": 3,
+        "preparationTime": 648,
+        "plateAppearance": 88,
+        "unlockDifficulty": 2
+    },
+    {
+        "id": "dish_blt_sandwich",
+        "name": "BLT Sandwich",
+        "basePrice": 7.29,
+        "recipeId": "recipe_blt_sandwich",
+        "cookingDifficulty": 2,
+        "preparationTime": 408,
+        "plateAppearance": 80
+    },
+    {
+        "id": "dish_chicken_tenders_fries",
+        "name": "Chicken Tenders & Fries",
+        "basePrice": 9.99,
+        "recipeId": "recipe_chicken_tenders_fries",
+        "cookingDifficulty": 2,
+        "preparationTime": 1080,
+        "plateAppearance": 77
+    },
+    {
+        "id": "dish_fish_and_chips",
+        "name": "Fish and Chips",
+        "basePrice": 10.49,
+        "recipeId": "recipe_fish_and_chips",
+        "cookingDifficulty": 2,
+        "preparationTime": 864,
+        "plateAppearance": 79,
+        "unlockDifficulty": 2
+    },
+    {
+        "id": "dish_omelette",
+        "name": "Cheese Omelette",
+        "basePrice": 7.99,
+        "recipeId": "recipe_omelette",
+        "cookingDifficulty": 2,
+        "preparationTime": 408,
+        "plateAppearance": 85,
+        "unlockDifficulty": 1
+    },
+    {
+        "id": "dish_carrot_sticks",
+        "name": "Carrot Sticks",
+        "basePrice": 2.49,
+        "recipeId": "recipe_carrot_sticks",
+        "cookingDifficulty": 1,
+        "preparationTime": 108,
+        "plateAppearance": 60
+    },
+    {
+        "id": "dish_cucumber_slices",
+        "name": "Cucumber Slices",
+        "basePrice": 2.29,
+        "recipeId": "recipe_cucumber_slices",
+        "cookingDifficulty": 1,
+        "preparationTime": 72,
+        "plateAppearance": 60
+    },
+    {
+        "id": "dish_baked_chicken_wings",
+        "name": "Baked Chicken Wings",
+        "basePrice": 11.99,
+        "recipeId": "recipe_baked_chicken_wings",
+        "cookingDifficulty": 3,
+        "preparationTime": 2376,
+        "plateAppearance": 85,
+        "unlockDifficulty": 3
+    },
+    {
+        "id": "dish_mashed_potatoes",
+        "name": "Mashed Potatoes",
+        "basePrice": 4.49,
+        "recipeId": "recipe_mashed_potatoes",
+        "cookingDifficulty": 2,
+        "preparationTime": 1656,
+        "plateAppearance": 70
+    },
+    {
+        "id": "dish_beef_stir_fry",
+        "name": "Beef Stir Fry with Rice",
+        "basePrice": 12.99,
+        "recipeId": "recipe_beef_stir_fry",
+        "cookingDifficulty": 4,
+        "preparationTime": 1740,
+        "plateAppearance": 88,
+        "unlockDifficulty": 4
+    },
+    {
+        "id": "dish_simple_toast",
+        "name": "Simple Toast with Butter",
+        "basePrice": 2.99,
+        "recipeId": "recipe_simple_toast",
+        "cookingDifficulty": 1,
+        "preparationTime": 108,
+        "plateAppearance": 65
+    },
+    {
+        "id": "dish_hot_dog",
+        "name": "Classic Hot Dog",
+        "basePrice": 4.99,
+        "recipeId": "recipe_hot_dog",
+        "cookingDifficulty": 1,
+        "preparationTime": 360,
+        "plateAppearance": 70
+    },
+    {
+        "id": "dish_fried_rice",
+        "name": "Vegetable Fried Rice",
+        "basePrice": 9.99,
+        "recipeId": "recipe_fried_rice",
+        "cookingDifficulty": 3,
+        "preparationTime": 1800,
+        "plateAppearance": 82,
+        "unlockDifficulty": 3
+    },
+    {
+        "id": "dish_garlic_bread",
+        "name": "Garlic Bread",
+        "basePrice": 3.99,
+        "recipeId": "recipe_garlic_bread",
+        "cookingDifficulty": 2,
+        "preparationTime": 432,
+        "plateAppearance": 75
+    },
+    {
+        "id": "dish_baked_salmon",
+        "name": "Oven-Baked Salmon",
+        "basePrice": 15.99,
+        "recipeId": "recipe_baked_salmon",
+        "cookingDifficulty": 4,
+        "preparationTime": 1116,
+        "plateAppearance": 93,
+        "unlockDifficulty": 5
+    },
+    {
+        "id": "dish_chicken_caesar_wrap",
+        "name": "Chicken Caesar Wrap",
+        "basePrice": 9.79,
+        "recipeId": "recipe_chicken_caesar_wrap",
+        "cookingDifficulty": 3,
+        "preparationTime": 648,
+        "plateAppearance": 80,
+        "unlockDifficulty": 3
+    },
+    {
+        "id": "dish_potato_wedges",
+        "name": "Seasoned Potato Wedges",
+        "basePrice": 4.79,
+        "recipeId": "recipe_potato_wedges",
+        "cookingDifficulty": 2,
+        "preparationTime": 1980,
+        "plateAppearance": 76
+    },
+    {
+        "id": "dish_sweet_potato_fries",
+        "name": "Sweet Potato Fries",
+        "basePrice": 4.99,
+        "recipeId": "recipe_sweet_potato_fries",
+        "cookingDifficulty": 2,
+        "preparationTime": 612,
+        "plateAppearance": 80
+    },
+    {
+        "id": "dish_tomato_soup",
+        "name": "Creamy Tomato Soup",
+        "basePrice": 6.49,
+        "recipeId": "recipe_tomato_soup",
+        "cookingDifficulty": 2,
+        "preparationTime": 1608,
+        "plateAppearance": 78,
+        "unlockDifficulty": 2
+    },
+    {
+        "id": "dish_chicken_noodle_soup",
+        "name": "Chicken Noodle Soup",
+        "basePrice": 7.99,
+        "recipeId": "recipe_chicken_noodle_soup",
+        "cookingDifficulty": 3,
+        "preparationTime": 4278,
+        "plateAppearance": 80,
+        "unlockDifficulty": 3
+    },
+    {
+        "id": "dish_fruit_smoothie",
+        "name": "Fruit Smoothie",
+        "basePrice": 5.99,
+        "recipeId": "recipe_fruit_smoothie",
+        "cookingDifficulty": 1,
+        "preparationTime": 144,
+        "plateAppearance": 85
+    },
+    {
+        "id": "dish_milkshake",
+        "name": "Chocolate Milkshake",
+        "basePrice": 5.49,
+        "recipeId": "recipe_milkshake",
+        "cookingDifficulty": 1,
+        "preparationTime": 60,
+        "plateAppearance": 82
+    }
+]

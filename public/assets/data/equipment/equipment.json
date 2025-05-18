@@ -1,0 +1,66 @@
+[
+    {
+        "id": "equipment_grill",
+        "name": "Grill",
+        "status": "idle",
+        "capacity": 4,
+        "efficiency": 85,
+        "reliability": 90
+    },
+    {
+        "id": "equipment_deep_fryer",
+        "name": "Deep Fryer",
+        "status": "idle",
+        "capacity": 3,
+        "efficiency": 90,
+        "reliability": 85
+    },
+    {
+        "id": "equipment_cutting_board",
+        "name": "Cutting Board",
+        "status": "idle",
+        "capacity": 2,
+        "efficiency": 80,
+        "reliability": 95
+    },
+    {
+        "id": "equipment_beverage_dispenser",
+        "name": "Beverage Dispenser",
+        "status": "idle",
+        "capacity": 4,
+        "efficiency": 98,
+        "reliability": 92
+    },
+    {
+        "id": "equipment_rice_cooker",
+        "name": "Rice Cooker",
+        "status": "idle",
+        "capacity": 3,
+        "efficiency": 80,
+        "reliability": 88
+    },
+    {
+        "id": "equipment_oven",
+        "name": "Oven",
+        "status": "idle",
+        "capacity": 3,
+        "efficiency": 70,
+        "reliability": 86
+    },
+    {
+        "id": "equipment_sauce_station",
+        "name": "Sauce Station",
+        "status": "idle",
+        "capacity": 5,
+        "efficiency": 90,
+        "reliability": 95
+    },
+    {
+        "id": "equipment_toaster",
+        "name": "Toaster",
+        "status": "idle",
+        "capacity": 6,
+        "efficiency": 95,
+        "reliability": 85
+    }
+]
