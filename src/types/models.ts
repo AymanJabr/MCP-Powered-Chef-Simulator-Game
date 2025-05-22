@@ -114,6 +114,7 @@ export interface Restaurant {
     completedOrders: Order[]
     inventory: Ingredient[]
     equipment: Equipment[]
+    menuItems?: Dish[]
 }
 
 // Player model
@@ -188,15 +189,35 @@ export interface MCPCommand {
     success: boolean | null // Whether the command was successful
 }
 
+// Define ParameterDefinition and ToolParameters before MCPAction
+export interface ParameterDefinition {
+    type: string;
+    description: string;
+}
+
+export interface ToolParameters {
+    [key: string]: ParameterDefinition;
+}
+
+// Define the union type for MCPActionResult values
+export type MCPActionResultValue = string | number | boolean | Position | undefined;
+
+// Define MCPActionResult before MCPAction
+export interface MCPActionResult {
+    success: boolean;
+    message?: string;
+    [key: string]: MCPActionResultValue;
+}
+
 // MCP Action
 export interface MCPAction {
     id: string
     type: MCPActionType
     target: string
-    params: Record<string, any>
+    params: Record<string, ToolParameters>
     status: 'pending' | 'successful' | 'failed'
     timestamp: number
-    result?: any
+    result?: MCPActionResult
 }
 
 // MCP Action Type
@@ -337,4 +358,81 @@ export type SfxName =
 
 export type MusicIntensity = 'calm' | 'medium' | 'intense'
 
-export type AnimationPreset = 'fade' | 'slideInRight' | 'popIn' | 'shake' 
+export type AnimationPreset = 'fade' | 'slideInRight' | 'popIn' | 'shake'
+
+// MCP Context Types
+
+// Context for game_state resource
+export type GameStateContext = {
+    phase: GamePhase;
+    mode: GameMode;
+    difficulty: number;
+    timeElapsed: number;
+    performance: Game['performanceMetrics'];
+};
+
+// Context for restaurant_state resource
+export type RestaurantStateContext = {
+    funds: number;
+    reputation: number;
+    queue: number;
+    activeCustomers: Array<{
+        id: string;
+        status: Customer['status'];
+        patience: number;
+        tableId?: string;
+    }>;
+    activeOrders: Array<{
+        id: string;
+        dish: string; // Dish name
+        status: OrderStatus;
+        isPriority: boolean;
+    }>;
+    inventory: Array<{ id: string; qty: number }>;
+};
+
+// Context for kitchen_state resource
+export type KitchenStateContext = {
+    prepStations: PrepStation[];
+    cookingStations: CookingStation[];
+    platingStations: PlatingStation[];
+    activePreparations: number;
+    activeCooking: number;
+    activePlating: number;
+};
+
+// Context for recipe_information resource
+export type RecipeInfoContextItem = {
+    id: string;
+    name: string;
+    cookingDifficulty: number;
+    unlockDifficulty: number;
+};
+export type RecipeInformationContext = RecipeInfoContextItem[];
+
+// Context for performance_metrics resource
+export type PerformanceMetricsContext = {
+    gameMetrics: Game['performanceMetrics'];
+    mcpMetrics: MCPAssistant['performanceMetrics'];
+};
+
+// Union of all possible individual resource data types
+export type MCPResourceDataType =
+    | GameStateContext
+    | RestaurantStateContext
+    | KitchenStateContext
+    | RecipeInformationContext
+    | PerformanceMetricsContext;
+
+// Type for error within context
+export type MCPErrorContext = { error: string };
+
+// The final composite context object structure returned by gameStateToContext()
+export type MCPContext = {
+    game_state?: GameStateContext | MCPErrorContext;
+    restaurant_state?: RestaurantStateContext | MCPErrorContext;
+    kitchen_state?: KitchenStateContext | MCPErrorContext;
+    recipe_information?: RecipeInformationContext | MCPErrorContext;
+    performance_metrics?: PerformanceMetricsContext | MCPErrorContext;
+    [key: string]: MCPResourceDataType | MCPErrorContext | undefined; // General fallback for other/dynamic resources
+}; 

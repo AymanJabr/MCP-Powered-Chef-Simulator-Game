@@ -2,6 +2,7 @@ import { useRestaurantStore } from '@/state/game/restaurantStore'
 import { useKitchenStore } from '@/state/game/kitchenStore'
 import { useGameStore } from '@/state/game/gameStore'
 import { useMCPStore } from '@/state/mcp/mcpStore'
+import { Dish } from '@/types/models'
 
 export const resources = [
     {
@@ -64,11 +65,11 @@ export const resources = [
         get: () => {
             // For now, pull from restaurant store menuItems if available; otherwise return empty.
             const { restaurant } = useRestaurantStore.getState()
-            const menu = (restaurant as any).menuItems ?? []
-            return menu.map((dish: any) => ({
+            const menu = restaurant.menuItems ?? []
+            return menu.map((dish: Dish) => ({
                 id: dish.id,
                 name: dish.name,
-                complexity: dish.complexity ?? dish.cookingDifficulty,
+                cookingDifficulty: dish.cookingDifficulty,
                 unlockDifficulty: dish.unlockDifficulty ?? 1
             }))
         }

@@ -6,7 +6,9 @@ import {
     MCPAction,
     MCPActionType,
     LLMProvider,
-    SavedCommand
+    SavedCommand,
+    ToolParameters,
+    MCPActionResult
 } from '@/types/models'
 
 // Define interface for LLM service
@@ -45,14 +47,14 @@ interface MCPState {
             commandId: string,
             actionId: string,
             status: MCPAction['status'],
-            result?: any
+            result?: MCPActionResult
         ) => void
         saveCommand: (command: Omit<SavedCommand, 'id'>) => string
         executeAction: (
             commandId: string,
             type: MCPActionType,
             target: string,
-            params: Record<string, any>
+            params: Record<string, ToolParameters>
         ) => Promise<string>
         completeCommand: (commandId: string, success: boolean) => void
         resetMetrics: () => void
