@@ -39,7 +39,12 @@ jest.mock('@/state/game/gameStore', () => ({
                 gamePhase: 'preGame',
                 difficulty: 1,
                 timeElapsed: 0,
-                performanceMetrics: {} as any
+                performanceMetrics: {
+                    customerSatisfaction: 0,
+                    orderCompletionTime: 0,
+                    financialPerformance: 0,
+                    efficiency: 0
+                }
             }
         }))
     }

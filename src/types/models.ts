@@ -115,6 +115,7 @@ export interface Restaurant {
     inventory: Ingredient[]
     equipment: Equipment[]
     menuItems?: Dish[]
+    unlockedMenuItems: string[] // IDs of dishes that have been unlocked
 }
 
 // Player model
@@ -435,4 +436,141 @@ export type MCPContext = {
     recipe_information?: RecipeInformationContext | MCPErrorContext;
     performance_metrics?: PerformanceMetricsContext | MCPErrorContext;
     [key: string]: MCPResourceDataType | MCPErrorContext | undefined; // General fallback for other/dynamic resources
+};
+
+// Event system types
+export type GameEventType =
+    // Game state events
+    | 'game_started'
+    | 'game_paused'
+    | 'game_resumed'
+    | 'game_over'
+    | 'difficulty_changed'
+    | 'timeElapsed_changed'
+
+    // Customer events
+    | 'customer_arrived'
+    | 'customer_seated'
+    | 'customer_ordered'
+    | 'customer_served'
+    | 'customer_left'
+    | 'customer_patience_critical'
+    | 'customer_satisfaction_changed'
+
+    // Order events
+    | 'order_received'
+    | 'order_started'
+    | 'order_cooking'
+    | 'order_plated'
+    | 'order_served'
+    | 'order_completed'
+    | 'order_failed'
+    | 'order_rushed'
+
+    // Cooking events
+    | 'preparationStarted'
+    | 'preparationCompleted'
+    | 'cookingStarted'
+    | 'cookingProgress'
+    | 'cookingCompleted'
+    | 'cookingFailed'
+    | 'platingStarted'
+    | 'platingCompleted'
+
+    // Inventory events
+    | 'ingredient_purchased'
+    | 'ingredient_used'
+    | 'equipment_status_changed'
+    | 'funds_changed'
+
+    // Player events
+    | 'player_moved'
+    | 'player_action_started'
+    | 'player_action_completed'
+    | 'player_action_failed'
+
+    // MCP events
+    | 'mcp_activated'
+    | 'mcp_deactivated'
+    | 'mcp_command_sent'
+    | 'mcp_command_received'
+    | 'mcp_action_started'
+    | 'mcp_action_completed'
+    | 'mcp_action_failed'
+
+    // UI and misc events
+    | 'ui_updated'
+    | 'frameUpdate'
+    | 'settings_changed'
+
+    // Allow for custom event types as well
+    | string;
+
+// Define all possible payload types for events
+export type EventPayload = {
+    // Game state events
+    'game_started': { difficulty: number };
+    'game_paused': { elapsedTime: number };
+    'game_resumed': { elapsedTime: number };
+    'game_over': { score: number, reason: string };
+    'difficulty_changed': { newDifficulty: number, oldDifficulty: number };
+    'timeElapsed_changed': { elapsedTime: number };
+
+    // Customer events
+    'customer_arrived': { customer: Customer };
+    'customer_seated': { customer_id: string, table_id: string };
+    'customer_ordered': { customer_id: string, order: Order };
+    'customer_served': { customer_id: string, order_id: string };
+    'customer_left': { customer_id: string, satisfaction: number };
+    'customer_patience_critical': { customer_id: string, patience: number };
+    'customer_satisfaction_changed': { customer_id: string, satisfaction: number };
+
+    // Order events
+    'order_received': Order;
+    'order_started': { order_id: string };
+    'order_cooking': { order_id: string };
+    'order_plated': { order_id: string };
+    'order_served': { order_id: string, customer_id: string };
+    'order_completed': { order_id: string, quality: number };
+    'order_failed': { order_id: string, reason: string };
+    'order_rushed': { order_id: string, isPriority: boolean };
+
+    // Cooking events
+    'preparationStarted': { station_id: string, ingredient_id: string, taskId: string };
+    'preparationCompleted': { taskId: string, quality: number };
+    'cookingStarted': { station_id: string, processId: string };
+    'cookingProgress': { processId: string, progress: number };
+    'cookingCompleted': { processId: string, quality: number };
+    'cookingFailed': { processId: string, reason: string };
+    'platingStarted': { order_id: string, platingId: string, stationId: string };
+    'platingCompleted': { platingId: string, quality: number };
+
+    // Inventory events
+    'ingredient_purchased': { ingredient_id: string, quantity: number, totalCost: number };
+    'ingredient_used': { ingredient_id: string, quantity: number };
+    'equipment_status_changed': { equipment_id: string, status: Equipment['status'] };
+    'funds_changed': { amount: number, newTotal: number };
+
+    // Player events
+    'player_moved': { playerId: string, area: Position['area'], x: number, y: number };
+    'player_action_started': { playerId: string, type: PlayerActionType, target_id: string, duration_ms: number, actionId: string };
+    'player_action_completed': { actionId: string };
+    'player_action_failed': { actionId: string, reason: string };
+
+    // MCP events
+    'mcp_activated': { provider: LLMProvider['name'] };
+    'mcp_deactivated': { reason?: string };
+    'mcp_command_sent': { command: string };
+    'mcp_command_received': { command: MCPCommand };
+    'mcp_action_started': { action: MCPAction };
+    'mcp_action_completed': { action_id: string, result: MCPActionResult };
+    'mcp_action_failed': { action_id: string, error: string };
+
+    // UI and misc events
+    'ui_updated': { component: string };
+    'frameUpdate': { deltaTime: number };
+    'settings_changed': { setting: string, value: boolean | number | string };
+
+    // Default for custom events
+    [key: string]: unknown;
 }; 

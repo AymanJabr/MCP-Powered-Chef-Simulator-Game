@@ -1,79 +1,14 @@
 // Define all possible event types to make the Event Bus more type-safe
-export type GameEventType =
-    // Game state events
-    | 'game_started'
-    | 'game_paused'
-    | 'game_resumed'
-    | 'game_over'
-    | 'difficulty_changed'
-    | 'timeElapsed_changed'
-
-    // Customer events
-    | 'customer_arrived'
-    | 'customer_seated'
-    | 'customer_ordered'
-    | 'customer_served'
-    | 'customer_left'
-    | 'customer_patience_critical'
-    | 'customer_satisfaction_changed'
-
-    // Order events
-    | 'order_received'
-    | 'order_started'
-    | 'order_cooking'
-    | 'order_plated'
-    | 'order_served'
-    | 'order_completed'
-    | 'order_failed'
-    | 'order_rushed'
-
-    // Cooking events
-    | 'preparationStarted'
-    | 'preparationCompleted'
-    | 'cookingStarted'
-    | 'cookingProgress'
-    | 'cookingCompleted'
-    | 'cookingFailed'
-    | 'platingStarted'
-    | 'platingCompleted'
-
-    // Inventory events
-    | 'ingredient_purchased'
-    | 'ingredient_used'
-    | 'equipment_status_changed'
-    | 'funds_changed'
-
-    // Player events
-    | 'player_moved'
-    | 'player_action_started'
-    | 'player_action_completed'
-    | 'player_action_failed'
-
-    // MCP events
-    | 'mcp_activated'
-    | 'mcp_deactivated'
-    | 'mcp_command_sent'
-    | 'mcp_command_received'
-    | 'mcp_action_started'
-    | 'mcp_action_completed'
-    | 'mcp_action_failed'
-
-    // UI and misc events
-    | 'ui_updated'
-    | 'frameUpdate'
-    | 'settings_changed'
-
-    // Allow for custom event types as well
-    | string;
+import { GameEventType, EventPayload } from '@/types/models';
 
 // Define the event callback type
-export type EventCallback = (...args: any[]) => void;
+export type EventCallback<T extends GameEventType = GameEventType> = (data: EventPayload[T]) => void;
 
 // Event data type for logging
 export interface EventLogItem {
     event: GameEventType;
     timestamp: number;
-    data: any;
+    data: EventPayload[GameEventType];
 }
 
 /**
@@ -100,12 +35,12 @@ class EventBus {
      * @param callback Function to be called when event is emitted
      * @returns Unsubscribe function
      */
-    public on(event: GameEventType, callback: EventCallback): () => void {
+    public on<T extends GameEventType>(event: T, callback: EventCallback<T>): () => void {
         if (!this.events[event]) {
             this.events[event] = [];
         }
 
-        this.events[event].push(callback);
+        this.events[event].push(callback as EventCallback);
 
         // Return unsubscribe function
         return () => {
@@ -124,10 +59,10 @@ class EventBus {
      * @param callback Function to be called when event is emitted
      * @returns Unsubscribe function
      */
-    public once(event: GameEventType, callback: EventCallback): () => void {
-        const unsubscribe = this.on(event, (...args) => {
+    public once<T extends GameEventType>(event: T, callback: EventCallback<T>): () => void {
+        const unsubscribe = this.on(event, (data) => {
             unsubscribe();
-            callback(...args);
+            callback(data);
         });
 
         return unsubscribe;
@@ -136,21 +71,21 @@ class EventBus {
     /**
      * Emit an event with data
      * @param event The event type to emit
-     * @param args Data to pass to subscribers
+     * @param data Data to pass to subscribers
      */
-    public emit(event: GameEventType, ...args: any[]): void {
+    public emit<T extends GameEventType>(event: T, data: EventPayload[T]): void {
         // Log the event
-        this.logEvent(event, args);
+        this.logEvent(event, data);
 
         if (this.debug) {
-            console.debug(`[EventBus] Event emitted: ${event}`, args);
+            console.debug(`[EventBus] Event emitted: ${event}`, data);
         }
 
         // Call all subscribers
         if (this.events[event]) {
             this.events[event].forEach(callback => {
                 try {
-                    callback(...args);
+                    callback(data);
                 } catch (error) {
                     console.error(`[EventBus] Error in event handler for "${event}":`, error);
                 }
@@ -203,11 +138,11 @@ class EventBus {
      * @param event The event type
      * @param data The event data
      */
-    private logEvent(event: GameEventType, data: any): void {
+    private logEvent<T extends GameEventType>(event: T, data: EventPayload[T]): void {
         this.eventLog.push({
             event,
             timestamp: Date.now(),
-            data: data[0] || null, // Only store the first argument for simplicity
+            data
         });
 
         // Limit log size

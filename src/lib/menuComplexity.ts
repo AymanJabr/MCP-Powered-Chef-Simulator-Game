@@ -4,16 +4,16 @@ import { Dish } from '@/types/models'
 
 export function getAvailableMenu(): Dish[] {
     const diff = useGameStore.getState().game.difficulty
-    const { menuItems, unlockedMenuItems } = useRestaurantStore.getState().restaurant as any
-    return menuItems.filter((d: Dish) => (d.unlockDifficulty ?? 1) <= diff && unlockedMenuItems.includes(d.id))
+    const { menuItems, unlockedMenuItems } = useRestaurantStore.getState().restaurant
+    return menuItems?.filter((d: Dish) => (d.unlockDifficulty ?? 1) <= diff && unlockedMenuItems.includes(d.id)) || []
 }
 
 export function unlockMenuItem(): Dish[] {
     const diff = useGameStore.getState().game.difficulty
-    const restaurant = useRestaurantStore.getState().restaurant as any
+    const restaurant = useRestaurantStore.getState().restaurant
     const newlyUnlocked: Dish[] = []
 
-    restaurant.menuItems.forEach((dish: Dish) => {
+    restaurant.menuItems?.forEach((dish: Dish) => {
         if ((dish.unlockDifficulty ?? 1) <= diff && !restaurant.unlockedMenuItems.includes(dish.id)) {
             restaurant.unlockedMenuItems.push(dish.id)
             newlyUnlocked.push(dish)

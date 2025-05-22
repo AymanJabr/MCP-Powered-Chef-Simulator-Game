@@ -1,7 +1,15 @@
 import { useRestaurantStore } from '@/state/game/restaurantStore'
 import { useKitchenStore } from '@/state/game/kitchenStore'
 import { eventBus } from '@/lib/eventBus'
-import { Order, Dish, CookingProcess, PreparationTask, PlayerActionType } from '@/types/models'
+import {
+    Order,
+    Dish,
+    CookingProcess,
+    PreparationTask,
+    PlayerActionType,
+    PreparationType,
+    CookingMethod
+} from '@/types/models'
 import { usePlayerStore } from '@/state/player/playerStore'
 
 /* -------------------------------------------------------------------------- */
@@ -88,7 +96,7 @@ export const tools = [
                 return { success: false, message: 'Order is not ready to be served' }
             }
             actions.updateOrderStatus(order_id, 'served')
-            eventBus.emit('order_served', { order_id, customerId: order.customerId })
+            eventBus.emit('order_served', { order_id, customer_id: order.customerId })
             return { success: true }
         }
     },
@@ -111,7 +119,7 @@ export const tools = [
             const task: PreparationTask = {
                 id: taskId,
                 ingredientId: ingredient_id,
-                preparationType: preparation_type as any,
+                preparationType: preparation_type as PreparationType,
                 startTime: now(),
                 stationId: station_id,
                 status: 'in_progress'
@@ -142,7 +150,7 @@ export const tools = [
                 id: processId,
                 stationId: station_id,
                 ingredients: ingredient_ids,
-                cookingMethod: cooking_method as any,
+                cookingMethod: cooking_method as CookingMethod,
                 startTime: now(),
                 optimalCookingTime: optimal_time_ms,
                 progress: 0,
@@ -214,7 +222,7 @@ export const tools = [
             y: { type: 'number', description: 'Y coordinate within the area' }
         },
         execute: async ({ area, x, y }: { area: 'kitchen' | 'dining' | 'storage'; x: number; y: number }) => {
-            const { actions, player } = usePlayerStore.getState() as any
+            const { actions, player } = usePlayerStore.getState()
             actions.moveToArea(area, x, y)
             eventBus.emit('player_moved', { playerId: player.id, area, x, y })
             return { success: true, position: { area, x, y } }
@@ -228,7 +236,7 @@ export const tools = [
             duration_ms: { type: 'number', description: 'Expected cleaning time in milliseconds' }
         },
         execute: async ({ target_id, duration_ms }: { target_id: string; duration_ms: number }) => {
-            const { actions, player } = usePlayerStore.getState() as any
+            const { actions, player } = usePlayerStore.getState()
             const actionId = actions.startAction('clean' as PlayerActionType, target_id, duration_ms)
             eventBus.emit('player_action_started', { playerId: player.id, type: 'clean', target_id, duration_ms, actionId })
             return { success: true, actionId }

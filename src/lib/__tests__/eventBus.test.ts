@@ -1,4 +1,5 @@
-import { eventBus, GameEventType } from '../eventBus';
+import { eventBus } from '../eventBus';
+import { GameEventType } from '@/types/models';
 
 describe('Event Bus', () => {
     beforeEach(() => {
@@ -47,9 +48,14 @@ describe('Event Bus', () => {
 
         eventBus.on('multiArgEvent', mockCallback);
 
-        eventBus.emit('multiArgEvent', 'arg1', 123, { key: 'value' });
+        const payload = {
+            arg1: 'arg1',
+            num: 123,
+            obj: { key: 'value' }
+        };
+        eventBus.emit('multiArgEvent', payload);
 
-        expect(mockCallback).toHaveBeenCalledWith('arg1', 123, { key: 'value' });
+        expect(mockCallback).toHaveBeenCalledWith(payload);
     });
 
     it('should allow subscribing to an event once', () => {
