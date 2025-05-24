@@ -1,14 +1,41 @@
 import { startGameLoop, stopGameLoop, isGameLoopRunning } from '@/lib/gameLoop'
 import { eventBus } from '@/lib/eventBus'
+import { Game, Restaurant, Player, Customer } from '@/types/models'
 
 // Mocks ---------------------------------------------------------------------
 
+// Define types for mocked stores
+interface MockGameActions {
+    increaseTime: jest.Mock
+    setGamePhase: jest.Mock
+}
+interface MockGameState {
+    game: Partial<Game>
+    actions: MockGameActions
+}
+
+interface MockRestaurantActions {
+    addCustomerToQueue: jest.Mock
+}
+interface MockRestaurantState {
+    restaurant: Partial<Restaurant> // Using Partial as the mock is simplified
+    actions: MockRestaurantActions
+}
+
+interface MockPlayerActions {
+    completeAction: jest.Mock
+}
+interface MockPlayerState {
+    player: Partial<Player>
+    actions: MockPlayerActions
+}
+
 jest.mock('@/state/game/gameStore', () => {
-    const mockActions = {
+    const mockActions: MockGameActions = {
         increaseTime: jest.fn(),
         setGamePhase: jest.fn(),
     }
-    const mockState = {
+    const mockState: MockGameState = {
         game: {
             isPaused: false,
             gamePhase: 'active',
@@ -25,7 +52,7 @@ jest.mock('@/state/game/gameStore', () => {
 })
 
 jest.mock('@/state/game/restaurantStore', () => {
-    const mockRestaurantState = {
+    const mockRestaurantState: MockRestaurantState = {
         restaurant: {
             customerQueue: [],
             activeCustomers: [],
@@ -40,7 +67,7 @@ jest.mock('@/state/game/restaurantStore', () => {
     return {
         useRestaurantStore: {
             getState: jest.fn(() => mockRestaurantState),
-            setState: jest.fn((updater: any) => {
+            setState: jest.fn((updater: (state: MockRestaurantState) => Partial<MockRestaurantState>) => {
                 if (typeof updater === 'function') {
                     updater(mockRestaurantState)
                 }
@@ -50,7 +77,7 @@ jest.mock('@/state/game/restaurantStore', () => {
 })
 
 jest.mock('@/state/player/playerStore', () => {
-    const mockPlayerState = {
+    const mockPlayerState: MockPlayerState = {
         player: {
             speed: 1,
             currentAction: null,
@@ -67,7 +94,7 @@ jest.mock('@/state/player/playerStore', () => {
 })
 
 jest.mock('@/lib/entityFactories', () => ({
-    createCustomer: jest.fn(() => ({
+    createCustomer: jest.fn((): Partial<Customer> => ({
         id: 'customer_mock',
         order: null,
         patience: 100,
@@ -78,23 +105,26 @@ jest.mock('@/lib/entityFactories', () => ({
     })),
 }))
 
+// Define an interface for the spy that includes the custom property
+interface MockRaf extends jest.Mock {
+    lastCallback?: FrameRequestCallback
+}
+
 // ---------------------------------------------------------------------------
 
 describe('Game Loop', () => {
-    const rafSpy = jest.fn()
-    const cafSpy = jest.fn()
+    const rafSpy: MockRaf = jest.fn()
+    const cafSpy: jest.Mock = jest.fn()
 
     beforeEach(() => {
         jest.clearAllMocks()
 
         // Mock requestAnimationFrame & cancelAnimationFrame
-        global.requestAnimationFrame = rafSpy.mockImplementation((cb: FrameRequestCallback) => {
-            // Store the callback but do NOT execute immediately to avoid
-            // unbounded recursion. Tests can invoke it manually if needed.
-            (rafSpy as any).lastCallback = cb
+        global.requestAnimationFrame = rafSpy.mockImplementation((cb: FrameRequestCallback): number => {
+            rafSpy.lastCallback = cb
             return 1
-        }) as any
-        global.cancelAnimationFrame = cafSpy as any
+        })
+        global.cancelAnimationFrame = cafSpy
     })
 
     it('should start the game loop and schedule an animation frame', () => {

@@ -4,21 +4,32 @@ import MCPInterface from '../MCPInterface'
 import { useMCPStore } from '@/state/mcp/mcpStore'
 import { useCommandsStore } from '@/mcp/client/commands'
 import { MantineProvider } from '@mantine/core'
+import { SavedCommand } from '@/types/models'
+
+// Define props for the mocked SavedCommands component
+interface MockSavedCommandsProps {
+    commands: SavedCommand[];
+    onSelect: (command: SavedCommand) => void;
+}
 
 // Mock hooks
 jest.mock('@/state/mcp/mcpStore')
 jest.mock('@/mcp/client/commands')
 
 // Mock SavedCommands sub-component to avoid Mantine complexity
-jest.mock('../SavedCommands', () => (props: any) => (
-    <div data-testid="saved-commands">
-        {props.commands.map((cmd: any) => (
-            <button key={cmd.id} data-testid={`cmd-${cmd.id}`} onClick={() => props.onSelect(cmd)}>
-                {cmd.name}
-            </button>
-        ))}
-    </div>
-))
+jest.mock('../SavedCommands', () => {
+    const InnerMockSavedCommands = (props: MockSavedCommandsProps) => (
+        <div data-testid="saved-commands">
+            {props.commands.map((cmd: SavedCommand) => (
+                <button key={cmd.id} data-testid={`cmd-${cmd.id}`} onClick={() => props.onSelect(cmd)}>
+                    {cmd.name}
+                </button>
+            ))}
+        </div>
+    );
+    InnerMockSavedCommands.displayName = 'MockSavedCommands';
+    return InnerMockSavedCommands;
+});
 
 describe('MCPInterface', () => {
     const sendCommand = jest.fn().mockResolvedValue(undefined)

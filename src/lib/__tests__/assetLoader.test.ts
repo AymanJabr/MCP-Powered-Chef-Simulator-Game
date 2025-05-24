@@ -27,12 +27,18 @@ describe('Asset Preloading', () => {
         // Store original Image constructor
         originalImage = global.Image;
 
-        // Create a simple mock Image implementation
-        global.Image = jest.fn(() => ({
-            onload: null,
-            onerror: null,
-            src: ''
-        })) as any;
+        // Create a mock Image constructor that returns a Partial<HTMLImageElement>
+        // satisfying the properties our preloadImages function is likely to use.
+        global.Image = jest.fn().mockImplementation((_width?: number, _height?: number): Partial<HTMLImageElement> => {
+            return {
+                onload: null as (() => void) | null, // Explicitly type null for assignment
+                onerror: null as ((e: string | Event) => void) | null, // Match typical onerror signature
+                src: '',
+                width: _width ?? 0, // Use the _width parameter
+                height: _height ?? 0, // Use the _height parameter
+                // Add other properties like 'complete: false' if your actual preloadImages function might check them.
+            };
+        }) as typeof global.Image; // Cast to the original Image constructor type
     });
 
     afterEach(() => {

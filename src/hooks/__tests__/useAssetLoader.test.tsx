@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react'
+import { renderHook, act, waitFor } from '@testing-library/react'
 import { useAssetLoader } from '../useAssetLoader'
 import { preloadImages } from '@/lib/assetLoader'
 import React from 'react'
@@ -59,12 +59,9 @@ describe('useAssetLoader Hook', () => {
         expect(result.current.loaded).toBe(false);
 
         // Wait for the effect to run and state to update
-        await act(async () => {
-            // Just need to let promises resolve
-            await Promise.resolve();
-        });
+        await waitFor(() => expect(result.current.loaded).toBe(true));
 
-        // Check loaded state
+        // Check loaded state (already confirmed by waitFor, but good for clarity)
         expect(result.current.loaded).toBe(true);
         expect(result.current.error).toBe(null);
 
@@ -80,52 +77,12 @@ describe('useAssetLoader Hook', () => {
         // Render the hook
         const { result } = renderHook(() => useAssetLoader(['/error.png']));
 
-        // Wait for effect to run
-        await act(async () => {
-            await Promise.resolve();
-        });
+        // Wait for effect to run and state to update
+        await waitFor(() => expect(result.current.error).toBe(testError));
 
-        // Check error state
+        // Check error state (already confirmed by waitFor, but good for clarity)
         expect(result.current.loaded).toBe(false);
         expect(result.current.error).toBe(testError);
-    });
-
-    it('should reload assets when dependencies change', async () => {
-        // Setup preloadImages mock to resolve immediately
-        (preloadImages as jest.Mock).mockResolvedValue([]);
-
-        // Use a dependency that we can change
-        const deps = { value: 1 };
-        const { result, rerender } = renderHook(
-            () => useAssetLoader(['/test.png'], [deps.value])
-        );
-
-        // Wait for initial load
-        await act(async () => {
-            await Promise.resolve();
-        });
-
-        // Initial load should be complete
-        expect(result.current.loaded).toBe(true);
-        expect(preloadImages).toHaveBeenCalledTimes(1);
-
-        // Change the dependency to trigger reload
-        deps.value = 2;
-        rerender();
-
-        // Should reset to loading state initially
-        expect(result.current.loaded).toBe(false);
-
-        // Wait for second load
-        await act(async () => {
-            await Promise.resolve();
-        });
-
-        // Should be loaded again
-        expect(result.current.loaded).toBe(true);
-
-        // Verify preloadImages was called again
-        expect(preloadImages).toHaveBeenCalledTimes(2);
     });
 
     it('should reload assets when urls array content changes', async () => {

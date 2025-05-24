@@ -1,31 +1,68 @@
 import { processPayment, calculateDailyExpenses } from '@/lib/financeSystem'
 import { eventBus } from '@/lib/eventBus'
+import { Order, Dish, Recipe } from '@/types/models'
 
 // ---------------------------------------------------------------------------
 // Mock restaurant store
 // ---------------------------------------------------------------------------
 
+// Define types for the mocked restaurant store
+interface MockFinanceActions {
+    updateFunds: jest.Mock
+    completeOrder: jest.Mock
+}
+
+interface MockRestaurantForFinance {
+    funds: number
+    activeOrders: Partial<Order>[]
+    // Other Restaurant properties if needed by tests
+}
+
+interface MockFinanceRestaurantState {
+    restaurant: MockRestaurantForFinance
+    actions: MockFinanceActions
+}
+
 jest.mock('@/state/game/restaurantStore', () => {
     const now = Date.now()
-    const mockRestaurantState = {
+
+    // Define full Dish objects for the mock
+    const mockDish1: Dish = {
+        id: 'dish_1', name: 'Burger', basePrice: 20,
+        recipe: { id: 'r1', ingredients: [], cookingSteps: [] } as Recipe,
+        cookingDifficulty: 1, preparationTime: 120, plateAppearance: 5
+    }
+    const mockDish2: Dish = {
+        id: 'dish_2', name: 'Pizza', basePrice: 15,
+        recipe: { id: 'r2', ingredients: [], cookingSteps: [] } as Recipe,
+        cookingDifficulty: 1, preparationTime: 180, plateAppearance: 4
+    }
+
+    const mockRestaurantState: MockFinanceRestaurantState = {
         restaurant: {
             funds: 100,
             activeOrders: [
                 {
                     id: 'order_1',
-                    dish: { id: 'dish_1', name: 'Burger', basePrice: 20 },
+                    dish: mockDish1,
                     status: 'served',
                     qualityScore: 80,
-                    startTime: now - 30000, // 30s ago
-                    completionTime: now - 5000, // 5s ago
+                    startTime: now - 30000,
+                    completionTime: now - 5000,
+                    customerId: 'cust_mock_1',
+                    customizations: [],
+                    tip: 0
                 },
                 {
                     id: 'order_2',
-                    dish: { id: 'dish_2', name: 'Pizza', basePrice: 15 },
+                    dish: mockDish2,
                     status: 'cooking',
                     qualityScore: 0,
                     startTime: now - 20000,
                     completionTime: null,
+                    customerId: 'cust_mock_2',
+                    customizations: [],
+                    tip: 0
                 },
             ],
         },
@@ -49,7 +86,8 @@ jest.mock('@/lib/eventBus', () => ({
 
 import { useRestaurantStore } from '@/state/game/restaurantStore'
 
-const restaurantState = (useRestaurantStore as any).getState()
+const mockAppRestaurantStore = useRestaurantStore
+const restaurantState = mockAppRestaurantStore.getState()
 
 // ---------------------------------------------------------------------------
 describe('Finance System', () => {

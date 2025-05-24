@@ -1,11 +1,25 @@
 import { calculateInitialPatience, reducePatience } from '@/lib/customerPatience'
+import { Game } from '@/types/models'
 
 // ---------------------------------------------------------------------------
 // Module mocks
 // ---------------------------------------------------------------------------
 
+// Define types for the mocked game store state
+interface MockPatienceGameActions {
+    // No actions are directly used by the functions under test from this mock's actions
+    // So, an empty object or Record<string, jest.Mock> would be fine.
+    // For consistency, let's use Record<string, jest.Mock> for potential future use.
+    [key: string]: jest.Mock;
+}
+
+interface MockPatienceGameState {
+    game: Partial<Game>;
+    actions: MockPatienceGameActions;
+}
+
 jest.mock('@/state/game/gameStore', () => {
-    const mockState = {
+    const mockState: MockPatienceGameState = {
         game: {
             difficulty: 1,
         },
@@ -35,7 +49,8 @@ import { getCurrentDifficultyModifiers } from '@/lib/difficultyScaling'
 import { eventBus } from '@/lib/eventBus'
 
 // ---------------------------------------------------------------------------
-const store = (useGameStore as any).getState()
+const mockAppGameStore = useGameStore
+const store = mockAppGameStore.getState()
 const modsMock = getCurrentDifficultyModifiers as jest.Mock
 
 // ---------------------------------------------------------------------------

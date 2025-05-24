@@ -42,8 +42,8 @@ import { useGameStore } from '@/state/game/gameStore'
 import { useRestaurantStore } from '@/state/game/restaurantStore'
 
 // ---------------------------------------------------------------------------
-const store = (useGameStore as any).getState()
-const restaurantState = (useRestaurantStore as any).getState().restaurant
+const store = useGameStore.getState()
+const restaurantState = useRestaurantStore.getState().restaurant
 
 // ---------------------------------------------------------------------------
 describe('Menu Complexity System', () => {

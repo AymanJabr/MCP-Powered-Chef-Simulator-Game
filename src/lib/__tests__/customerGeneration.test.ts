@@ -1,12 +1,32 @@
 import { shouldGenerateCustomer, generateCustomer } from '@/lib/customerGeneration'
 import { eventBus } from '@/lib/eventBus'
+import { Customer, Game } from '@/types/models'
 
 // ---------------------------------------------------------------------------
 // Module mocks
 // ---------------------------------------------------------------------------
 
+// Define a type for the mocked game state
+interface MockGameState {
+    game: Partial<Game>; // Using Partial<Game> for flexibility
+    actions: Record<string, jest.Mock>; // Assuming actions is an object of Jest mocks
+}
+
+interface MockRestaurantActions {
+    addCustomerToQueue: jest.Mock;
+}
+
+// Define a type for the mocked restaurant state
+interface MockRestaurantState {
+    restaurant: {
+        customerQueue: Customer[];
+        activeCustomers: Customer[];
+    };
+    actions: MockRestaurantActions;
+}
+
 jest.mock('@/state/game/gameStore', () => {
-    const mockState = { game: { difficulty: 1 }, actions: {} }
+    const mockState: MockGameState = { game: { difficulty: 1 }, actions: {} }
     return {
         useGameStore: {
             getState: jest.fn(() => mockState),
@@ -15,10 +35,10 @@ jest.mock('@/state/game/gameStore', () => {
 })
 
 jest.mock('@/state/game/restaurantStore', () => {
-    const mockRestaurantState = {
+    const mockRestaurantState: MockRestaurantState = {
         restaurant: {
-            customerQueue: [] as any[],
-            activeCustomers: [] as any[],
+            customerQueue: [],
+            activeCustomers: [],
         },
         actions: {
             addCustomerToQueue: jest.fn(),
@@ -32,7 +52,7 @@ jest.mock('@/state/game/restaurantStore', () => {
 })
 
 jest.mock('@/lib/entityFactories', () => ({
-    createCustomer: jest.fn((partial = {}) => ({
+    createCustomer: jest.fn((partial: Partial<Customer> = {}) => ({
         id: 'cust_mock',
         order: null,
         patience: 100,
@@ -56,8 +76,12 @@ import { useRestaurantStore } from '@/state/game/restaurantStore'
 import { createCustomer } from '@/lib/entityFactories'
 
 // ---------------------------------------------------------------------------
-const gameState = (useGameStore as any).getState()
-const restaurantState = (useRestaurantStore as any).getState()
+// It's important to type cast the imported store correctly based on the mock structure
+const mockGameStore = useGameStore;
+const mockRestaurantStore = useRestaurantStore;
+
+const gameState = mockGameStore.getState();
+const restaurantState = mockRestaurantStore.getState();
 
 // Helper to set Math.random deterministically
 const mathRandomSpy = jest.spyOn(global.Math, 'random')

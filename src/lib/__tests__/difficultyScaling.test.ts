@@ -1,20 +1,37 @@
 import { updateDifficulty, getCurrentDifficultyModifiers } from '@/lib/difficultyScaling'
+import { Game } from '@/types/models'
 
 // ---------------------------------------------------------------------------
 // Module mocks
 // ---------------------------------------------------------------------------
 
+// Define types for the mocked game store state
+interface MockDifficultyGameActions {
+    setDifficulty: jest.Mock
+}
+
+interface MockDifficultyGameState {
+    game: Partial<Game>
+    actions: MockDifficultyGameActions
+}
+
 jest.mock('@/state/game/gameStore', () => {
-    const mockState = {
+    const mockActions: MockDifficultyGameActions = {
+        setDifficulty: jest.fn((d: number) => {
+            // This reference to mockState inside the mock itself is a bit tricky,
+            // ensure mockState is defined in a scope accessible here if this pattern is kept.
+            // For now, assuming it works due to closure or direct definition context.
+            // A safer way might be to update a shared, mutable mockState object.
+            // However, to adhere to existing structure and fix typing:
+            (mockState as MockDifficultyGameState).game.difficulty = d
+        }),
+    }
+    const mockState: MockDifficultyGameState = {
         game: {
             timeElapsed: 0,
             difficulty: 1,
         },
-        actions: {
-            setDifficulty: jest.fn((d: number) => {
-                mockState.game.difficulty = d
-            }),
-        },
+        actions: mockActions,
     }
     return {
         useGameStore: {
@@ -26,7 +43,8 @@ jest.mock('@/state/game/gameStore', () => {
 import { useGameStore } from '@/state/game/gameStore'
 
 // ---------------------------------------------------------------------------
-const store = (useGameStore as any).getState()
+const mockAppGameStore = useGameStore
+const store = mockAppGameStore.getState()
 
 // ---------------------------------------------------------------------------
 describe('Difficulty Scaling System (uncapped)', () => {

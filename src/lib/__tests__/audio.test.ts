@@ -19,13 +19,22 @@ jest.mock('howler', () => {
     }
 })
 
+// Define interfaces for the mocked howler module
+interface HowlerModuleMocks {
+    mockPlay: jest.Mock
+    mockStop: jest.Mock
+    mockVolume: jest.Mock
+}
+
+interface HowlerModuleMock {
+    __esModule: boolean
+    Howl: jest.Mock
+    _mocks: HowlerModuleMocks
+}
+
 // Helper to access mocks from the mocked module --------------------------------
-function getMocks() {
-    return (jest.requireMock('howler') as any)._mocks as {
-        mockPlay: jest.Mock
-        mockStop: jest.Mock
-        mockVolume: jest.Mock
-    }
+function getMocks(): HowlerModuleMocks {
+    return (jest.requireMock('howler') as HowlerModuleMock)._mocks
 }
 
 describe('Audio utility', () => {

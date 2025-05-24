@@ -1,16 +1,34 @@
 import { purchaseIngredient, consumeIngredient } from '@/lib/inventoryManagement'
 import { eventBus } from '@/lib/eventBus'
+import { Ingredient } from '@/types/models'
 
 // ---------------------------------------------------------------------------
 // Module mocks
 // ---------------------------------------------------------------------------
 
+// Define types for the mocked restaurant store
+interface MockInventoryRestaurantActions {
+    updateFunds: jest.Mock
+    updateIngredientQuantity: jest.Mock
+}
+
+interface MockInventoryRestaurantState {
+    restaurant: {
+        inventory: Ingredient[]
+        funds: number
+        // Add other properties from Restaurant if they are used by the functions under test,
+        // or use Partial<Restaurant> if only a subset is relevant.
+        // For this mock, only inventory and funds seem directly relevant from the 'restaurant' object itself.
+    }
+    actions: MockInventoryRestaurantActions
+}
+
 jest.mock('@/state/game/restaurantStore', () => {
-    const mockRestaurantState = {
+    const mockRestaurantState: MockInventoryRestaurantState = {
         restaurant: {
             inventory: [
-                { id: 'ing_1', name: 'Tomato', quantity: 10, cost: 2 },
-                { id: 'ing_2', name: 'Cheese', quantity: 3, cost: 5 },
+                { id: 'ing_1', name: 'Tomato', quantity: 10, cost: 2, category: 'vegetable', quality: 0 },
+                { id: 'ing_2', name: 'Cheese', quantity: 3, cost: 5, category: 'dairy', quality: 0 },
             ],
             funds: 50,
         },
@@ -38,7 +56,8 @@ jest.mock('@/lib/eventBus', () => ({
 import { useRestaurantStore } from '@/state/game/restaurantStore'
 
 // ---------------------------------------------------------------------------
-const restaurantState = (useRestaurantStore as any).getState()
+const mockAppRestaurantStore = useRestaurantStore
+const restaurantState = mockAppRestaurantStore.getState()
 
 // ---------------------------------------------------------------------------
 describe('Inventory Management System', () => {

@@ -1,17 +1,42 @@
 import { startCooking, checkCookingProgress, completeCooking } from '@/lib/cookingProcesses'
 import { eventBus } from '@/lib/eventBus'
-import { CookingMethod } from '@/types/models'
+import { CookingMethod, CookingProcess, CookingStation } from '@/types/models'
+
+// Define interfaces for the mocked kitchen store
+interface MockKitchenStateActions {
+    startCookingProcess: jest.Mock
+    updateCookingProgress: jest.Mock
+    finishCookingProcess: jest.Mock
+}
+
+interface MockKitchenState {
+    cookingStations: CookingStation[]
+    activeCookingProcesses: CookingProcess[]
+    actions: MockKitchenStateActions
+}
 
 jest.mock('@/state/game/kitchenStore', () => {
-    const mockKitchenState = {
+    const mockKitchenState: MockKitchenState = {
         cookingStations: [
             { id: 'station_1', type: 'stove', status: 'idle', temperature: 0 },
             { id: 'station_2', type: 'oven', status: 'idle', temperature: 0 },
         ],
-        activeCookingProcesses: [] as any[],
+        activeCookingProcesses: [],
         actions: {
-            startCookingProcess: jest.fn((stationId: string, proc: any) => {
-                mockKitchenState.activeCookingProcesses.push({ ...proc, stationId, progress: 0, status: 'in_progress' })
+            startCookingProcess: jest.fn((stationId: string, proc: Partial<CookingProcess>) => {
+                // Ensure all required fields of CookingProcess are present
+                const fullProc: CookingProcess = {
+                    id: proc.id || `proc_${Date.now()}`,
+                    stationId,
+                    ingredients: proc.ingredients || [],
+                    cookingMethod: proc.cookingMethod || 'fry',
+                    startTime: proc.startTime || Date.now(),
+                    optimalCookingTime: proc.optimalCookingTime || 60000,
+                    progress: 0,
+                    status: 'in_progress',
+                    qualityScore: proc.qualityScore
+                }
+                mockKitchenState.activeCookingProcesses.push(fullProc)
                 const st = mockKitchenState.cookingStations.find((s) => s.id === stationId)
                 if (st) st.status = 'busy'
             }),
@@ -36,13 +61,14 @@ jest.mock('@/state/game/kitchenStore', () => {
 jest.mock('@/lib/eventBus', () => ({ eventBus: { emit: jest.fn() } }))
 
 import { useKitchenStore } from '@/state/game/kitchenStore'
-const kitchenState = (useKitchenStore as any).getState()
+const mockKitchenStore = useKitchenStore
+const kitchenState = mockKitchenStore.getState()
 
 describe('Cooking Processes', () => {
     beforeEach(() => {
         jest.clearAllMocks()
         // reset cooking stations and processes
-        kitchenState.cookingStations.forEach((s: any) => (s.status = 'idle'))
+        kitchenState.cookingStations.forEach((s: CookingStation) => (s.status = 'idle'))
         kitchenState.activeCookingProcesses.length = 0
     })
 
@@ -54,7 +80,7 @@ describe('Cooking Processes', () => {
     })
 
     it('fails when no station available', () => {
-        kitchenState.cookingStations.forEach((s: any) => (s.status = 'busy'))
+        kitchenState.cookingStations.forEach((s: CookingStation) => (s.status = 'busy'))
         const res = startCooking([{ id: 'ing_1' }], 'fry' as CookingMethod)
         expect(res.success).toBe(false)
     })
@@ -63,7 +89,9 @@ describe('Cooking Processes', () => {
         const { cookingId } = startCooking([{ id: 'ing_2' }], 'bake' as CookingMethod)
         // simulate time passage by manipulating startTime
         const proc = kitchenState.activeCookingProcesses[0]
-        proc.startTime -= 70000 // 70s ago
+        if (proc) {
+            proc.startTime -= 70000 // 70s ago
+        }
         const prog = checkCookingProgress(cookingId!)
         expect(prog).not.toBeNull()
         expect(prog!.progress).toBeGreaterThan(100)

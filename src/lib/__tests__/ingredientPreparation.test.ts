@@ -1,25 +1,47 @@
 import { prepareIngredient, completePreparation } from '@/lib/ingredientPreparation'
 import { eventBus } from '@/lib/eventBus'
-import { PreparationType } from '@/types/models'
+import { PreparationType, PrepStation, PreparationTask } from '@/types/models'
 
 // ---------------------------------------------------------------------------
 // Mock kitchen store
 // ---------------------------------------------------------------------------
 
+// Define interfaces for the mocked kitchen store actions and state
+interface MockKitchenPreparationActions {
+    startPreparation: jest.Mock
+    completePreparation: jest.Mock
+}
+
+interface MockKitchenStateWithPrep {
+    prepStations: PrepStation[]
+    activePreparations: Record<string, PreparationTask>
+    actions: MockKitchenPreparationActions
+}
+
 jest.mock('@/state/game/kitchenStore', () => {
-    const mockKitchenState = {
+    const mockKitchenState: MockKitchenStateWithPrep = {
         prepStations: [
             { id: 'station_1', type: 'cutting_board', status: 'idle' },
             { id: 'station_2', type: 'mixing_bowl', status: 'idle' },
         ],
-        activePreparations: {} as any,
+        activePreparations: {},
         actions: {
-            startPreparation: jest.fn((stationId, task) => {
+            startPreparation: jest.fn((stationId: string, task: Partial<PreparationTask>) => {
                 const station = mockKitchenState.prepStations.find((s) => s.id === stationId)
                 if (station) station.status = 'busy'
-                mockKitchenState.activePreparations[task.id] = { ...task, status: 'in_progress' }
+                if (task.id) {
+                    mockKitchenState.activePreparations[task.id] = {
+                        id: task.id,
+                        ingredientId: task.ingredientId || 'unknown_ingredient',
+                        preparationType: task.preparationType || 'chop',
+                        startTime: task.startTime || Date.now(),
+                        stationId: stationId,
+                        status: 'in_progress',
+                        qualityScore: task.qualityScore
+                    } as PreparationTask
+                }
             }),
-            completePreparation: jest.fn((stationId, prepId, quality) => {
+            completePreparation: jest.fn((stationId: string, prepId: string, quality: number) => {
                 const station = mockKitchenState.prepStations.find((s) => s.id === stationId)
                 if (station) station.status = 'idle'
                 if (mockKitchenState.activePreparations[prepId]) {
@@ -40,14 +62,16 @@ jest.mock('@/lib/eventBus', () => ({ eventBus: { emit: jest.fn() } }))
 
 import { useKitchenStore } from '@/state/game/kitchenStore'
 
-const kitchenState = (useKitchenStore as any).getState()
+// Correctly type the mocked store and its getState method
+const mockAppKitchenStore = useKitchenStore
+const kitchenState = mockAppKitchenStore.getState()
 
 // ---------------------------------------------------------------------------
 describe('Ingredient Preparation System', () => {
     beforeEach(() => {
         jest.clearAllMocks()
         // reset station statuses
-        kitchenState.prepStations.forEach((s: any) => (s.status = 'idle'))
+        kitchenState.prepStations.forEach((s: PrepStation) => (s.status = 'idle'))
         kitchenState.activePreparations = {}
     })
 
@@ -57,12 +81,16 @@ describe('Ingredient Preparation System', () => {
         expect(res.success).toBe(true)
         expect(res.stationId).toBe('station_1')
         expect(kitchenState.actions.startPreparation).toHaveBeenCalled()
+        const startPreparationMock = kitchenState.actions.startPreparation as jest.Mock
+        expect(startPreparationMock.mock.calls[0][1].ingredientId).toBe('ing_1')
         expect(eventBus.emit).toHaveBeenCalledWith('preparationStarted', expect.any(Object))
     })
 
     it('fails when station unavailable', () => {
         // make cutting board busy
-        kitchenState.prepStations[0].status = 'busy'
+        if (kitchenState.prepStations[0]) {
+            kitchenState.prepStations[0].status = 'busy'
+        }
         const res = prepareIngredient({ id: 'ing_2', preparationType: 'chop' as PreparationType }, 'cutting_board')
         expect(res.success).toBe(false)
         expect(res.message).toMatch(/No available station/)
@@ -71,6 +99,10 @@ describe('Ingredient Preparation System', () => {
     it('completes preparation with quality score', () => {
         const ingredient = { id: 'ing_3', preparationType: 'chop' as PreparationType }
         const { preparationId, stationId } = prepareIngredient(ingredient, 'cutting_board')
+
+        expect(preparationId).toBeDefined()
+        expect(stationId).toBeDefined()
+
         const result = completePreparation(stationId!, preparationId!, 90)
         expect(result.success).toBe(true)
         expect(result.qualityScore).toBe(90)
