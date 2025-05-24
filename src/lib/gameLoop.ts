@@ -38,7 +38,8 @@ export function startGameLoop(): void {
     customersLeftCounter = 0
     lastTimestamp = typeof performance !== 'undefined' ? performance.now() : Date.now()
 
-    eventBus.emit('game_started')
+    const gameDifficulty = useGameStore.getState().game.difficulty;
+    eventBus.emit('game_started', { difficulty: gameDifficulty });
     animationFrameId = requestAnimationFrame(gameLoop)
 }
 
@@ -47,7 +48,8 @@ export function stopGameLoop(): void {
 
     cancelAnimationFrame(animationFrameId)
     animationFrameId = null
-    eventBus.emit('game_paused')
+    const elapsedTime = useGameStore.getState().game.timeElapsed;
+    eventBus.emit('game_paused', { elapsedTime: elapsedTime });
 }
 
 export function isGameLoopRunning(): boolean {
@@ -87,7 +89,7 @@ function gameLoop(timestamp: number): void {
         checkGameEndingConditions()
 
         // Broadcast frame update for interested subscribers (UI etc.)
-        eventBus.emit('frameUpdate', deltaSeconds)
+        eventBus.emit('frameUpdate', { deltaTime: deltaSeconds });
     }
 
     // Queue next frame
@@ -104,36 +106,39 @@ function processCustomerPatience(deltaSeconds: number): void {
     const queueDecay = 1 + gameDifficulty * 0.3 // waiting line loses patience quick
     const seatedDecay = 0.5 + gameDifficulty * 0.15 // seated customers, slower
 
-    const leftQueueIds: string[] = []
-    restaurantState.restaurant.customerQueue.forEach((customer) => {
-        customer.patience -= queueDecay * deltaSeconds
-        if (customer.patience <= 0) leftQueueIds.push(customer.id)
-    })
+    const leftCustomersData: Array<{ id: string; satisfaction: number }> = [];
 
-    const leftSeatedIds: string[] = []
-    restaurantState.restaurant.activeCustomers.forEach((customer) => {
-        customer.patience -= seatedDecay * deltaSeconds
-        if (customer.patience <= 0) leftSeatedIds.push(customer.id)
-    })
+    // Process queue
+    const updatedQueue = restaurantState.restaurant.customerQueue.filter(customer => {
+        customer.patience -= queueDecay * deltaSeconds;
+        if (customer.patience <= 0) {
+            leftCustomersData.push({ id: customer.id, satisfaction: customer.satisfaction });
+            return false; // Remove from queue
+        }
+        return true;
+    });
 
-    if (leftQueueIds.length || leftSeatedIds.length) {
+    // Process active (seated) customers
+    const updatedActiveCustomers = restaurantState.restaurant.activeCustomers.filter(customer => {
+        customer.patience -= seatedDecay * deltaSeconds;
+        if (customer.patience <= 0) {
+            leftCustomersData.push({ id: customer.id, satisfaction: customer.satisfaction });
+            return false; // Remove from active customers
+        }
+        return true;
+    });
+
+    if (leftCustomersData.length > 0) {
         useRestaurantStore.setState((state) => {
-            if (leftQueueIds.length) {
-                state.restaurant.customerQueue = state.restaurant.customerQueue.filter(
-                    (c) => !leftQueueIds.includes(c.id)
-                )
-            }
-            if (leftSeatedIds.length) {
-                state.restaurant.activeCustomers = state.restaurant.activeCustomers.filter(
-                    (c) => !leftSeatedIds.includes(c.id)
-                )
-            }
-        })
+            // Directly assign the filtered arrays
+            state.restaurant.customerQueue = updatedQueue;
+            state.restaurant.activeCustomers = updatedActiveCustomers;
+        });
 
-            ;[...leftQueueIds, ...leftSeatedIds].forEach((id) => {
-                customersLeftCounter += 1
-                eventBus.emit('customer_left', { customerId: id })
-            })
+        leftCustomersData.forEach(customerData => {
+            customersLeftCounter += 1;
+            eventBus.emit('customer_left', { customerId: customerData.id, satisfaction: customerData.satisfaction });
+        });
     }
 }
 
@@ -156,7 +161,8 @@ function generateNewCustomers(deltaSeconds: number): void {
     const restaurant = useRestaurantStore.getState()
     restaurant.actions.addCustomerToQueue(newCustomer)
 
-    eventBus.emit('customer_arrived', { customerId: newCustomer.id })
+    // Emit 'customer_arrived' with the full customer object
+    eventBus.emit('customer_arrived', { customer: newCustomer });
 }
 
 // ---------------------------------------------------------------------------
@@ -187,11 +193,14 @@ function checkGameEndingConditions(): void {
     const tooManyLeft = customersLeftCounter > 10
 
     if (fundsDepleted || tooManyLeft) {
+        const reasonText = fundsDepleted ? 'Funds depleted' : 'Too many customers left';
+        // For score, using restaurant.funds directly for now. This might need refinement.
+        const score = restaurant.funds;
+
         gameStoreState.actions.setGamePhase('gameOver')
         eventBus.emit('game_over', {
-            reason: fundsDepleted ? 'funds' : 'customers_left',
-            funds: restaurant.funds,
-            customersLeft: customersLeftCounter
+            reason: reasonText,
+            score: score
         })
         stopGameLoop()
     }

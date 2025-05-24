@@ -149,9 +149,12 @@ describe('Game Loop', () => {
 
     it('should emit events on start and pause', () => {
         const emitSpy = jest.spyOn(eventBus, 'emit')
+        const mockGameStore = (jest.requireMock('@/state/game/gameStore')).useGameStore.getState()
+
         startGameLoop()
-        expect(emitSpy).toHaveBeenCalledWith('game_started')
+        expect(emitSpy).toHaveBeenCalledWith('game_started', { difficulty: mockGameStore.game.difficulty })
+
         stopGameLoop()
-        expect(emitSpy).toHaveBeenCalledWith('game_paused')
+        expect(emitSpy).toHaveBeenCalledWith('game_paused', { elapsedTime: mockGameStore.game.timeElapsed })
     })
 }) 
