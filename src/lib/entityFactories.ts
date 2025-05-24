@@ -50,7 +50,7 @@ export function createDish(partial: Partial<Dish> = {}): Dish {
         id: `dish_${Date.now()}`,
         name: 'New Dish',
         basePrice: 10,
-        recipe: createRecipe(),
+        recipeId: '',
         cookingDifficulty: 1,
         preparationTime: 60, // seconds
         plateAppearance: 1,
@@ -152,6 +152,8 @@ export function createRestaurant(partial: Partial<Restaurant> = {}): Restaurant 
         completedOrders: [],
         inventory: [],
         equipment: [],
+        menuItems: [],
+        unlockedMenuItems: [],
         ...partial
     };
 }

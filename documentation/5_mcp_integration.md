@@ -80,8 +80,8 @@ The LLM will have access to the following tools, mirroring player capabilities:
   "tool_name": "greet_customer",
   "description": "Greet a new customer and show them to a table",
   "parameters": {
-    "customer_id": "ID of the customer to greet",
-    "table_id": "ID of the table to seat the customer at"
+    "customerId": "ID of the customer to greet",
+    "tableId": "ID of the table to seat the customer at"
   }
 }
 ```
@@ -92,7 +92,7 @@ The LLM will have access to the following tools, mirroring player capabilities:
   "tool_name": "take_order",
   "description": "Take an order from a customer",
   "parameters": {
-    "customer_id": "ID of the customer placing the order"
+    "customerId": "ID of the customer placing the order"
   }
 }
 
@@ -100,8 +100,8 @@ The LLM will have access to the following tools, mirroring player capabilities:
   "tool_name": "serve_order",
   "description": "Serve a completed dish to a customer",
   "parameters": {
-    "order_id": "ID of the completed order",
-    "customer_id": "ID of the customer to serve"
+    "orderId": "ID of the completed order",
+    "customerId": "ID of the customer to serve"
   }
 }
 ```
@@ -112,7 +112,7 @@ The LLM will have access to the following tools, mirroring player capabilities:
   "tool_name": "prepare_ingredient",
   "description": "Prepare an ingredient for cooking",
   "parameters": {
-    "ingredient_id": "ID of the ingredient to prepare",
+    "ingredientId": "ID of the ingredient to prepare",
     "preparation_method": "Method to use (chop, dice, mince, etc.)",
     "quantity": "Amount to prepare"
   }
@@ -125,8 +125,8 @@ The LLM will have access to the following tools, mirroring player capabilities:
   "tool_name": "cook_ingredient",
   "description": "Cook an ingredient using specified equipment",
   "parameters": {
-    "ingredient_id": "ID of the ingredient to cook",
-    "equipment_id": "ID of the equipment to use",
+    "ingredientId": "ID of the ingredient to cook",
+    "equipmentId": "ID of the equipment to use",
     "cooking_method": "Method to use (fry, grill, bake, etc.)",
     "duration": "How long to cook (in seconds)"
   }
@@ -139,10 +139,10 @@ The LLM will have access to the following tools, mirroring player capabilities:
   "tool_name": "plate_dish",
   "description": "Arrange cooked ingredients on a plate",
   "parameters": {
-    "dish_id": "ID of the dish to plate",
+    "dishId": "ID of the dish to plate",
     "ingredients": "Array of prepared ingredient IDs in stacking order",
-    "garnish_id": "ID of garnish to add (optional)",
-    "sauce_id": "ID of sauce to add (optional)"
+    "garnishId": "ID of garnish to add (optional)",
+    "sauceId": "ID of sauce to add (optional)"
   }
 }
 ```
@@ -153,7 +153,7 @@ The LLM will have access to the following tools, mirroring player capabilities:
   "tool_name": "purchase_ingredients",
   "description": "Purchase additional ingredients",
   "parameters": {
-    "ingredient_id": "ID of the ingredient to purchase",
+    "ingredientId": "ID of the ingredient to purchase",
     "quantity": "Amount to purchase"
   }
 }
@@ -175,7 +175,7 @@ Players can save and manage commands for quick access:
 ### Custom Command Storage example
 ```json
 {
-  "command_id": "custom_command_001",
+  "commandId": "custom_command_001",
   "name": "Rush Hour Protocol",
   "command_text": "Focus on quick dishes first. Take all orders, then prepare and cook in batches of similar ingredients to maximize efficiency.",
   "tags": ["busy", "efficiency", "batching"]

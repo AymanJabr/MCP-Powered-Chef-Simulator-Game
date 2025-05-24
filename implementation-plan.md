@@ -803,7 +803,7 @@
        })
        
        it('should fail when ingredient is not found', () => {
-         const result = purchaseIngredient('nonexistent_id', 1)
+         const result = purchaseIngredient('nonexistentId', 1)
          
          expect(result.success).toBe(false)
          expect(result.message).toContain('not found')
@@ -972,7 +972,7 @@
        })
        
        it('should fail when order is not found', () => {
-         const result = processPayment('nonexistent_id')
+         const result = processPayment('nonexistentId')
          
          expect(result.success).toBe(false)
          expect(result.message).toContain('not found')
@@ -2271,21 +2271,21 @@
        name: 'greet_customer',
        description: 'Greet a new customer and show them to a table',
        parameters: {
-         customer_id: {
+         customerId: {
            type: 'string',
            description: 'ID of the customer to greet'
          },
-         table_id: {
+         tableId: {
            type: 'string',
            description: 'ID of the table to seat the customer at'
          }
        },
-       execute: async ({ customer_id, table_id }) => {
+       execute: async ({ customerId, tableId }) => {
          const restaurantStore = useRestaurantStore.getState()
-         const result = restaurantStore.actions.seatCustomer(customer_id, table_id)
+         const result = restaurantStore.actions.seatCustomer(customerId, tableId)
          
          // Emit event for UI feedback
-         eventBus.emit('customerSeated', { customer_id, table_id })
+         eventBus.emit('customerSeated', { customerId, tableId })
          
          return result
        }
@@ -2359,8 +2359,8 @@
        
        // Execute the tool
        const result = await greetCustomerTool.execute({
-         customer_id: 'customer_1',
-         table_id: 'table_1'
+         customerId: 'customer_1',
+         tableId: 'table_1'
        })
        
        // Check result
@@ -2376,7 +2376,7 @@
        // Verify event was emitted
        expect(eventBus.emit).toHaveBeenCalledWith(
          'customerSeated',
-         { customer_id: 'customer_1', table_id: 'table_1' }
+         { customerId: 'customer_1', tableId: 'table_1' }
        )
      })
      
@@ -2393,8 +2393,8 @@
        
        // Execute the tool (should not throw)
        const result = await greetCustomerTool.execute({
-         customer_id: 'customer_1',
-         table_id: 'table_1'
+         customerId: 'customer_1',
+         tableId: 'table_1'
        })
        
        // Should return error result rather than throwing
@@ -2409,14 +2409,14 @@
        
        // Execute with missing parameter
        const result = await greetCustomerTool.execute({
-         customer_id: 'customer_1'
-         // table_id is missing
+         customerId: 'customer_1'
+         // tableId is missing
        })
        
        // Should indicate parameter validation failure
        expect(result).toHaveProperty('success', false)
        expect(result).toHaveProperty('message')
-       expect(result.message).toContain('table_id')
+       expect(result.message).toContain('tableId')
      })
    })
    ```
@@ -3467,8 +3467,8 @@
        '/assets/images/ingredients/vegetable_lettuce_raw.png',
        
        // Equipment
-       '/assets/images/equipment/cooking_stove_idle.png',
-       '/assets/images/equipment/prep_cutting_board_idle.png',
+       '/assets/images/equipment/cooking_stoveIdle.png',
+       '/assets/images/equipment/prep_cutting_boardIdle.png',
      ]
      
      return preloadImages(criticalImages)

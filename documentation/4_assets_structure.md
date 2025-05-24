@@ -52,7 +52,7 @@
 - **Sizes**: Various, proportional to real-world sizes
 - **Organization**: Grouped by function (cooking, preparation, storage)
 - **Naming Convention**: `[category]_[equipment_name]_[state].png`
-  - Example: `cooking_stove_idle.png`, `cooking_stove_active.png`
+  - Example: `cooking_stoveIdle.png`, `cooking_stove_active.png`
 - **States**: Multiple states (idle, active, broken)
 
 #### Characters

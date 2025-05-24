@@ -44,7 +44,7 @@ describe('MCP Tools', () => {
         const greet = tools.find((t) => t.name === 'greet_customer')!
         seatCustomer.mockReturnValue({ success: true })
 
-        const result = await greet.execute({ customer_id: 'cust1', table_id: 'tableA' })
+        const result = await greet.execute({ customerId: 'cust1', tableId: 'tableA' })
         expect(seatCustomer).toHaveBeenCalledWith('cust1', 'tableA')
         expect(result).toEqual({ success: true })
     })
@@ -61,7 +61,7 @@ describe('MCP Tools', () => {
         const cleanTool = tools.find((t) => t.name === 'clean_area')!
         startAction.mockClear()
         startAction.mockReturnValue('clean123')
-        const result = await cleanTool.execute({ target_id: 'table9', duration_ms: 10000 })
+        const result = await cleanTool.execute({ targetId: 'table9', duration_ms: 10000 })
         expect(startAction).toHaveBeenCalledWith('clean', 'table9', 10000)
         expect(result).toEqual({ success: true, actionId: 'clean123' })
     })

@@ -81,7 +81,7 @@ describe('Entity Factories', () => {
             expect(dish.cookingDifficulty).toBe(1);
             expect(dish.preparationTime).toBe(60);
             expect(dish.plateAppearance).toBe(1);
-            expect(dish.recipe).toBeDefined();
+            expect(dish.recipeId).toBe('');
         });
 
         it('should override default values with provided partials', () => {
