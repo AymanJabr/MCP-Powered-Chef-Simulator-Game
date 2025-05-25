@@ -28,15 +28,45 @@ export const useKitchenStore = create<KitchenState>()(
     immer((set) => ({
         prepStations: [
             { id: 'station_1', type: 'cutting_board', status: 'idle' },
-            { id: 'station_2', type: 'mixing_bowl', status: 'idle' },
+            { id: 'station_2', type: 'mixing_bowl', status: 'busy' },
+            { id: 'station_3', type: 'blender', status: 'idle' },
+            { id: 'station_4', type: 'mortar_pestle', status: 'idle' },
         ],
         cookingStations: [
-            { id: 'cook_1', type: 'stove', status: 'idle', temperature: 0 },
+            { id: 'cook_1', type: 'stove', status: 'busy', temperature: 180 },
             { id: 'cook_2', type: 'oven', status: 'idle', temperature: 0 },
+            { id: 'cook_3', type: 'grill', status: 'busy', temperature: 220 },
+            { id: 'cook_4', type: 'fryer', status: 'idle', temperature: 0 },
+            { id: 'cook_5', type: 'steamer', status: 'idle', temperature: 100 },
         ],
         activePreparations: {},
-        activeCookingProcesses: [],
-        platingStations: [{ id: 'plating_1', status: 'idle' }],
+        activeCookingProcesses: [
+            // Add some demo cooking processes
+            {
+                id: 'cooking_demo_001',
+                stationId: 'cook_1',
+                ingredients: ['beef_patty'],
+                cookingMethod: 'fry' as const,
+                startTime: Date.now() - 60000, // Started 1 minute ago
+                optimalCookingTime: 120000, // 2 minutes total
+                progress: 50, // Half done
+                status: 'in_progress' as const
+            },
+            {
+                id: 'cooking_demo_002',
+                stationId: 'cook_3',
+                ingredients: ['chicken_breast'],
+                cookingMethod: 'grill' as const,
+                startTime: Date.now() - 90000, // Started 1.5 minutes ago
+                optimalCookingTime: 180000, // 3 minutes total
+                progress: 80, // Almost done
+                status: 'in_progress' as const
+            }
+        ],
+        platingStations: [
+            { id: 'plating_1', status: 'idle' },
+            { id: 'plating_2', status: 'busy' }
+        ],
         activePlating: {},
         actions: {
             addPrepStation: (station) => set((state) => {

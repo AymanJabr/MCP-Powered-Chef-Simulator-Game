@@ -25,15 +25,46 @@ export const useRestaurantStore = create<RestaurantState>()(
         restaurant: {
             name: 'MCP-Powered Chef Restaurant',
             level: 1,
-            reputation: 50,
+            reputation: 2.5,
             funds: 1000,
             customerCapacity: 8,
             activeCustomers: [],
-            customerQueue: [],
+            customerQueue: [
+                {
+                    id: 'customer_demo_001',
+                    order: null,
+                    patience: 85,
+                    arrivalTime: Date.now() - 30000,
+                    status: 'waiting' as const,
+                    satisfaction: 75,
+                    tip: 0
+                },
+                {
+                    id: 'customer_demo_002',
+                    order: null,
+                    patience: 92,
+                    arrivalTime: Date.now() - 15000,
+                    status: 'waiting' as const,
+                    satisfaction: 80,
+                    tip: 0
+                }
+            ],
             activeOrders: [],
             completedOrders: [],
-            inventory: [],
-            equipment: []
+            inventory: [
+                { id: 'beef_patty', name: 'Beef Patty', category: 'meat' as const, quality: 8, quantity: 12, cost: 2.50 },
+                { id: 'chicken_breast', name: 'Chicken Breast', category: 'meat' as const, quality: 7, quantity: 8, cost: 3.00 },
+                { id: 'lettuce', name: 'Lettuce', category: 'vegetable' as const, quality: 9, quantity: 15, cost: 0.50 },
+                { id: 'tomato', name: 'Tomato', category: 'vegetable' as const, quality: 8, quantity: 10, cost: 0.75 },
+                { id: 'onion', name: 'Onion', category: 'vegetable' as const, quality: 7, quantity: 6, cost: 0.40 },
+                { id: 'cheese', name: 'Cheese', category: 'dairy' as const, quality: 9, quantity: 14, cost: 1.25 },
+                { id: 'bread', name: 'Bread', category: 'grain' as const, quality: 8, quantity: 20, cost: 0.30 },
+                { id: 'ketchup', name: 'Ketchup', category: 'sauce' as const, quality: 6, quantity: 5, cost: 1.00 },
+                { id: 'salt', name: 'Salt', category: 'spice' as const, quality: 10, quantity: 2, cost: 0.25 },
+                { id: 'pepper', name: 'Pepper', category: 'spice' as const, quality: 9, quantity: 3, cost: 0.35 }
+            ],
+            equipment: [],
+            unlockedMenuItems: []
         },
         actions: {
             setName: (name) => set((state) => {
@@ -63,7 +94,6 @@ export const useRestaurantStore = create<RestaurantState>()(
                 let message = 'Failed to seat customer'
 
                 set((state) => {
-                    // Check if customer exists in queue
                     const customerIndex = state.restaurant.customerQueue.findIndex(
                         (c: Customer) => c.id === customerId
                     )
@@ -72,13 +102,11 @@ export const useRestaurantStore = create<RestaurantState>()(
                         return
                     }
 
-                    // Check if at capacity
                     if (state.restaurant.activeCustomers.length >= state.restaurant.customerCapacity) {
                         message = 'Restaurant is at full capacity'
                         return
                     }
 
-                    // Move customer from queue to active customers
                     const customer = state.restaurant.customerQueue[customerIndex]
                     customer.tableId = tableId
                     customer.status = 'seated'
@@ -104,7 +132,6 @@ export const useRestaurantStore = create<RestaurantState>()(
                 if (orderIndex !== -1) {
                     state.restaurant.activeOrders[orderIndex].status = status
 
-                    // If order is now served, record the completion time
                     if (status === 'served' && !state.restaurant.activeOrders[orderIndex].completionTime) {
                         state.restaurant.activeOrders[orderIndex].completionTime = Date.now()
                     }
@@ -118,14 +145,11 @@ export const useRestaurantStore = create<RestaurantState>()(
                 if (orderIndex !== -1) {
                     const order = state.restaurant.activeOrders[orderIndex]
 
-                    // Add tip amount to the order
                     order.tip = tipAmount
 
-                    // Move from active to completed orders
                     state.restaurant.completedOrders.push(order)
                     state.restaurant.activeOrders.splice(orderIndex, 1)
 
-                    // Update customer status if this customer exists
                     const customerId = order.customerId
                     const customerIndex = state.restaurant.activeCustomers.findIndex(
                         (c: Customer) => c.id === customerId
@@ -143,14 +167,11 @@ export const useRestaurantStore = create<RestaurantState>()(
                 if (customerIndex !== -1) {
                     state.restaurant.activeCustomers[customerIndex].satisfaction = satisfactionScore
 
-                    // Update tips based on satisfaction
                     const tipPercentage = satisfactionScore / 100
                     state.restaurant.activeCustomers[customerIndex].tip = Math.floor(tipPercentage * 5)
 
-                    // Update restaurant reputation
-                    // Satisfaction above 50 increases reputation, below 50 decreases it
                     const reputationChange = (satisfactionScore - 50) / 10
-                    state.restaurant.reputation = Math.max(0, Math.min(100, state.restaurant.reputation + reputationChange))
+                    state.restaurant.reputation = Math.max(0, Math.min(5, state.restaurant.reputation + reputationChange))
                 }
             }),
 
