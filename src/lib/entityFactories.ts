@@ -182,7 +182,7 @@ export function createMCPAssistant(partial: Partial<MCPAssistant> = {}): MCPAssi
             failedCommands: 0
         },
         provider: {
-            name: 'claude',
+            name: 'anthropic',
             model: 'claude-3-sonnet-20240229',
             temperature: 0.7,
             maxTokens: 4096

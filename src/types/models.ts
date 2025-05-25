@@ -243,12 +243,30 @@ export interface MCPPerformanceMetrics {
 
 // LLM Provider
 export interface LLMProvider {
-    name: 'claude' | 'gpt' | 'gemini' | 'mock'
-    model: string
-    apiKey?: string
-    temperature: number
-    maxTokens: number
+    name: SupportedProvider
+    model: string;
+    apiKey?: string;
+    temperature: number;
+    maxTokens: number;
 }
+
+// New types based on the example provided
+export type SupportedProvider = 'openai' | 'anthropic' | 'gemini';
+
+export interface ApiKeyConfig {
+    provider: SupportedProvider;
+    apiKey: string;
+    model: string; // The selected model ID
+    temperature?: number;
+    maxTokens?: number;
+}
+
+export interface ModelInfo {
+    id: string;    // e.g., 'gpt-4-turbo', 'claude-3-opus-20240229'
+    name: string;  // e.g., 'GPT-4 Turbo', 'Claude 3 Opus'
+    provider?: SupportedProvider; // Optional: to know which provider this model belongs to if not obvious from id
+}
+
 export type PrepStationType =
     | 'cutting_board'
     | 'mixing_bowl'

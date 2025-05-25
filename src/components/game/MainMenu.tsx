@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Stack, Title, Text } from '@mantine/core';
 import { useGameStore } from '@/state/game/gameStore';
-import MCPConfigurationScreen from '../mcp/MCPConfigurationScreen';
+import ApiKeyConfigScreen from '../config/ApiKeyConfigScreen';
 import { LLMProvider } from '@/types/models';
 
 const MainMenu = () => {
@@ -19,15 +19,18 @@ const MainMenu = () => {
     };
 
     const handleMCPConfigComplete = (settings: LLMProvider) => {
-        // TODO: Persist LLMProvider settings (e.g., in gameStore or a new mcpStore)
-        // console.log("MCP Settings chosen:", settings); // For now, just log
+        // TODO: Persist LLMProvider settings more robustly (e.g., in gameStore or a new mcpStore)
+        // For now, we can assume useGameStore might get an action to set these if needed.
+        // Example: if (actions.setLlmSettings) actions.setLlmSettings(settings);
+        console.log("MCP LLM Settings chosen:", settings); // Log for now
+
         setGameMode('mcp');
         setDifficulty(1);
         setGamePhase('active');
     };
 
     if (showMCPConfigScreen) {
-        return <MCPConfigurationScreen onConfigureComplete={handleMCPConfigComplete} />;
+        return <ApiKeyConfigScreen onConfigComplete={handleMCPConfigComplete} />;
     }
 
     return (
