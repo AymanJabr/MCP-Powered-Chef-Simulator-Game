@@ -1,28 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import { MantineProvider, createTheme } from '@mantine/core';
+import { MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css'; // Import Mantine core styles
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "MCP Powered Chef Simulator", // Updated title
-  description: "A game showcasing manual vs MCP-assisted gameplay.", // Updated description
+  title: "MCP-Powered Chef Simulator", // Reverted title
+  description: "A dynamic chef simulation game with MCP integration.", // Reverted description
+  icons: {
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  },
+  openGraph: {
+    images: '/logo.png',
+  }
 };
-
-// Basic theme for Mantine (can be customized later)
-const theme = createTheme({
-  // Add any theme overrides here
-});
 
 export default function RootLayout({
   children,
@@ -31,10 +26,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+      <head>
+        <link rel="icon" href="/logo.png" sizes="any" />
+      </head>
+      <body className={inter.className}> {/* Reverted className */}
+        <MantineProvider>{children}</MantineProvider>
       </body>
     </html>
   );

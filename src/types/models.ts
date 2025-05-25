@@ -253,13 +253,13 @@ export interface LLMProvider {
 // New types based on the example provided
 export type SupportedProvider = 'openai' | 'anthropic' | 'gemini';
 
-export interface ApiKeyConfig {
-    provider: SupportedProvider;
-    apiKey: string;
-    model: string; // The selected model ID
-    temperature?: number;
-    maxTokens?: number;
-}
+// export interface ApiKeyConfig { TODO: see if this is needed
+//     provider: SupportedProvider;
+//     apiKey: string;
+//     model: string; // The selected model ID
+//     temperature?: number;
+//     maxTokens?: number;
+// }
 
 export interface ModelInfo {
     id: string;    // e.g., 'gpt-4-turbo', 'claude-3-opus-20240229'

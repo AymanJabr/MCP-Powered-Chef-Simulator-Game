@@ -5,7 +5,6 @@ import {
     Stack,
     Title,
     Radio,
-    TextInput,
     PasswordInput,
     Select,
     Button,
@@ -13,7 +12,7 @@ import {
     Text,
     Alert,
     Loader,
-    Paper, // For a container similar to the card in the example
+    Paper,
 } from '@mantine/core';
 import { IconAlertCircle, IconCircleCheck } from '@tabler/icons-react';
 import { LLMProvider, ModelInfo, SupportedProvider } from '@/types/models';
@@ -52,7 +51,7 @@ const ProviderApiKeyLinkDescription = ({ provider }: { provider: SupportedProvid
     if (!href) return null;
 
     return (
-        <Text size="xs">
+        <Text size="xs" component="span">
             Get your {provider.charAt(0).toUpperCase() + provider.slice(1)} API key from{' '}
             <a
                 href={href}
@@ -263,7 +262,7 @@ export default function ApiKeyConfigScreen({
                             rightSection={isLoadingModels ? <Loader size="xs" /> : undefined}
                             searchable
                             required
-                            description={<Text size="xs">Model capabilities vary. Try to find something that balances speed and quality.</Text>}
+                            description={<Text size="xs" component="span">Model capabilities and costs vary. Choose one appropriate for your needs.</Text>}
                         />
 
                         {error && (
