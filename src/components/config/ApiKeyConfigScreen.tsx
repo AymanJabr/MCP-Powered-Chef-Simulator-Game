@@ -33,6 +33,39 @@ interface ApiKeyConfigScreenProps {
 
 const availableProviders: SupportedProvider[] = ['openai', 'anthropic', 'gemini'];
 
+// Helper component for the API key description
+const ProviderApiKeyLinkDescription = ({ provider }: { provider: SupportedProvider }) => {
+    let href = "";
+    let text = "";
+
+    if (provider === 'openai') {
+        href = "https://platform.openai.com/api-keys";
+        text = "OpenAI Platform";
+    } else if (provider === 'anthropic') {
+        href = "https://console.anthropic.com/settings/keys";
+        text = "Anthropic Console";
+    } else if (provider === 'gemini') {
+        href = "https://aistudio.google.com/app/apikey";
+        text = "Google AI Studio";
+    }
+
+    if (!href) return null;
+
+    return (
+        <Text size="xs">
+            Get your {provider.charAt(0).toUpperCase() + provider.slice(1)} API key from{' '}
+            <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: 'var(--mantine-color-blue-6)', textDecoration: 'underline' }}
+            >
+                {text}
+            </a>
+        </Text>
+    );
+};
+
 export default function ApiKeyConfigScreen({
     onConfigComplete,
 }: ApiKeyConfigScreenProps) {
@@ -217,7 +250,7 @@ export default function ApiKeyConfigScreen({
                             onChange={(event) => handleApiKeyChange(event.currentTarget.value)}
                             onBlur={handleApiKeyBlur}
                             required
-                            description={<Text size="xs">Get your API key from the <a href={provider === 'openai' ? "https://platform.openai.com/api-keys" : provider === 'anthropic' ? "https://console.anthropic.com/settings/keys" : "https://aistudio.google.com/app/apikey"} target="_blank" rel="noopener noreferrer">official provider website</a>.</Text>}
+                            description={<ProviderApiKeyLinkDescription provider={provider} />}
                         />
 
                         <Select
@@ -230,7 +263,7 @@ export default function ApiKeyConfigScreen({
                             rightSection={isLoadingModels ? <Loader size="xs" /> : undefined}
                             searchable
                             required
-                            description={<Text size="xs">Model capabilities and costs vary. Choose one appropriate for your needs.</Text>}
+                            description={<Text size="xs">Model capabilities vary. Try to find something that balances speed and quality.</Text>}
                         />
 
                         {error && (
