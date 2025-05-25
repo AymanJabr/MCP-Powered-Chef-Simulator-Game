@@ -4,8 +4,7 @@ import { startGameLoop, stopGameLoop, isGameLoopRunning } from '@/lib/gameLoop';
 import MainMenu from './game/MainMenu';
 import GameOverScreen from './game/GameOverScreen';
 import RestaurantView from './game/RestaurantView';
-import PerformanceMetrics from './game/PerformanceMetrics';
-import ManualControls from './game/ManualControls';
+// import PerformanceMetrics from './game/PerformanceMetrics'; // Removed
 import MCPInterface from './mcp/MCPInterface';
 // import { preloadCriticalAssets } from '@/lib/assetLoader'; // Assuming assetLoader.ts exists
 import { LoadingOverlay } from '@mantine/core';
@@ -65,12 +64,10 @@ const GameClient = () => {
             <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
                 {/* TODO: Add a proper game header with Pause button, score, etc. */}
                 {/* <Button onClick={togglePause}>{isPaused ? 'Resume' : 'Pause'}</Button> */}
-                <div style={{ flexGrow: 1, display: 'flex' /* placeholder for actual layout */ }}>
+                <div style={{ flexGrow: 1 /* placeholder for actual layout */ }}>
                     <RestaurantView />
-                    <div style={{ width: '300px', borderLeft: '1px solid #ccc', padding: '10px' }}>
-                        <PerformanceMetrics metrics={gamePerformanceMetrics} />
-                        {gameMode === 'manual' ? <ManualControls /> : <MCPInterface />}
-                    </div>
+                    {/* Sidebar removed, only MCPInterface might be needed conditionally or elsewhere */}
+                    {/* {gameMode === 'mcp' && <MCPInterface />} */}
                 </div>
             </div>
         );
