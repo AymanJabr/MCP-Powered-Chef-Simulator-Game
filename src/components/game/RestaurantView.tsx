@@ -6,6 +6,9 @@ import { useKitchenStore } from '@/state/game/kitchenStore'
 import { useState, useEffect } from 'react'
 import { Customer, PrepStation, CookingStation, PlatingStation } from '@/types/models'
 import InventoryPanel from './InventoryPanel'
+import CustomerPatienceDisplay from './CustomerPatienceDisplay'
+import CustomerIcon from '../icons/CustomerIcon'
+import TableIcon from '../icons/TableIcon'
 
 export interface GameSelection {
     type: 'customer' | 'table' | 'station' | 'order' | 'ingredient' | null
@@ -99,6 +102,37 @@ export default function RestaurantView() {
     const handleCustomerSelect = (customerId: string) => {
         setSelection({ type: 'customer', id: customerId })
     }
+
+    const handleCustomerClick = (customerId: string, tableId: string | undefined) => {
+        if (!tableId) return; // Should not happen if customer is seated
+
+        const customerAtTable = restaurant.activeCustomers.find(c => c.id === customerId);
+
+        if (customerAtTable && customerAtTable.status === 'seated' && !customerAtTable.order) {
+            const placeholderDishId = restaurant.unlockedMenuItems && restaurant.unlockedMenuItems.length > 0
+                ? restaurant.unlockedMenuItems[0]
+                : 'dish_burger_001';
+
+            const result = actions.takeOrder(tableId, placeholderDishId);
+            if (result.success) {
+                console.log(result.message, result.order);
+                const tablePos = TABLE_POSITIONS.find(t => t.id === tableId);
+                if (tablePos) {
+                    setChefPosition({ x: tablePos.x - 5, y: tablePos.y + 5 });
+                    setTimeout(() => {
+                        setChefPosition({ x: 40, y: 50 });
+                    }, 1500);
+                }
+            } else {
+                console.warn(result.message);
+            }
+            // Select the customer directly instead of the table
+            setSelection({ type: 'customer', id: customerId, data: { tableId } });
+        } else {
+            // Fallback: just select the customer
+            setSelection({ type: 'customer', id: customerId, data: { tableId } });
+        }
+    };
 
     const handleTableClick = (tableId: string) => {
         const customerAtTable = restaurant.activeCustomers.find(c => c.tableId === tableId);
@@ -267,31 +301,31 @@ export default function RestaurantView() {
                         🚶‍♂️ Entrance
                     </div>
 
-                    {/* Queue customers */}
+                    {/* Customer in Queue */}
                     {restaurant.customerQueue.map((customer, index) => {
-                        const queuePos = QUEUE_POSITIONS[index] || QUEUE_POSITIONS[QUEUE_POSITIONS.length - 1]
-                        const isSelected = selection.type === 'customer' && selection.id === customer.id
+                        if (index >= QUEUE_POSITIONS.length) return null; // Don't render if no position
+                        const queuePos = QUEUE_POSITIONS[index];
+                        const isSelected = selection.type === 'customer' && selection.id === customer.id;
 
                         return (
                             <div
                                 key={customer.id}
-                                className={`absolute cursor-pointer transition-all duration-300 ${isSelected ? 'scale-110 z-10' : 'hover:scale-105'
-                                    }`}
+                                className={`absolute p-1 rounded cursor-pointer transition-all duration-300 ease-in-out 
+                                            ${isSelected ? 'ring-2 ring-blue-500 bg-blue-100' : 'bg-gray-200 hover:bg-gray-300'}`}
                                 style={{
                                     left: `${queuePos.x}%`,
                                     top: `${queuePos.y}%`,
-                                    transform: 'translate(-50%, -50%)'
+                                    transform: 'translate(-50%, -50%)',
+                                    zIndex: 10
                                 }}
                                 onClick={() => handleCustomerSelect(customer.id)}
                             >
-                                <div className={`w-10 h-14 rounded-lg border-2 flex flex-col items-center justify-center
-                                    ${isSelected ? 'border-blue-500 bg-blue-200' : 'border-gray-300 bg-white'}
-                                `}>
-                                    <div className="text-xl">👤</div>
-                                    <div className="text-xs">{customer.patience.toFixed(0)}%</div>
+                                <div className="flex flex-col items-center w-16">
+                                    <CustomerPatienceDisplay patience={customer.patience} />
+                                    <CustomerIcon className="w-8 h-8 text-gray-700 mt-1" />
                                 </div>
                             </div>
-                        )
+                        );
                     })}
 
                     {/* Selection hint */}
@@ -316,6 +350,49 @@ export default function RestaurantView() {
                 <div className="text-xl font-bold text-green-800 p-2 text-center">
                     🍽️ Dining Area
                 </div>
+
+                {/* Seated Customers */}
+                {restaurant.activeCustomers.map((customer) => {
+                    if (!customer.tableId) return null;
+
+                    const tablePosition = TABLE_POSITIONS.find(t => t.id === customer.tableId);
+                    if (!tablePosition) return null;
+
+                    let currentX = tablePosition.x;
+                    let currentY = tablePosition.y;
+
+                    if (movingCustomers[customer.id]?.isMoving && movingCustomers[customer.id].position) {
+                        currentX = movingCustomers[customer.id].position.x;
+                        currentY = movingCustomers[customer.id].position.y;
+                    }
+
+                    const isSelected = selection.type === 'customer' && selection.id === customer.id;
+                    const hasOrder = customer.order !== null;
+
+                    return (
+                        <div
+                            key={customer.id}
+                            className={`absolute p-1 rounded cursor-pointer transition-all duration-300 ease-in-out
+                                ${isSelected ? 'ring-2 ring-blue-500 bg-blue-100' : 'bg-opacity-75'}
+                                ${hasOrder ? 'bg-green-200/70' : 'bg-red-200/70'} 
+                            `}
+                            style={{
+                                left: `${currentX}%`,
+                                top: `${currentY}%`,
+                                transform: 'translate(-50%, -50%)',
+                                zIndex: movingCustomers[customer.id]?.isMoving ? 25 : 20,
+                                transition: movingCustomers[customer.id]?.isMoving ? 'left 1s linear, top 1s linear' : 'none',
+                                width: '60px'
+                            }}
+                            onClick={() => handleCustomerClick(customer.id, customer.tableId)}
+                        >
+                            <div className="flex flex-col items-center">
+                                <CustomerPatienceDisplay patience={customer.patience} />
+                                <CustomerIcon className="w-8 h-8 text-gray-700 mt-1" />
+                            </div>
+                        </div>
+                    );
+                })}
 
                 {/* Tables */}
                 {TABLE_POSITIONS.map((tablePos) => {
