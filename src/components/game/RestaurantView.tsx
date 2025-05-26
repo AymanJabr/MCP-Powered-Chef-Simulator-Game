@@ -26,12 +26,12 @@ interface MovingEntity {
 
 // Define restaurant layout areas (in percentage coordinates)
 const AREAS = {
-    QUEUE: { x: 0, y: 10, width: 15, height: 90 },
-    DINING: { x: 15, y: 10, width: 45, height: 60 },
-    KITCHEN_PREP: { x: 60, y: 10, width: 40, height: 25 },
+    QUEUE: { x: 0, y: 5, width: 15, height: 95 },
+    DINING: { x: 15, y: 5, width: 45, height: 65 },
+    KITCHEN_PREP: { x: 60, y: 5, width: 40, height: 30 },
     KITCHEN_COOK: { x: 80, y: 35, width: 20, height: 45 },
     KITCHEN_PLATE: { x: 60, y: 80, width: 40, height: 20 },
-    STATUS: { x: 0, y: 0, width: 100, height: 10 },
+    STATUS: { x: 0, y: 0, width: 100, height: 5 },
     ORDERS: { x: 15, y: 70, width: 45, height: 15 },
     CONTROLS: { x: 15, y: 85, width: 45, height: 15 }
 }
@@ -50,10 +50,10 @@ const TABLE_POSITIONS = [
 
 // Queue positions
 const QUEUE_POSITIONS = [
-    { x: 7, y: 20 },
-    { x: 7, y: 35 },
-    { x: 7, y: 50 },
-    { x: 7, y: 65 }
+    { x: 50, y: 15 },
+    { x: 50, y: 25 },
+    { x: 50, y: 35 },
+    { x: 50, y: 45 }
 ]
 
 export default function RestaurantView() {
@@ -161,7 +161,7 @@ export default function RestaurantView() {
     const formatTime = (seconds: number): string => {
         const minutes = Math.floor(seconds / 60)
         const remainingSeconds = seconds % 60
-        return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`
+        return `${minutes}:${remainingSeconds.toFixed(1).padStart(4, '0')}`
     }
 
     const formatCurrency = (amount: number): string => {
@@ -186,7 +186,7 @@ export default function RestaurantView() {
         <div className="h-screen w-screen bg-amber-50 relative overflow-hidden">
             {/* Status Bar */}
             <div
-                className="absolute bg-slate-800 text-white px-4 flex items-center justify-between text-sm"
+                className="absolute bg-slate-800 text-white px-4 flex items-center justify-between text-xs"
                 style={{
                     left: `${AREAS.STATUS.x}%`,
                     top: `${AREAS.STATUS.y}%`,
@@ -194,7 +194,7 @@ export default function RestaurantView() {
                     height: `${AREAS.STATUS.height}%`
                 }}
             >
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
                     <div className="flex items-center gap-1">
                         <span className="text-green-400">💰</span>
                         <span className="font-semibold">{formatCurrency(restaurant.funds)}</span>
@@ -214,7 +214,7 @@ export default function RestaurantView() {
                     </div>
                 </div>
                 <div className="font-semibold">
-                    {game.gameMode === 'mcp' ? 'MCP-Chef' : 'Human-Chef'}
+                    Game Mode: {game.gameMode === 'mcp' ? 'MCP-Chef' : 'Human-Chef'}
                 </div>
             </div>
 
@@ -245,7 +245,7 @@ export default function RestaurantView() {
                                     }`}
                                 style={{
                                     left: `${queuePos.x}%`,
-                                    top: `${queuePos.y + 5}%`,
+                                    top: `${queuePos.y}%`,
                                     transform: 'translate(-50%, -50%)'
                                 }}
                                 onClick={() => handleCustomerSelect(customer.id)}
@@ -497,38 +497,32 @@ export default function RestaurantView() {
                     height: `${AREAS.CONTROLS.height}%`
                 }}
             >
-                <div className="p-2 flex items-center justify-between">
-                    <div className="flex gap-2">
-                        <button
-                            className="px-3 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600 transition-colors"
-                            onClick={() => {
-                                console.log('Spawn customer clicked')
-                            }}
-                        >
-                            👥 Spawn Customer
-                        </button>
-                        <button
-                            className="px-3 py-1 bg-green-500 text-white rounded text-xs hover:bg-green-600 transition-colors"
-                            onClick={() => {
-                                setChefPosition({ x: 30, y: 40 })
-                                setTimeout(() => setChefPosition({ x: 40, y: 50 }), 1000)
-                            }}
-                        >
-                            📝 Take Orders
-                        </button>
-                        <button
-                            className="px-3 py-1 bg-purple-500 text-white rounded text-xs hover:bg-purple-600 transition-colors"
-                            onClick={() => {
-                                console.log('Restock clicked')
-                            }}
-                        >
-                            📦 Restock
-                        </button>
-                    </div>
-
-                    <div className="text-xs text-gray-600">
-                        Game Mode: {game.gameMode.toUpperCase()}
-                    </div>
+                <div className="p-2 flex items-center justify-around">
+                    <button
+                        className="px-3 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600 transition-colors"
+                        onClick={() => {
+                            console.log('Spawn customer clicked')
+                        }}
+                    >
+                        👥 Spawn Customer
+                    </button>
+                    <button
+                        className="px-3 py-1 bg-green-500 text-white rounded text-xs hover:bg-green-600 transition-colors"
+                        onClick={() => {
+                            setChefPosition({ x: 30, y: 40 })
+                            setTimeout(() => setChefPosition({ x: 40, y: 50 }), 1000)
+                        }}
+                    >
+                        📝 Take Orders
+                    </button>
+                    <button
+                        className="px-3 py-1 bg-purple-500 text-white rounded text-xs hover:bg-purple-600 transition-colors"
+                        onClick={() => {
+                            console.log('Restock clicked')
+                        }}
+                    >
+                        📦 Restock
+                    </button>
                 </div>
             </div>
 

@@ -100,44 +100,62 @@ function gameLoop(timestamp: number): void {
 // Customers
 // ---------------------------------------------------------------------------
 function processCustomerPatience(deltaSeconds: number): void {
-    const gameDifficulty = useGameStore.getState().game.difficulty
-    const restaurantState = useRestaurantStore.getState()
+    const gameDifficulty = useGameStore.getState().game.difficulty;
+    // Get the current state and actions from the store
+    const { restaurant, actions } = useRestaurantStore.getState();
 
-    const queueDecay = 1 + gameDifficulty * 0.3 // waiting line loses patience quick
-    const seatedDecay = 0.5 + gameDifficulty * 0.15 // seated customers, slower
+    const queueDecay = 1 + gameDifficulty * 0.3; // waiting line loses patience quick
+    const seatedDecay = 0.5 + gameDifficulty * 0.15; // seated customers, slower
 
-    const leftCustomersData: Array<{ id: string; satisfaction: number }> = [];
+    const leftCustomerIds: string[] = [];
+    const customersToUpdate: { customerId: string; newPatience: number; isQueued: boolean }[] = [];
 
-    // Process queue
-    const updatedQueue = restaurantState.restaurant.customerQueue.filter(customer => {
-        customer.patience -= queueDecay * deltaSeconds;
-        if (customer.patience <= 0) {
-            leftCustomersData.push({ id: customer.id, satisfaction: customer.satisfaction });
-            return false; // Remove from queue
+    // Identify customers whose patience needs updating or who are leaving from queue
+    restaurant.customerQueue.forEach(customer => {
+        const newPatience = customer.patience - queueDecay * deltaSeconds;
+        if (newPatience <= 0) {
+            leftCustomerIds.push(customer.id);
+        } else {
+            customersToUpdate.push({ customerId: customer.id, newPatience, isQueued: true });
         }
-        return true;
     });
 
-    // Process active (seated) customers
-    const updatedActiveCustomers = restaurantState.restaurant.activeCustomers.filter(customer => {
-        customer.patience -= seatedDecay * deltaSeconds;
-        if (customer.patience <= 0) {
-            leftCustomersData.push({ id: customer.id, satisfaction: customer.satisfaction });
-            return false; // Remove from active customers
+    // Identify customers whose patience needs updating or who are leaving from active customers
+    restaurant.activeCustomers.forEach(customer => {
+        const newPatience = customer.patience - seatedDecay * deltaSeconds;
+        if (newPatience <= 0) {
+            leftCustomerIds.push(customer.id);
+        } else {
+            customersToUpdate.push({ customerId: customer.id, newPatience, isQueued: false });
         }
-        return true;
     });
 
-    if (leftCustomersData.length > 0) {
-        useRestaurantStore.setState((state) => {
-            // Directly assign the filtered arrays
-            state.restaurant.customerQueue = updatedQueue;
-            state.restaurant.activeCustomers = updatedActiveCustomers;
-        });
+    // Batch update the store if there are any changes
+    if (customersToUpdate.length > 0 || leftCustomerIds.length > 0) {
+        useRestaurantStore.setState(state => {
+            customersToUpdate.forEach(update => {
+                const customerArray = update.isQueued ? state.restaurant.customerQueue : state.restaurant.activeCustomers;
+                const customer = customerArray.find(c => c.id === update.customerId);
+                if (customer) {
+                    customer.patience = update.newPatience; // This is fine inside setState with immer
+                }
+            });
 
-        leftCustomersData.forEach(customerData => {
-            customersLeftCounter += 1;
-            eventBus.emit('customer_left', { customerId: customerData.id, satisfaction: customerData.satisfaction });
+            leftCustomerIds.forEach(customerId => {
+                const wasInQueue = state.restaurant.customerQueue.some(c => c.id === customerId);
+                if (wasInQueue) {
+                    state.restaurant.customerQueue = state.restaurant.customerQueue.filter(c => c.id !== customerId);
+                } else {
+                    state.restaurant.activeCustomers = state.restaurant.activeCustomers.filter(c => c.id !== customerId);
+                }
+
+                // Find satisfaction for the event, it might be stale if customer was already removed by patience update
+                const originalCustomer = restaurant.customerQueue.find(c => c.id === customerId) || restaurant.activeCustomers.find(c => c.id === customerId);
+                const satisfaction = originalCustomer ? originalCustomer.satisfaction : 0; // Default if not found (should not happen)
+
+                customersLeftCounter += 1;
+                eventBus.emit('customer_left', { customerId: customerId, satisfaction });
+            });
         });
     }
 }

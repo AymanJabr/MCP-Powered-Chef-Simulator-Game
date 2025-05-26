@@ -11,7 +11,7 @@ interface StatusBarProps {
 function formatTime(seconds: number): string {
     const minutes = Math.floor(seconds / 60)
     const remainingSeconds = seconds % 60
-    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`
+    return `${minutes}:${remainingSeconds.toFixed(1).padStart(4, '0')}`
 }
 
 function formatCurrency(amount: number): string {
@@ -41,7 +41,7 @@ export default function StatusBar({
     timeElapsed
 }: StatusBarProps) {
     return (
-        <div className="h-12 bg-slate-800 text-white px-4 flex items-center justify-between">
+        <div className="bg-slate-800 text-white px-4 flex items-center justify-between">
             <div className="flex items-center gap-6">
                 <div className="flex items-center gap-2">
                     <span className="text-green-400 font-mono text-lg">💰</span>
