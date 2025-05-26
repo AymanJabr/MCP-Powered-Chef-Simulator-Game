@@ -5,6 +5,7 @@ import { useRestaurantStore } from '@/state/game/restaurantStore'
 import { useKitchenStore } from '@/state/game/kitchenStore'
 import { useState, useEffect } from 'react'
 import { Customer, PrepStation, CookingStation, PlatingStation } from '@/types/models'
+import InventoryPanel from './InventoryPanel'
 
 export interface GameSelection {
     type: 'customer' | 'table' | 'station' | 'order' | 'ingredient' | null
@@ -26,14 +27,18 @@ interface MovingEntity {
 
 // Define restaurant layout areas (in percentage coordinates)
 const AREAS = {
-    QUEUE: { x: 0, y: 5, width: 15, height: 95 },
-    DINING: { x: 15, y: 5, width: 45, height: 65 },
-    KITCHEN_PREP: { x: 60, y: 5, width: 40, height: 30 },
-    KITCHEN_COOK: { x: 80, y: 35, width: 20, height: 45 },
-    KITCHEN_PLATE: { x: 60, y: 80, width: 40, height: 20 },
     STATUS: { x: 0, y: 0, width: 100, height: 5 },
+
+    QUEUE: { x: 0, y: 5, width: 15, height: 80 },
+    DINING: { x: 15, y: 5, width: 45, height: 80 },
+
+    KITCHEN_PREP: { x: 60, y: 5, width: 40, height: 25.3 },
+    KITCHEN_COOK: { x: 80, y: 30.3, width: 20, height: 37.9 },
+    KITCHEN_PLATE: { x: 60, y: 68.2, width: 40, height: 16.8 },
+
     ORDERS: { x: 15, y: 70, width: 45, height: 15 },
-    CONTROLS: { x: 15, y: 85, width: 45, height: 15 }
+
+    CONTROLS: { x: 0, y: 85, width: 100, height: 15 }
 }
 
 // Table positions within dining area
@@ -64,6 +69,7 @@ export default function RestaurantView() {
     const [selection, setSelection] = useState<GameSelection>({ type: null, id: null })
     const [chefPosition, setChefPosition] = useState<Position>({ x: 40, y: 50 })
     const [movingCustomers, setMovingCustomers] = useState<Record<string, MovingEntity>>({})
+    const [showInventoryPanel, setShowInventoryPanel] = useState(false)
 
     // Animation function for smooth movement
     const moveEntityTo = (entityId: string, targetPos: Position, duration: number = 1000) => {
@@ -95,7 +101,10 @@ export default function RestaurantView() {
     }
 
     const handleTableClick = (tableId: string) => {
+        const customerAtTable = restaurant.activeCustomers.find(c => c.tableId === tableId);
+
         if (selection.type === 'customer' && selection.id) {
+            // This is for seating a customer from the queue
             const result = actions.seatCustomer(selection.id, tableId)
             if (result.success) {
                 // Animate customer walking to table
@@ -140,7 +149,32 @@ export default function RestaurantView() {
                 }
                 setSelection({ type: null, id: null })
             }
+        } else if (customerAtTable && customerAtTable.status === 'seated' && !customerAtTable.order) {
+            // Logic to take order for an already seated customer
+            // For now, let's use a placeholder dish ID. This would typically come from a menu UI.
+            const placeholderDishId = restaurant.unlockedMenuItems && restaurant.unlockedMenuItems.length > 0
+                ? restaurant.unlockedMenuItems[0]
+                : 'dish_burger_001'; // Fallback dish
+
+            const result = actions.takeOrder(tableId, placeholderDishId);
+            if (result.success) {
+                console.log(result.message, result.order);
+                // Optionally, move chef to table
+                const tablePos = TABLE_POSITIONS.find(t => t.id === tableId);
+                if (tablePos) {
+                    setChefPosition({ x: tablePos.x - 5, y: tablePos.y + 5 });
+                    // Chef returns to center after a bit
+                    setTimeout(() => {
+                        setChefPosition({ x: 40, y: 50 });
+                    }, 1500);
+                }
+            } else {
+                console.warn(result.message);
+                // Potentially show a small UI notification to the player
+            }
+            setSelection({ type: 'table', id: tableId }); // Keep table selected or deselect as preferred
         } else {
+            // Just select the table if no other action is pending or possible
             setSelection({ type: 'table', id: tableId })
         }
     }
@@ -494,37 +528,26 @@ export default function RestaurantView() {
                     left: `${AREAS.CONTROLS.x}%`,
                     top: `${AREAS.CONTROLS.y}%`,
                     width: `${AREAS.CONTROLS.width}%`,
-                    height: `${AREAS.CONTROLS.height}%`
+                    height: `${AREAS.CONTROLS.height}%`,
+                    zIndex: 40
                 }}
             >
-                <div className="p-2 flex items-center justify-around">
+                {/* Controls Area Content: Button to open Inventory Panel */}
+                <div className="p-2 flex items-center justify-center h-full">
                     <button
-                        className="px-3 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600 transition-colors"
-                        onClick={() => {
-                            console.log('Spawn customer clicked')
-                        }}
+                        className="px-4 py-2 bg-purple-500 text-white rounded text-sm hover:bg-purple-600 transition-colors"
+                        onClick={() => setShowInventoryPanel(true)}
                     >
-                        👥 Spawn Customer
-                    </button>
-                    <button
-                        className="px-3 py-1 bg-green-500 text-white rounded text-xs hover:bg-green-600 transition-colors"
-                        onClick={() => {
-                            setChefPosition({ x: 30, y: 40 })
-                            setTimeout(() => setChefPosition({ x: 40, y: 50 }), 1000)
-                        }}
-                    >
-                        📝 Take Orders
-                    </button>
-                    <button
-                        className="px-3 py-1 bg-purple-500 text-white rounded text-xs hover:bg-purple-600 transition-colors"
-                        onClick={() => {
-                            console.log('Restock clicked')
-                        }}
-                    >
-                        📦 Restock
+                        Manage Inventory
                     </button>
                 </div>
             </div>
+
+            {/* Inventory Panel Modal - Rendered at the root of RestaurantView for proper modal behavior */}
+            <InventoryPanel
+                isOpen={showInventoryPanel}
+                onClose={() => setShowInventoryPanel(false)}
+            />
 
             {/* Selection Info Panel (overlay) */}
             {selection.type && selection.id && (

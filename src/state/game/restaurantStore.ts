@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
-import { Restaurant, Customer, Order, Ingredient, Equipment } from '@/types/models'
+import { Restaurant, Customer, Order, Ingredient, Equipment, Dish } from '@/types/models'
 
 interface RestaurantState {
     restaurant: Restaurant
@@ -13,6 +13,7 @@ interface RestaurantState {
         seatCustomer: (customerId: string, tableId: string) => { success: boolean, message?: string }
         addActiveOrder: (order: Order) => void
         updateOrderStatus: (orderId: string, status: Order['status']) => void
+        takeOrder: (tableId: string, dishId: string) => { success: boolean, message?: string, order?: Order }
         completeOrder: (orderId: string, tipAmount: number) => void
         updateCustomerSatisfaction: (customerId: string, satisfactionScore: number) => void
         updateIngredientQuantity: (ingredientId: string, quantityChange: number) => void
@@ -119,6 +120,60 @@ export const useRestaurantStore = create<RestaurantState>()(
                 })
 
                 return { success, message }
+            },
+
+            takeOrder: (tableId, dishId) => {
+                let success = false;
+                let message = 'Failed to take order';
+                let order: Order | undefined = undefined;
+
+                set((state) => {
+                    const customerIndex = state.restaurant.activeCustomers.findIndex(
+                        (c: Customer) => c.tableId === tableId && c.status === 'seated' && !c.order
+                    );
+
+                    if (customerIndex === -1) {
+                        message = 'No customer at this table is ready to order, or an order already exists.';
+                        return;
+                    }
+
+                    const customer = state.restaurant.activeCustomers[customerIndex];
+                    // For now, let's find a sample dish from inventory or create a placeholder
+                    // In a real scenario, dishId would come from a menu selection UI
+                    const dish: Dish = state.restaurant.menuItems?.find(d => d.id === dishId) || {
+                        id: dishId,
+                        name: 'Placeholder Dish ' + dishId.slice(-3), // e.g. "Placeholder Dish 001"
+                        basePrice: 10,
+                        recipeId: 'recipe_placeholder',
+                        cookingDifficulty: 3,
+                        preparationTime: 300, // 5 minutes
+                        plateAppearance: 3,
+                    };
+
+                    const newOrder: Order = {
+                        id: `order_${Date.now()}_${customer.id.slice(-3)}`,
+                        customerId: customer.id,
+                        dish: dish,
+                        customizations: [],
+                        status: 'received',
+                        startTime: Date.now(),
+                        completionTime: null,
+                        qualityScore: 0,
+                        tip: 0,
+                        isPriority: Math.random() < 0.2 // 20% chance of being priority
+                    };
+
+                    state.restaurant.activeOrders.push(newOrder);
+                    state.restaurant.activeCustomers[customerIndex].order = newOrder;
+                    // Optionally change customer status if needed, e.g. customer.status = 'ordered'
+                    // For now, 'seated' with an order implies they've ordered.
+
+                    order = newOrder;
+                    success = true;
+                    message = `Order for ${dish.name} taken for customer ${customer.id}.`;
+                });
+
+                return { success, message, order };
             },
 
             addActiveOrder: (order) => set((state) => {
