@@ -1,258 +1,587 @@
 [
     {
-        "id": "ingredient_beef_patty",
-        "name": "Beef Patty",
+        "id": "ingredient_apple",
+        "name": "Apple",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.00,
+        "image": "/apple.png"
+    },
+    {
+        "id": "ingredient_avocado_half",
+        "name": "Avocado Half",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.50,
+        "image": "/avocadoHalf.png"
+    },
+    {
+        "id": "ingredient_bacon",
+        "name": "Bacon",
         "category": "meat",
         "quality": 80,
-        "quantity": 1,
-        "cost": 2.50
+        "quantity": 10,
+        "cost": 2.00,
+        "image": "/bacon.png"
     },
     {
-        "id": "ingredient_chicken_breast",
-        "name": "Chicken Breast",
-        "category": "meat",
-        "quality": 85,
-        "quantity": 1,
-        "cost": 3.00
-    },
-    {
-        "id": "ingredient_bacon_strips",
-        "name": "Bacon Strips",
-        "category": "meat",
-        "quality": 75,
-        "quantity": 1,
-        "cost": 1.50
-    },
-    {
-        "id": "ingredient_fish_fillet",
-        "name": "Fish Fillet",
+        "id": "ingredient_bacon_raw",
+        "name": "Raw Bacon",
         "category": "meat",
         "quality": 80,
-        "quantity": 1,
-        "cost": 3.50
+        "quantity": 10,
+        "cost": 1.80,
+        "image": "/bacon_raw.png"
     },
     {
-        "id": "ingredient_tomato",
-        "name": "Tomato",
+        "id": "ingredient_banana",
+        "name": "Banana",
         "category": "vegetable",
-        "quality": 90,
-        "quantity": 1,
-        "cost": 0.50
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.80,
+        "image": "/banana.png"
     },
     {
-        "id": "ingredient_lettuce_head",
-        "name": "Lettuce Head",
+        "id": "ingredient_beet",
+        "name": "Beet",
         "category": "vegetable",
-        "quality": 85,
-        "quantity": 1,
-        "cost": 1.00
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.90,
+        "image": "/beet.png"
+    },
+    {
+        "id": "ingredient_bread",
+        "name": "Bread",
+        "category": "grain",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.20,
+        "image": "/bread.png"
+    },
+    {
+        "id": "ingredient_broccoli",
+        "name": "Broccoli",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.10,
+        "image": "/broccoli.png"
+    },
+    {
+        "id": "ingredient_cabbage",
+        "name": "Cabbage",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.00,
+        "image": "/cabbage.png"
+    },
+    {
+        "id": "ingredient_carrot",
+        "name": "Carrot",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.70,
+        "image": "/carrot.png"
+    },
+    {
+        "id": "ingredient_cauliflower",
+        "name": "Cauliflower",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.30,
+        "image": "/cauliflower.png"
+    },
+    {
+        "id": "ingredient_cheese_cut",
+        "name": "Cut Cheese",
+        "category": "dairy",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 2.50,
+        "image": "/cheeseCut.png"
+    },
+    {
+        "id": "ingredient_cherries",
+        "name": "Cherries",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.60,
+        "image": "/cherries.png"
+    },
+    {
+        "id": "ingredient_chocolate",
+        "name": "Chocolate",
+        "category": "dairy",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 2.00,
+        "image": "/chocolate.png"
+    },
+    {
+        "id": "ingredient_chocolate_wrapper",
+        "name": "Chocolate Bar",
+        "category": "dairy",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 2.10,
+        "image": "/chocolateWrapper.png"
+    },
+    {
+        "id": "ingredient_coconut_half",
+        "name": "Coconut Half",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.90,
+        "image": "/coconutHalf.png"
+    },
+    {
+        "id": "ingredient_cookie",
+        "name": "Cookie",
+        "category": "grain",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.50,
+        "image": "/cookie.png"
+    },
+    {
+        "id": "ingredient_corn",
+        "name": "Corn",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.90,
+        "image": "/corn.png"
+    },
+    {
+        "id": "ingredient_corn_dog",
+        "name": "Corn Dog",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.50,
+        "image": "/cornDog.png"
+    },
+    {
+        "id": "ingredient_eggplant",
+        "name": "Eggplant",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.20,
+        "image": "/eggplant.png"
+    },
+    {
+        "id": "ingredient_fries",
+        "name": "Fries",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.00,
+        "image": "/fries.png"
+    },
+    {
+        "id": "ingredient_grapes",
+        "name": "Grapes",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.40,
+        "image": "/grapes.png"
+    },
+    {
+        "id": "ingredient_honey",
+        "name": "Honey",
+        "category": "sauce",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 2.00,
+        "image": "/honey.png"
+    },
+    {
+        "id": "ingredient_leek",
+        "name": "Leek",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.80,
+        "image": "/leek.png"
+    },
+    {
+        "id": "ingredient_lemon",
+        "name": "Lemon",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.60,
+        "image": "/lemon.png"
+    },
+    {
+        "id": "ingredient_lemon_half",
+        "name": "Lemon Half",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.60,
+        "image": "/lemonHalf.png"
+    },
+    {
+        "id": "ingredient_loaf",
+        "name": "Loaf of Bread",
+        "category": "grain",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.50,
+        "image": "/loaf.png"
+    },
+    {
+        "id": "ingredient_loaf_baguette",
+        "name": "Baguette",
+        "category": "grain",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.70,
+        "image": "/loafBaguette.png"
+    },
+    {
+        "id": "ingredient_mushroom",
+        "name": "Mushroom",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.00,
+        "image": "/mushroom.png"
+    },
+    {
+        "id": "ingredient_mushroom_half",
+        "name": "Mushroom Half",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.00,
+        "image": "/mushroomHalf.png"
     },
     {
         "id": "ingredient_onion",
         "name": "Onion",
         "category": "vegetable",
         "quality": 80,
-        "quantity": 1,
-        "cost": 0.30
+        "quantity": 10,
+        "cost": 0.50,
+        "image": "/onion.png"
     },
     {
-        "id": "ingredient_potato",
-        "name": "Potato",
+        "id": "ingredient_onion_half",
+        "name": "Onion Half",
         "category": "vegetable",
-        "quality": 85,
-        "quantity": 1,
-        "cost": 0.40
-    },
-    {
-        "id": "ingredient_mushroom",
-        "name": "Mushroom",
-        "category": "vegetable",
-        "quality": 75,
-        "quantity": 1,
-        "cost": 0.80
-    },
-    {
-        "id": "ingredient_carrot",
-        "name": "Carrot",
-        "category": "vegetable",
-        "quality": 90,
-        "quantity": 1,
-        "cost": 0.30
-    },
-    {
-        "id": "ingredient_bell_pepper",
-        "name": "Bell Pepper",
-        "category": "vegetable",
-        "quality": 85,
-        "quantity": 1,
-        "cost": 0.70
-    },
-    {
-        "id": "ingredient_cheese_slice",
-        "name": "Cheese Slice",
-        "category": "dairy",
         "quality": 80,
-        "quantity": 1,
-        "cost": 0.50
+        "quantity": 10,
+        "cost": 0.50,
+        "image": "/onionHalf.png"
     },
     {
-        "id": "ingredient_milk",
-        "name": "Milk",
-        "category": "dairy",
-        "quality": 90,
-        "quantity": 1,
-        "cost": 1.50
-    },
-    {
-        "id": "ingredient_butter",
-        "name": "Butter",
-        "category": "dairy",
-        "quality": 85,
-        "quantity": 1,
-        "cost": 2.00
-    },
-    {
-        "id": "ingredient_burger_bun",
-        "name": "Burger Bun",
-        "category": "grain",
-        "quality": 75,
-        "quantity": 1,
-        "cost": 0.60
-    },
-    {
-        "id": "ingredient_bread_slice",
-        "name": "Bread Slice",
-        "category": "grain",
-        "quality": 70,
-        "quantity": 1,
-        "cost": 0.20
-    },
-    {
-        "id": "ingredient_pasta",
-        "name": "Pasta",
-        "category": "grain",
+        "id": "ingredient_orange",
+        "name": "Orange",
+        "category": "vegetable",
         "quality": 80,
-        "quantity": 1,
-        "cost": 1.00
+        "quantity": 10,
+        "cost": 0.90,
+        "image": "/orange.png"
     },
     {
-        "id": "ingredient_ketchup",
-        "name": "Ketchup",
-        "category": "sauce",
-        "quality": 70,
-        "quantity": 1,
-        "cost": 1.20
-    },
-    {
-        "id": "ingredient_mayonnaise",
-        "name": "Mayonnaise",
-        "category": "sauce",
-        "quality": 75,
-        "quantity": 1,
-        "cost": 1.50
-    },
-    {
-        "id": "ingredient_pasta_sauce",
-        "name": "Pasta Sauce",
-        "category": "sauce",
+        "id": "ingredient_paprika",
+        "name": "Paprika",
+        "category": "vegetable",
         "quality": 80,
-        "quantity": 1,
-        "cost": 1.80
+        "quantity": 10,
+        "cost": 1.10,
+        "image": "/paprika.png"
     },
     {
-        "id": "ingredient_salt",
-        "name": "Salt",
-        "category": "spice",
-        "quality": 100,
-        "quantity": 1,
-        "cost": 0.50
+        "id": "ingredient_paprika_slice",
+        "name": "Paprika Slice",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.10,
+        "image": "/paprikaSlice.png"
+    },
+    {
+        "id": "ingredient_pear",
+        "name": "Pear",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.00,
+        "image": "/pear.png"
+    },
+    {
+        "id": "ingredient_pear_half",
+        "name": "Pear Half",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.00,
+        "image": "/pearHalf.png"
     },
     {
         "id": "ingredient_pepper",
         "name": "Pepper",
         "category": "spice",
-        "quality": 100,
-        "quantity": 1,
-        "cost": 0.80
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.80,
+        "image": "/pepper.png"
     },
     {
-        "id": "ingredient_egg",
-        "name": "Egg",
+        "id": "ingredient_pineapple",
+        "name": "Pineapple",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.80,
+        "image": "/pineapple.png"
+    },
+    {
+        "id": "ingredient_popsicle",
+        "name": "Popsicle",
         "category": "dairy",
-        "quality": 88,
-        "quantity": 1,
-        "cost": 0.40
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.00,
+        "image": "/popsicle.png"
     },
     {
-        "id": "ingredient_flour",
-        "name": "Flour",
-        "category": "grain",
-        "quality": 90,
-        "quantity": 1,
-        "cost": 0.70
-    },
-    {
-        "id": "ingredient_sugar",
-        "name": "Sugar",
-        "category": "spice",
-        "quality": 95,
-        "quantity": 1,
-        "cost": 0.60
-    },
-    {
-        "id": "ingredient_olive_oil",
-        "name": "Olive Oil",
-        "category": "sauce",
-        "quality": 92,
-        "quantity": 1,
-        "cost": 2.20
-    },
-    {
-        "id": "ingredient_garlic",
-        "name": "Garlic",
+        "id": "ingredient_radish",
+        "name": "Radish",
         "category": "vegetable",
-        "quality": 85,
-        "quantity": 1,
-        "cost": 0.25
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.70,
+        "image": "/radish.png"
     },
     {
-        "id": "ingredient_cucumber",
-        "name": "Cucumber",
-        "category": "vegetable",
-        "quality": 87,
-        "quantity": 1,
-        "cost": 0.45
-    },
-    {
-        "id": "ingredient_rice",
-        "name": "Rice",
+        "id": "ingredient_rice_ball",
+        "name": "Rice Ball",
         "category": "grain",
         "quality": 80,
-        "quantity": 1,
-        "cost": 0.90
+        "quantity": 10,
+        "cost": 1.00,
+        "image": "/riceBall.png"
     },
     {
-        "id": "ingredient_salmon_fillet",
-        "name": "Salmon Fillet",
+        "id": "ingredient_skewer",
+        "name": "Skewer",
         "category": "meat",
-        "quality": 90,
-        "quantity": 1,
-        "cost": 4.50
+        "quality": 80,
+        "quantity": 10,
+        "cost": 2.50,
+        "image": "/skewer.png"
     },
     {
-        "id": "ingredient_soy_sauce",
-        "name": "Soy Sauce",
-        "category": "sauce",
-        "quality": 78,
-        "quantity": 1,
-        "cost": 1.30
-    },
-    {
-        "id": "ingredient_tofu",
-        "name": "Tofu",
+        "id": "ingredient_strawberry",
+        "name": "Strawberry",
         "category": "vegetable",
-        "quality": 82,
-        "quantity": 1,
-        "cost": 1.70
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.30,
+        "image": "/strawberry.png"
+    },
+    {
+        "id": "ingredient_tomato",
+        "name": "Tomato",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.60,
+        "image": "/tomato.png"
+    },
+    {
+        "id": "ingredient_tomato_slice",
+        "name": "Tomato Slice",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.60,
+        "image": "/tomatoSlice.png"
+    },
+    {
+        "id": "ingredient_watermelon",
+        "name": "Watermelon",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 2.00,
+        "image": "/watermelon.png"
+    },
+    {
+        "id": "ingredient_meat_steak_5",
+        "name": "Steak (Type 5)",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 3.50,
+        "image": "/reat_steak_5.png"
+    },
+    {
+        "id": "ingredient_meat_ribs_2",
+        "name": "Ribs (Type 2)",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 4.00,
+        "image": "/meat_ribs-2.png"
+    },
+    {
+        "id": "ingredient_meat_leg_2",
+        "name": "Meat Leg (Type 2)",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 3.80,
+        "image": "/meat_leg_2.png"
+    },
+    {
+        "id": "ingredient_meat_liver",
+        "name": "Liver",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 2.20,
+        "image": "/meat_liver.png"
+    },
+    {
+        "id": "ingredient_meat_fat_lard",
+        "name": "Lard",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.50,
+        "image": "/meat_fat_lard.png"
+    },
+    {
+        "id": "ingredient_fish_fillet",
+        "name": "Fish Fillet",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 3.00,
+        "image": "/fish_fillet.png"
+    },
+    {
+        "id": "ingredient_meat_leg_5",
+        "name": "Meat Leg (Type 5)",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 3.90,
+        "image": "/meat_leg_5.png"
+    },
+    {
+        "id": "ingredient_meat_leg_4",
+        "name": "Meat Leg (Type 4)",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 3.70,
+        "image": "/meat_leg_4.png"
+    },
+    {
+        "id": "ingredient_meat",
+        "name": "Meat",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 3.00,
+        "image": "/meat.png"
+    },
+    {
+        "id": "ingredient_meat_steak_4",
+        "name": "Steak (Type 4)",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 3.40,
+        "image": "/meat_steak_4.png"
+    },
+    {
+        "id": "ingredient_meat_ribs_3",
+        "name": "Ribs (Type 3)",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 4.10,
+        "image": "/meat_ribs_3.png"
+    },
+    {
+        "id": "ingredient_meat_leg",
+        "name": "Meat Leg",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 3.60,
+        "image": "/meat_leg.png"
+    },
+    {
+        "id": "ingredient_meat_ribs",
+        "name": "Ribs",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 3.90,
+        "image": "/meat_ribs.png"
+    },
+    {
+        "id": "ingredient_meat_steak_3",
+        "name": "Steak (Type 3)",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 3.30,
+        "image": "/meat_steak_3.png"
+    },
+    {
+        "id": "ingredient_meat_leg_3",
+        "name": "Meat Leg (Type 3)",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 3.65,
+        "image": "/meat_leg_3.png"
+    },
+    {
+        "id": "ingredient_meat_steak_2",
+        "name": "Steak (Type 2)",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 3.20,
+        "image": "/meat_steak_2.png"
+    },
+    {
+        "id": "ingredient_chicken_breat",
+        "name": "Chicken Breast",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 2.80,
+        "image": "/chicken_breat.png"
+    },
+    {
+        "id": "ingredient_meat_steak",
+        "name": "Steak",
+        "category": "meat",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 3.10,
+        "image": "/meat_steak.png"
     }
 ]

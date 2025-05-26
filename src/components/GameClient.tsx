@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useGameStore } from '@/state/game/gameStore';
+import { useRestaurantStore } from '@/state/game/restaurantStore';
 import { startGameLoop, stopGameLoop, isGameLoopRunning } from '@/lib/gameLoop';
 import MainMenu from './game/MainMenu';
 import GameOverScreen from './game/GameOverScreen';
@@ -14,24 +15,21 @@ const GameClient = () => {
     const gameMode = useGameStore(state => state.game.gameMode);
     const gamePerformanceMetrics = useGameStore(state => state.game.performanceMetrics);
     const isPaused = useGameStore(state => state.game.isPaused);
+    const initializeInventory = useRestaurantStore(state => state.actions.initializeInventory);
 
     const [assetsLoaded, setAssetsLoaded] = useState(false);
     const [showLoading, setShowLoading] = useState(true);
 
     useEffect(() => {
-        // Placeholder for asset preloading
-        // async function loadAssets() {
-        //     await preloadCriticalAssets(); // Assuming this returns a promise
-        //     setAssetsLoaded(true);
-        //     setShowLoading(false);
-        // }
-        // loadAssets();
-        // For now, simulate asset loading delay
-        setTimeout(() => {
-            setAssetsLoaded(true);
-            setShowLoading(false);
-        }, 100); // Simulate a short load time
-    }, []);
+        // Initialize inventory and then simulate asset loading
+        initializeInventory().then(() => {
+            // For now, simulate asset loading delay after inventory is initialized
+            setTimeout(() => {
+                setAssetsLoaded(true);
+                setShowLoading(false);
+            }, 100); // Simulate a short load time
+        });
+    }, [initializeInventory]);
 
     useEffect(() => {
         if (gamePhase === 'active' && !isPaused && !isGameLoopRunning()) {

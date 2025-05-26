@@ -106,9 +106,14 @@ const InventoryPanel: React.FunctionComponent<InventoryPanelProps> = ({ isOpen, 
                                 return (
                                     <li key={ingredient.id} className="bg-white p-3 rounded shadow flex items-center justify-between">
                                         <div className="flex items-center flex-grow mr-2">
-                                            <div className="w-10 h-10 bg-gray-300 rounded mr-3 flex items-center justify-center text-xs text-gray-500">
-                                                Img
-                                            </div>
+                                            {/* Image display */}
+                                            {ingredient.image ? (
+                                                <img src={ingredient.image} alt={ingredient.name} className="w-10 h-10 rounded mr-3 object-cover" />
+                                            ) : (
+                                                <div className="w-10 h-10 bg-gray-300 rounded mr-3 flex items-center justify-center text-xs text-gray-500">
+                                                    N/A
+                                                </div>
+                                            )}
                                             <div className="flex-grow">
                                                 <span className="font-medium text-slate-800 block">{ingredient.name}</span>
                                                 <span className="text-xs text-slate-500">

@@ -18,11 +18,12 @@ interface RestaurantState {
         updateCustomerSatisfaction: (customerId: string, satisfactionScore: number) => void
         updateIngredientQuantity: (ingredientId: string, quantityChange: number) => void
         updateEquipmentStatus: (equipmentId: string, status: Equipment['status']) => void
+        initializeInventory: () => Promise<void>;
     }
 }
 
 export const useRestaurantStore = create<RestaurantState>()(
-    immer((set) => ({
+    immer((set, get) => ({
         restaurant: {
             name: 'MCP-Powered Chef Restaurant',
             level: 1,
@@ -52,18 +53,7 @@ export const useRestaurantStore = create<RestaurantState>()(
             ],
             activeOrders: [],
             completedOrders: [],
-            inventory: [
-                { id: 'beef_patty', name: 'Beef Patty', category: 'meat' as const, quality: 8, quantity: 12, cost: 2.50 },
-                { id: 'chicken_breast', name: 'Chicken Breast', category: 'meat' as const, quality: 7, quantity: 8, cost: 3.00 },
-                { id: 'lettuce', name: 'Lettuce', category: 'vegetable' as const, quality: 9, quantity: 15, cost: 0.50 },
-                { id: 'tomato', name: 'Tomato', category: 'vegetable' as const, quality: 8, quantity: 10, cost: 0.75 },
-                { id: 'onion', name: 'Onion', category: 'vegetable' as const, quality: 7, quantity: 6, cost: 0.40 },
-                { id: 'cheese', name: 'Cheese', category: 'dairy' as const, quality: 9, quantity: 14, cost: 1.25 },
-                { id: 'bread', name: 'Bread', category: 'grain' as const, quality: 8, quantity: 20, cost: 0.30 },
-                { id: 'ketchup', name: 'Ketchup', category: 'sauce' as const, quality: 6, quantity: 5, cost: 1.00 },
-                { id: 'salt', name: 'Salt', category: 'spice' as const, quality: 10, quantity: 2, cost: 0.25 },
-                { id: 'pepper', name: 'Pepper', category: 'spice' as const, quality: 9, quantity: 3, cost: 0.35 }
-            ],
+            inventory: [],
             equipment: [],
             unlockedMenuItems: []
         },
@@ -138,15 +128,13 @@ export const useRestaurantStore = create<RestaurantState>()(
                     }
 
                     const customer = state.restaurant.activeCustomers[customerIndex];
-                    // For now, let's find a sample dish from inventory or create a placeholder
-                    // In a real scenario, dishId would come from a menu selection UI
                     const dish: Dish = state.restaurant.menuItems?.find(d => d.id === dishId) || {
                         id: dishId,
-                        name: 'Placeholder Dish ' + dishId.slice(-3), // e.g. "Placeholder Dish 001"
+                        name: 'Placeholder Dish ' + dishId.slice(-3),
                         basePrice: 10,
                         recipeId: 'recipe_placeholder',
                         cookingDifficulty: 3,
-                        preparationTime: 300, // 5 minutes
+                        preparationTime: 300,
                         plateAppearance: 3,
                     };
 
@@ -160,14 +148,11 @@ export const useRestaurantStore = create<RestaurantState>()(
                         completionTime: null,
                         qualityScore: 0,
                         tip: 0,
-                        isPriority: Math.random() < 0.2 // 20% chance of being priority
+                        isPriority: Math.random() < 0.2
                     };
 
                     state.restaurant.activeOrders.push(newOrder);
                     state.restaurant.activeCustomers[customerIndex].order = newOrder;
-                    // Optionally change customer status if needed, e.g. customer.status = 'ordered'
-                    // For now, 'seated' with an order implies they've ordered.
-
                     order = newOrder;
                     success = true;
                     message = `Order for ${dish.name} taken for customer ${customer.id}.`;
@@ -186,7 +171,6 @@ export const useRestaurantStore = create<RestaurantState>()(
                 )
                 if (orderIndex !== -1) {
                     state.restaurant.activeOrders[orderIndex].status = status
-
                     if (status === 'served' && !state.restaurant.activeOrders[orderIndex].completionTime) {
                         state.restaurant.activeOrders[orderIndex].completionTime = Date.now()
                     }
@@ -199,12 +183,9 @@ export const useRestaurantStore = create<RestaurantState>()(
                 )
                 if (orderIndex !== -1) {
                     const order = state.restaurant.activeOrders[orderIndex]
-
                     order.tip = tipAmount
-
                     state.restaurant.completedOrders.push(order)
                     state.restaurant.activeOrders.splice(orderIndex, 1)
-
                     const customerId = order.customerId
                     const customerIndex = state.restaurant.activeCustomers.findIndex(
                         (c: Customer) => c.id === customerId
@@ -221,10 +202,8 @@ export const useRestaurantStore = create<RestaurantState>()(
                 )
                 if (customerIndex !== -1) {
                     state.restaurant.activeCustomers[customerIndex].satisfaction = satisfactionScore
-
                     const tipPercentage = satisfactionScore / 100
                     state.restaurant.activeCustomers[customerIndex].tip = Math.floor(tipPercentage * 5)
-
                     const reputationChange = (satisfactionScore - 50) / 10
                     state.restaurant.reputation = Math.max(0, Math.min(5, state.restaurant.reputation + reputationChange))
                 }
@@ -246,7 +225,30 @@ export const useRestaurantStore = create<RestaurantState>()(
                 if (equipmentIndex !== -1) {
                     state.restaurant.equipment[equipmentIndex].status = status
                 }
-            })
+            }),
+
+            initializeInventory: async () => {
+                try {
+                    const response = await fetch('/assets/data/ingredients/ingredients.json');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const rawIngredients: Ingredient[] = await response.json();
+
+                    const processedIngredients = rawIngredients.map(ing => ({
+                        ...ing,
+                        image: ing.image ? `/assets/images/ingredients${ing.image.startsWith('/') ? ing.image : '/' + ing.image}` : undefined
+                    }));
+
+                    set((state) => {
+                        state.restaurant.inventory = processedIngredients;
+                    });
+                    console.log('Restaurant inventory initialized from JSON.');
+                } catch (error) {
+                    console.error("Failed to initialize inventory:", error);
+                    // Optionally, set some default/fallback inventory or handle error state
+                }
+            }
         }
     }))
 ) 

@@ -62,6 +62,7 @@ export interface Ingredient {
     quality: number
     quantity: number
     cost: number
+    image?: string
 }
 
 // Equipment model
