@@ -11,7 +11,7 @@ export interface AnimationDetails {
 
 export interface CustomerSpriteConfig {
     idle?: AnimationDetails;
-    walking?: AnimationDetails;
+    walk?: AnimationDetails;
     // Future animation states like 'ordering', 'eating' can be added here
 }
 
@@ -24,7 +24,7 @@ export interface Customer {
     satisfaction: number
     tip: number
     tableId?: string // Added for tracking where customer is seated
-    animationState?: 'idle' | 'walking'
+    animationState?: 'idle' | 'walk'
     spriteConfig?: CustomerSpriteConfig; // New field for sprite configurations
 }
 
