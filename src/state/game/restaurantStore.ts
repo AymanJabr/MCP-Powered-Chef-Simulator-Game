@@ -54,27 +54,6 @@ export const useRestaurantStore = create<RestaurantState>()(
                     }
                 },
                 {
-                    id: 'man_1',
-                    order: null,
-                    patience: 92,
-                    arrivalTime: Date.now() - 15000,
-                    status: 'waiting' as const,
-                    satisfaction: 80,
-                    tip: 0,
-                    animationState: 'idle',
-                    spriteConfig: {
-                        idle: {
-                            sheetUrl: '/assets/images/characters/man_1/Idle.png',
-                            sheetFrameWidth: 64,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 48,
-                            characterArtHeight: 64,
-                            steps: 10,
-                            fps: 10,
-                        }
-                    }
-                },
-                {
                     id: 'girl_2',
                     order: null,
                     patience: 88,
@@ -86,12 +65,33 @@ export const useRestaurantStore = create<RestaurantState>()(
                     spriteConfig: {
                         idle: {
                             sheetUrl: '/assets/images/characters/girl_2/Idle.png',
-                            sheetFrameWidth: 120,
-                            sheetFrameHeight: 120,
+                            sheetFrameWidth: 128,
+                            sheetFrameHeight: 128,
                             characterArtWidth: 35,
-                            characterArtHeight: 70,
-                            steps: 8,
-                            fps: 12,
+                            characterArtHeight: 75,
+                            steps: 7,
+                            fps: 8,
+                        }
+                    }
+                },
+                {
+                    id: 'man_1',
+                    order: null,
+                    patience: 92,
+                    arrivalTime: Date.now() - 15000,
+                    status: 'waiting' as const,
+                    satisfaction: 80,
+                    tip: 0,
+                    animationState: 'idle',
+                    spriteConfig: {
+                        idle: {
+                            sheetUrl: '/assets/images/characters/man_1/Idle.png',
+                            sheetFrameWidth: 128,
+                            sheetFrameHeight: 128,
+                            characterArtWidth: 35,
+                            characterArtHeight: 75,
+                            steps: 5,
+                            fps: 5,
                         }
                     }
                 },
@@ -107,12 +107,12 @@ export const useRestaurantStore = create<RestaurantState>()(
                     spriteConfig: {
                         idle: {
                             sheetUrl: '/assets/images/characters/girl_3/Idle.png',
-                            sheetFrameWidth: 130,
-                            sheetFrameHeight: 130,
-                            characterArtWidth: 32,
-                            characterArtHeight: 72,
-                            steps: 10,
-                            fps: 10,
+                            sheetFrameWidth: 128,
+                            sheetFrameHeight: 128,
+                            characterArtWidth: 35,
+                            characterArtHeight: 75,
+                            steps: 6,
+                            fps: 5,
                         }
                     }
                 },
@@ -130,10 +130,10 @@ export const useRestaurantStore = create<RestaurantState>()(
                             sheetUrl: '/assets/images/characters/girl_4/Idle.png',
                             sheetFrameWidth: 128,
                             sheetFrameHeight: 128,
-                            characterArtWidth: 30,
+                            characterArtWidth: 50,
                             characterArtHeight: 75,
-                            steps: 9,
-                            fps: 11,
+                            steps: 5,
+                            fps: 5,
                         }
                     }
                 },
@@ -149,12 +149,12 @@ export const useRestaurantStore = create<RestaurantState>()(
                     spriteConfig: {
                         idle: {
                             sheetUrl: '/assets/images/characters/girl_5/Idle.png',
-                            sheetFrameWidth: 125,
-                            sheetFrameHeight: 125,
-                            characterArtWidth: 33,
-                            characterArtHeight: 73,
-                            steps: 8,
-                            fps: 10,
+                            sheetFrameWidth: 128,
+                            sheetFrameHeight: 128,
+                            characterArtWidth: 50,
+                            characterArtHeight: 75,
+                            steps: 5,
+                            fps: 5,
                         }
                     }
                 },
@@ -170,15 +170,16 @@ export const useRestaurantStore = create<RestaurantState>()(
                     spriteConfig: {
                         idle: {
                             sheetUrl: '/assets/images/characters/man_2/Idle.png',
-                            sheetFrameWidth: 70,
-                            sheetFrameHeight: 130,
-                            characterArtWidth: 50,
-                            characterArtHeight: 65,
-                            steps: 10,
-                            fps: 10,
+                            sheetFrameWidth: 128,
+                            sheetFrameHeight: 128,
+                            characterArtWidth: 70,
+                            characterArtHeight: 70,
+                            steps: 6,
+                            fps: 6,
                         }
                     }
                 },
+
                 {
                     id: 'man_3',
                     order: null,
@@ -191,12 +192,12 @@ export const useRestaurantStore = create<RestaurantState>()(
                     spriteConfig: {
                         idle: {
                             sheetUrl: '/assets/images/characters/man_3/Idle.png',
-                            sheetFrameWidth: 68,
+                            sheetFrameWidth: 128,
                             sheetFrameHeight: 128,
-                            characterArtWidth: 47,
-                            characterArtHeight: 63,
-                            steps: 9,
-                            fps: 12,
+                            characterArtWidth: 70,
+                            characterArtHeight: 75,
+                            steps: 6,
+                            fps: 6,
                         }
                     }
                 },
@@ -212,12 +213,12 @@ export const useRestaurantStore = create<RestaurantState>()(
                     spriteConfig: {
                         idle: {
                             sheetUrl: '/assets/images/characters/man_4/Idle.png',
-                            sheetFrameWidth: 65,
-                            sheetFrameHeight: 125,
-                            characterArtWidth: 45,
-                            characterArtHeight: 60,
-                            steps: 11,
-                            fps: 10,
+                            sheetFrameWidth: 128,
+                            sheetFrameHeight: 128,
+                            characterArtWidth: 70,
+                            characterArtHeight: 75,
+                            steps: 7,
+                            fps: 7,
                         }
                     }
                 },
@@ -233,12 +234,12 @@ export const useRestaurantStore = create<RestaurantState>()(
                     spriteConfig: {
                         idle: {
                             sheetUrl: '/assets/images/characters/man_5/Idle.png',
-                            sheetFrameWidth: 72,
-                            sheetFrameHeight: 132,
-                            characterArtWidth: 52,
-                            characterArtHeight: 68,
-                            steps: 10,
-                            fps: 11,
+                            sheetFrameWidth: 128,
+                            sheetFrameHeight: 128,
+                            characterArtWidth: 70,
+                            characterArtHeight: 75,
+                            steps: 7,
+                            fps: 7,
                         }
                     }
                 }
