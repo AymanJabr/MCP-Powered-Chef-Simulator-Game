@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react'
 import { Customer, PrepStation, CookingStation, PlatingStation } from '@/types/models'
 import InventoryPanel from './InventoryPanel'
 import CustomerPatienceDisplay from './CustomerPatienceDisplay'
-import CustomerIcon from '../icons/CustomerIcon'
+import CustomerSprite from './CustomerSprite'
 import TableIcon from '../icons/TableIcon'
 
 export interface GameSelection {
@@ -322,7 +322,12 @@ export default function RestaurantView() {
                             >
                                 <div className="flex flex-col items-center w-16">
                                     <CustomerPatienceDisplay patience={customer.patience} />
-                                    <CustomerIcon className="w-8 h-8 text-gray-700 mt-1" />
+                                    {customer.spriteConfig && customer.animationState && customer.spriteConfig[customer.animationState] && (
+                                        <CustomerSprite
+                                            animationDetails={customer.spriteConfig[customer.animationState]!}
+                                            className="mt-1"
+                                        />
+                                    )}
                                 </div>
                             </div>
                         );
@@ -388,7 +393,12 @@ export default function RestaurantView() {
                         >
                             <div className="flex flex-col items-center">
                                 <CustomerPatienceDisplay patience={customer.patience} />
-                                <CustomerIcon className="w-8 h-8 text-gray-700 mt-1" />
+                                {customer.spriteConfig && customer.animationState && customer.spriteConfig[customer.animationState] && (
+                                    <CustomerSprite
+                                        animationDetails={customer.spriteConfig[customer.animationState]!}
+                                        className="mt-1"
+                                    />
+                                )}
                             </div>
                         </div>
                     );

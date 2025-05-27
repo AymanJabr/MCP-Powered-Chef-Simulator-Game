@@ -1,4 +1,20 @@
 // Customer model
+export interface AnimationDetails {
+    sheetUrl: string;
+    sheetFrameWidth: number;
+    sheetFrameHeight: number;
+    characterArtWidth: number;
+    characterArtHeight: number;
+    steps: number;
+    fps: number;
+}
+
+export interface CustomerSpriteConfig {
+    idle?: AnimationDetails;
+    walking?: AnimationDetails;
+    // Future animation states like 'ordering', 'eating' can be added here
+}
+
 export interface Customer {
     id: string
     order: Order | null
@@ -8,6 +24,8 @@ export interface Customer {
     satisfaction: number
     tip: number
     tableId?: string // Added for tracking where customer is seated
+    animationState?: 'idle' | 'walking'
+    spriteConfig?: CustomerSpriteConfig; // New field for sprite configurations
 }
 
 // Order model

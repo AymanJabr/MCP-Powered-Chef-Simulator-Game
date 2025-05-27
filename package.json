@@ -24,6 +24,7 @@
     "openai": "^4.98.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-responsive-spritesheet": "^2.3.9",
     "zustand": "^5.0.4"
   },
   "devDependencies": {
