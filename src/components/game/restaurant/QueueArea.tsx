@@ -57,7 +57,7 @@ export default function QueueArea({
                         <div
                             key={customer.id}
                             className={`absolute p-1 rounded cursor-pointer transition-all duration-300 ease-in-out 
-                                        ${isSelected ? 'ring-2 ring-blue-500 bg-blue-100' : 'bg-gray-200 hover:bg-gray-300'}`}
+                                        ${isSelected ? 'ring-2 ring-blue-500 bg-blue-100' : 'bg-transparent hover:bg-gray-100/50'}`}
                             style={{
                                 left: `${queuePos.x}%`,
                                 top: `${queuePos.y}%`,

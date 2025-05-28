@@ -86,7 +86,7 @@ export default function DiningArea({
                     <div
                         key={customer.id}
                         className={`absolute p-1 rounded cursor-pointer transition-all duration-300 ease-in-out
-                            ${isSelected ? 'ring-2 ring-blue-500 bg-blue-100' : 'bg-opacity-75'}
+                            ${isSelected ? 'ring-2 ring-blue-500 bg-blue-100' : 'bg-transparent'}
                             ${hasOrder ? 'bg-green-200/70' : 'bg-red-200/70'} 
                         `}
                         style={{
@@ -126,8 +126,9 @@ export default function DiningArea({
                             hover:shadow-lg hover:scale-105
                         `}
                         style={{
-                            left: `${tablePos.x - 15}%`, // Adjustments like these might need to be reviewed
-                            top: `${tablePos.y - 10}%`  // or passed as part of tablePositions if they vary
+                            left: `${tablePos.x}%`,
+                            top: `${tablePos.y}%`,
+                            transform: 'translate(-50%, -50%)'
                         }}
                         onClick={() => onTableClick(tablePos.id)}
                     >
@@ -142,22 +143,6 @@ export default function DiningArea({
                     </div>
                 )
             })}
-
-            {/* Moving customers - This might be redundant if handled by Seated Customers logic fully */}
-            {/* Consider if this specific block is still needed or if its logic is merged above */}
-            {Object.values(movingCustomers).map((entity) => (
-                <div
-                    key={entity.id}
-                    className={`absolute w-8 h-12 transition-all duration-1000 ease-in-out z-20`}
-                    style={{
-                        left: `${entity.targetPosition?.x || entity.position.x}%`,
-                        top: `${entity.targetPosition?.y || entity.position.y}%`,
-                        transform: 'translate(-50%, -50%)'
-                    }}
-                >
-                    <div className="text-3xl">🚶‍♂️</div> {/* Generic moving sprite, might need to be customer-specific */}
-                </div>
-            ))}
 
             {/* Chef */}
             <div
