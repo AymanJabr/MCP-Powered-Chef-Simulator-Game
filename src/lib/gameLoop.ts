@@ -29,6 +29,14 @@ let customersLeftCounter = 0 // running total used for game-over rule
 
 const SEC = 1000
 
+// Helper function to spawn the very first customer
+function spawnInitialCustomer(): void {
+    const newCustomer = createCustomer();
+    // Directly use the store action to add to queue
+    useRestaurantStore.getState().actions.addCustomerToQueue(newCustomer);
+    eventBus.emit('customer_arrived', { customer: newCustomer });
+}
+
 // ---------------------------------------------------------------------------
 // Public helpers
 // ---------------------------------------------------------------------------
@@ -37,6 +45,9 @@ export function startGameLoop(): void {
 
     customersLeftCounter = 0
     lastTimestamp = typeof performance !== 'undefined' ? performance.now() : Date.now()
+
+    // Spawn one customer immediately when the game starts
+    spawnInitialCustomer();
 
     const gameDifficulty = useGameStore.getState().game.difficulty;
     eventBus.emit('game_started', { difficulty: gameDifficulty });

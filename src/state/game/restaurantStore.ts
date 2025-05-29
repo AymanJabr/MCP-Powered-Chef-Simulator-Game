@@ -19,6 +19,7 @@ interface RestaurantState {
         updateIngredientQuantity: (ingredientId: string, quantityChange: number) => void
         updateEquipmentStatus: (equipmentId: string, status: Equipment['status']) => void
         initializeInventory: () => Promise<void>;
+        resetRestaurantState: () => void;
     }
 }
 
@@ -31,309 +32,7 @@ export const useRestaurantStore = create<RestaurantState>()(
             funds: 1000,
             customerCapacity: 8,
             activeCustomers: [] as Customer[],
-            customerQueue: [
-                {
-                    id: 'girl_1',
-                    order: null,
-                    patience: 85,
-                    arrivalTime: Date.now() - 30000,
-                    status: 'waiting' as const,
-                    satisfaction: 75,
-                    tip: 0,
-                    animationState: 'idle',
-                    spriteConfig: {
-                        idle: {
-                            sheetUrl: '/assets/images/characters/girl_1/Idle.png',
-                            sheetFrameWidth: 128,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 30,
-                            characterArtHeight: 75,
-                            steps: 9,
-                            fps: 10,
-                        },
-                        walk: {
-                            sheetUrl: '/assets/images/characters/girl_1/Walk.png',
-                            sheetFrameWidth: 128,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 40,
-                            characterArtHeight: 75,
-                            steps: 12,
-                            fps: 14,
-                        }
-                    }
-                },
-                {
-                    id: 'girl_2',
-                    order: null,
-                    patience: 88,
-                    arrivalTime: Date.now() - 25000,
-                    status: 'waiting' as const,
-                    satisfaction: 70,
-                    tip: 0,
-                    animationState: 'idle',
-                    spriteConfig: {
-                        idle: {
-                            sheetUrl: '/assets/images/characters/girl_2/Idle.png',
-                            sheetFrameWidth: 128,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 35,
-                            characterArtHeight: 75,
-                            steps: 7,
-                            fps: 8,
-                        },
-                        walk: {
-                            sheetUrl: '/assets/images/characters/girl_2/Walk.png',
-                            sheetFrameWidth: 128,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 35,
-                            characterArtHeight: 75,
-                            steps: 12,
-                            fps: 14,
-                        }
-                    }
-                },
-                {
-                    id: 'man_1',
-                    order: null,
-                    patience: 92,
-                    arrivalTime: Date.now() - 15000,
-                    status: 'waiting' as const,
-                    satisfaction: 80,
-                    tip: 0,
-                    animationState: 'idle',
-                    spriteConfig: {
-                        idle: {
-                            sheetUrl: '/assets/images/characters/man_1/Idle.png',
-                            sheetFrameWidth: 128,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 35,
-                            characterArtHeight: 75,
-                            steps: 5,
-                            fps: 5,
-                        },
-                        walk: {
-                            sheetUrl: '/assets/images/characters/man_1/Walk.png',
-                            sheetFrameWidth: 128,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 35,
-                            characterArtHeight: 75,
-                            steps: 10,
-                            fps: 9,
-                        }
-                    }
-                },
-                {
-                    id: 'girl_3',
-                    order: null,
-                    patience: 80,
-                    arrivalTime: Date.now() - 20000,
-                    status: 'waiting' as const,
-                    satisfaction: 65,
-                    tip: 0,
-                    animationState: 'idle',
-                    spriteConfig: {
-                        idle: {
-                            sheetUrl: '/assets/images/characters/girl_3/Idle.png',
-                            sheetFrameWidth: 128,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 35,
-                            characterArtHeight: 75,
-                            steps: 6,
-                            fps: 5,
-                        },
-                        walk: {
-                            sheetUrl: '/assets/images/characters/girl_3/Walk.png',
-                            sheetFrameWidth: 128,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 35,
-                            characterArtHeight: 75,
-                            steps: 12,
-                            fps: 10,
-                        }
-                    }
-                },
-                {
-                    id: 'girl_4',
-                    order: null,
-                    patience: 90,
-                    arrivalTime: Date.now() - 10000,
-                    status: 'waiting' as const,
-                    satisfaction: 78,
-                    tip: 0,
-                    animationState: 'idle',
-                    spriteConfig: {
-                        idle: {
-                            sheetUrl: '/assets/images/characters/girl_4/Idle.png',
-                            sheetFrameWidth: 128,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 50,
-                            characterArtHeight: 75,
-                            steps: 5,
-                            fps: 5,
-                        },
-                        walk: {
-                            sheetUrl: '/assets/images/characters/girl_4/Walk.png',
-                            sheetFrameWidth: 128,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 70,
-                            characterArtHeight: 75,
-                            steps: 8,
-                            fps: 8,
-                        }
-                    }
-                },
-                {
-                    id: 'girl_5',
-                    order: null,
-                    patience: 82,
-                    arrivalTime: Date.now() - 5000,
-                    status: 'waiting' as const,
-                    satisfaction: 72,
-                    tip: 0,
-                    animationState: 'idle',
-                    spriteConfig: {
-                        idle: {
-                            sheetUrl: '/assets/images/characters/girl_5/Idle.png',
-                            sheetFrameWidth: 128,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 50,
-                            characterArtHeight: 75,
-                            steps: 5,
-                            fps: 5,
-                        },
-                        walk: {
-                            sheetUrl: '/assets/images/characters/girl_5/Walk.png',
-                            sheetFrameWidth: 128,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 85,
-                            characterArtHeight: 75,
-                            steps: 8,
-                            fps: 10,
-                        }
-                    }
-                },
-                {
-                    id: 'man_2',
-                    order: null,
-                    patience: 95,
-                    arrivalTime: Date.now() - 28000,
-                    status: 'waiting' as const,
-                    satisfaction: 82,
-                    tip: 0,
-                    animationState: 'idle',
-                    spriteConfig: {
-                        idle: {
-                            sheetUrl: '/assets/images/characters/man_2/Idle.png',
-                            sheetFrameWidth: 128,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 70,
-                            characterArtHeight: 70,
-                            steps: 6,
-                            fps: 6,
-                        },
-                        walk: {
-                            sheetUrl: '/assets/images/characters/man_2/Walk.png',
-                            sheetFrameWidth: 128,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 70,
-                            characterArtHeight: 70,
-                            steps: 10,
-                            fps: 9,
-                        }
-                    }
-                },
-                {
-                    id: 'man_3',
-                    order: null,
-                    patience: 87,
-                    arrivalTime: Date.now() - 22000,
-                    status: 'waiting' as const,
-                    satisfaction: 77,
-                    tip: 0,
-                    animationState: 'idle',
-                    spriteConfig: {
-                        idle: {
-                            sheetUrl: '/assets/images/characters/man_3/Idle.png',
-                            sheetFrameWidth: 128,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 70,
-                            characterArtHeight: 75,
-                            steps: 6,
-                            fps: 6,
-                        },
-                        walk: {
-                            sheetUrl: '/assets/images/characters/man_3/Walk.png',
-                            sheetFrameWidth: 128,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 70,
-                            characterArtHeight: 75,
-                            steps: 10,
-                            fps: 10,
-                        }
-                    }
-                },
-
-                {
-                    id: 'man_4',
-                    order: null,
-                    patience: 93,
-                    arrivalTime: Date.now() - 12000,
-                    status: 'waiting' as const,
-                    satisfaction: 85,
-                    tip: 0,
-                    animationState: 'idle',
-                    spriteConfig: {
-                        idle: {
-                            sheetUrl: '/assets/images/characters/man_4/Idle.png',
-                            sheetFrameWidth: 128,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 70,
-                            characterArtHeight: 75,
-                            steps: 7,
-                            fps: 7,
-                        },
-                        walk: {
-                            sheetUrl: '/assets/images/characters/man_4/Walk.png',
-                            sheetFrameWidth: 128,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 70,
-                            characterArtHeight: 75,
-                            steps: 10,
-                            fps: 11,
-                        }
-                    }
-                },
-                {
-                    id: 'man_5',
-                    order: null,
-                    patience: 89,
-                    arrivalTime: Date.now() - 8000,
-                    status: 'waiting' as const,
-                    satisfaction: 79,
-                    tip: 0,
-                    animationState: 'idle',
-                    spriteConfig: {
-                        idle: {
-                            sheetUrl: '/assets/images/characters/man_5/Idle.png',
-                            sheetFrameWidth: 128,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 70,
-                            characterArtHeight: 75,
-                            steps: 7,
-                            fps: 7,
-                        },
-                        walk: {
-                            sheetUrl: '/assets/images/characters/man_5/Walk.png',
-                            sheetFrameWidth: 128,
-                            sheetFrameHeight: 128,
-                            characterArtWidth: 70,
-                            characterArtHeight: 75,
-                            steps: 10,
-                            fps: 10,
-                        }
-                    }
-                }
-            ] as Customer[],
+            customerQueue: [] as Customer[],
             activeOrders: [],
             completedOrders: [],
             inventory: [],
@@ -531,7 +230,19 @@ export const useRestaurantStore = create<RestaurantState>()(
                     console.error("Failed to initialize inventory:", error);
                     // Optionally, set some default/fallback inventory or handle error state
                 }
-            }
+            },
+
+            resetRestaurantState: () => set((state) => {
+                state.restaurant.activeCustomers = [];
+                state.restaurant.customerQueue = [];
+                state.restaurant.activeOrders = [];
+                state.restaurant.completedOrders = [];
+                state.restaurant.funds = 1000; // Initial funds
+                state.restaurant.reputation = 2.5; // Initial reputation
+                // Note: We are not resetting inventory or equipment here,
+                // as initializeInventory handles that.
+                // If menuItems or unlockedMenuItems need reset, add them here.
+            })
         }
     }))
 ) 

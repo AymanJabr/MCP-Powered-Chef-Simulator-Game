@@ -16,16 +16,22 @@ import {
     MCPAction,
     Game
 } from '@/types/models';
+import { customerTemplates } from '@/config/customerTemplates';
 
 export function createCustomer(partial: Partial<Customer> = {}): Customer {
+    const template = customerTemplates[Math.floor(Math.random() * customerTemplates.length)];
+    const randomPatience = Math.floor(Math.random() * 31) + 80;
+
     return {
-        id: `customer_${Date.now()}`,
+        id: `customer_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
         order: null,
-        patience: 100,
+        patience: randomPatience,
         arrivalTime: Date.now(),
         status: 'waiting',
-        satisfaction: 0,
+        satisfaction: Math.floor(Math.random() * 21) + 60,
         tip: 0,
+        animationState: template.animationState || 'idle',
+        spriteConfig: template.spriteConfig,
         ...partial
     };
 }
@@ -113,6 +119,8 @@ export function createPlayer(partial: Partial<Player> = {}): Player {
         actionQueue: [],
         actionHistory: [],
         savedCommands: [],
+        direction: 'down',
+        animationState: 'idle',
         ...partial
     };
 }
