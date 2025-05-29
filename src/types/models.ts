@@ -149,6 +149,9 @@ export interface Player {
     actionQueue: PlayerAction[]
     actionHistory: PlayerAction[]
     savedCommands: SavedCommand[]
+    direction: PlayerDirection;
+    animationState: ChefAnimationType;
+    spriteConfig?: ChefSpriteConfig;
 }
 
 // Player position
@@ -186,6 +189,41 @@ export interface SavedCommand {
     name: string
     command: string
     tags: string[]
+}
+
+// Chef animation types
+export type PlayerDirection = 'up' | 'down' | 'left' | 'right';
+
+export type ChefAnimationType =
+    | 'idle'
+    | 'running_down' | 'running_up' | 'running_left' | 'running_right'
+    | 'lifting_down' | 'lifting_up' | 'lifting_left' | 'lifting_right'
+    | 'interacting_down' | 'interacting_up' | 'interacting_left' | 'interacting_right'
+    | 'dropping_down' | 'dropping_up' | 'dropping_left' | 'dropping_right'
+    | 'running_lifting_down' | 'running_lifting_up' | 'running_lifting_left' | 'running_lifting_right';
+
+export interface ChefSpriteConfig {
+    idle?: AnimationDetails;
+    running_down?: AnimationDetails;
+    running_up?: AnimationDetails;
+    running_left?: AnimationDetails;
+    running_right?: AnimationDetails;
+    lifting_down?: AnimationDetails;
+    lifting_up?: AnimationDetails;
+    lifting_left?: AnimationDetails;
+    lifting_right?: AnimationDetails;
+    interacting_down?: AnimationDetails;
+    interacting_up?: AnimationDetails;
+    interacting_left?: AnimationDetails;
+    interacting_right?: AnimationDetails;
+    dropping_down?: AnimationDetails;
+    dropping_up?: AnimationDetails;
+    dropping_left?: AnimationDetails;
+    dropping_right?: AnimationDetails;
+    running_lifting_down?: AnimationDetails;
+    running_lifting_up?: AnimationDetails;
+    running_lifting_left?: AnimationDetails;
+    running_lifting_right?: AnimationDetails;
 }
 
 // MCP Assistant model

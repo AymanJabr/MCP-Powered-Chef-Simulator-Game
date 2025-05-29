@@ -3,8 +3,9 @@
 import { useGameStore } from '@/state/game/gameStore'
 import { useRestaurantStore } from '@/state/game/restaurantStore'
 import { useKitchenStore } from '@/state/game/kitchenStore'
+import { usePlayerStore } from '@/state/player/playerStore'
 import { useState, useEffect } from 'react'
-import { Customer, PrepStation, CookingStation, PlatingStation, CookingProcess, Order } from '@/types/models'
+import { Customer, PrepStation, CookingStation, PlatingStation, CookingProcess, Order, Position as PlayerStorePosition } from '@/types/models'
 import InventoryPanel from './InventoryPanel'
 import CustomerPatienceDisplay from './CustomerPatienceDisplay'
 import CustomerSprite from './CustomerSprite'
@@ -66,73 +67,53 @@ export const AREAS = {
     KITCHEN_COOK: { x: 80, y: 30.3, width: 20, height: 37.9 },
     KITCHEN_PLATE: { x: 60, y: 68.2, width: 40, height: 16.8 },
 
-    ORDERS: { x: 15, y: 70, width: 45, height: 15 },
+    ORDERS: { x: 15, y: 85, width: 45, height: 15 },
 
     CONTROLS: { x: 0, y: 85, width: 100, height: 15 }
 }
 
 export default function RestaurantView() {
     const { game } = useGameStore()
-    const { restaurant, actions } = useRestaurantStore()
+    const { restaurant, actions: restaurantActions } = useRestaurantStore()
     const kitchen = useKitchenStore()
+    const { player, actions: playerActions } = usePlayerStore()
 
     const [selection, setSelection] = useState<GameSelection>({ type: null, id: null })
-    const [chefPosition, setChefPosition] = useState<Position>({ x: 40, y: 50 })
     const [movingCustomers, setMovingCustomers] = useState<Record<string, MovingEntity>>({})
     const [showInventoryPanel, setShowInventoryPanel] = useState(false)
 
-    // Animation function for smooth movement
-    const moveEntityTo = (entityId: string, targetPos: Position, duration: number = 1000) => {
-        setMovingCustomers(prev => ({
-            ...prev,
-            [entityId]: {
-                id: entityId,
-                position: prev[entityId]?.position || targetPos,
-                targetPosition: targetPos,
-                isMoving: true
-            }
-        }))
+    useEffect(() => {
+        // Set initial chef position in the dining area when the view loads.
+        // Using x: 60, y: 45 as a starting point to the right of the tables.
+        // The player.position (which is the default {x:0,y:0,area:'kitchen'}) is passed as oldPosition.
+        playerActions.setPosition({ x: 70, y: 45, area: 'dining' }, player.position);
+    }, [playerActions]); // Runs once on mount because playerActions is stable
 
-        setTimeout(() => {
-            setMovingCustomers(prev => ({
-                ...prev,
-                [entityId]: {
-                    ...prev[entityId],
-                    position: targetPos,
-                    isMoving: false,
-                    targetPosition: undefined
-                }
-            }))
-        }, duration)
-    }
+    const moveChefTo = (newPos: { x: number, y: number }, targetArea: PlayerStorePosition['area']) => {
+        playerActions.setPosition({ ...newPos, area: targetArea }, player.position);
+    };
 
     const handleCustomerSelect = (customerId: string) => {
         setSelection({ type: 'customer', id: customerId })
     }
 
     const handleCustomerClick = (customerId: string, tableId: string | undefined) => {
-        if (!tableId) return; // Should not happen if customer is seated
-
+        if (!tableId) return;
         const customerAtTable = restaurant.activeCustomers.find(c => c.id === customerId);
-
         if (customerAtTable && customerAtTable.status === 'seated' && !customerAtTable.order) {
             const placeholderDishId = restaurant.unlockedMenuItems && restaurant.unlockedMenuItems.length > 0
                 ? restaurant.unlockedMenuItems[0]
                 : 'dish_burger_001';
-
-            const result = actions.takeOrder(tableId, placeholderDishId);
+            const result = restaurantActions.takeOrder(tableId, placeholderDishId);
             if (result.success) {
-                console.log(result.message, result.order);
                 const tablePos = TABLE_POSITIONS.find(t => t.id === tableId);
                 if (tablePos) {
-                    setChefPosition({ x: tablePos.x - 5, y: tablePos.y + 5 });
+                    moveChefTo({ x: tablePos.x - 5, y: tablePos.y + 5 }, 'dining');
                     setTimeout(() => {
-                        setChefPosition({ x: 40, y: 50 });
+                        moveChefTo({ x: 40, y: 50 }, 'dining');
                     }, 1500);
                 }
-            } else {
-                console.warn(result.message);
-            }
+            } else { console.warn(result.message); }
             setSelection({ type: 'customer', id: customerId, data: { tableId } });
         } else {
             setSelection({ type: 'customer', id: customerId, data: { tableId } });
@@ -141,64 +122,38 @@ export default function RestaurantView() {
 
     const handleTableClick = (tableId: string) => {
         const customerAtTable = restaurant.activeCustomers.find(c => c.tableId === tableId);
-
         if (selection.type === 'customer' && selection.id) {
-            const result = actions.seatCustomer(selection.id, tableId)
+            const result = restaurantActions.seatCustomer(selection.id, tableId)
             if (result.success) {
                 const tablePos = TABLE_POSITIONS.find(t => t.id === tableId)
                 if (tablePos) {
                     const queueIndex = restaurant.customerQueue.findIndex(c => c.id === selection.id)
                     const startPos = QUEUE_POSITIONS[queueIndex] || QUEUE_POSITIONS[0]
-
-                    setMovingCustomers(prev => ({
-                        ...prev,
-                        [selection.id!]: {
-                            id: selection.id!,
-                            position: { x: startPos.x, y: startPos.y },
-                            targetPosition: { x: tablePos.x, y: tablePos.y },
-                            isMoving: true
-                        }
-                    }))
-
+                    setMovingCustomers(prev => ({ ...prev, [selection.id!]: { id: selection.id!, position: { x: startPos.x, y: startPos.y }, targetPosition: { x: tablePos.x, y: tablePos.y }, isMoving: true } }));
                     setTimeout(() => {
-                        setChefPosition({ x: tablePos.x - 5, y: tablePos.y + 5 })
+                        moveChefTo({ x: tablePos.x - 5, y: tablePos.y + 5 }, 'dining');
                     }, 500)
                     setTimeout(() => {
-                        setChefPosition({ x: 40, y: 50 })
+                        moveChefTo({ x: 40, y: 50 }, 'dining');
                     }, 2000)
-
                     setTimeout(() => {
-                        setMovingCustomers(prev => ({
-                            ...prev,
-                            [selection.id!]: {
-                                ...prev[selection.id!],
-                                position: { x: tablePos.x, y: tablePos.y },
-                                isMoving: false,
-                                targetPosition: undefined
-                            }
-                        }))
+                        setMovingCustomers(prev => ({ ...prev, [selection.id!]: { ...prev[selection.id!], position: { x: tablePos.x, y: tablePos.y }, isMoving: false, targetPosition: undefined } }));
                     }, 1000)
                 }
                 setSelection({ type: null, id: null })
             }
         } else if (customerAtTable && customerAtTable.status === 'seated' && !customerAtTable.order) {
-            const placeholderDishId = restaurant.unlockedMenuItems && restaurant.unlockedMenuItems.length > 0
-                ? restaurant.unlockedMenuItems[0]
-                : 'dish_burger_001';
-
-            const result = actions.takeOrder(tableId, placeholderDishId);
+            const placeholderDishId = restaurant.unlockedMenuItems && restaurant.unlockedMenuItems.length > 0 ? restaurant.unlockedMenuItems[0] : 'dish_burger_001';
+            const result = restaurantActions.takeOrder(tableId, placeholderDishId);
             if (result.success) {
-                console.log(result.message, result.order);
                 const tablePos = TABLE_POSITIONS.find(t => t.id === tableId);
                 if (tablePos) {
-                    setChefPosition({ x: tablePos.x - 5, y: tablePos.y + 5 });
+                    moveChefTo({ x: tablePos.x - 5, y: tablePos.y + 5 }, 'dining');
                     setTimeout(() => {
-                        setChefPosition({ x: 40, y: 50 });
+                        moveChefTo({ x: 40, y: 50 }, 'dining');
                     }, 1500);
                 }
-            } else {
-                console.warn(result.message);
-            }
+            } else { console.warn(result.message); }
             setSelection({ type: 'table', id: tableId });
         } else {
             setSelection({ type: 'table', id: tableId })
@@ -207,13 +162,19 @@ export default function RestaurantView() {
 
     const handleStationClick = (stationId: string, stationType: 'prep' | 'cooking' | 'plating') => {
         setSelection({ type: 'station', id: stationId, data: { type: stationType } })
+        // These X, Y are percentages relative to the overall view. They need to be mapped to player.position.area and specific coordinates within that area.
+        // For now, using 'kitchen' as the area. The actual x,y in the player store should ideally be normalized for that area or absolute.
         if (stationType === 'prep') {
-            setChefPosition({ x: 75, y: 25 })
+            moveChefTo({ x: AREAS.KITCHEN_PREP.x + AREAS.KITCHEN_PREP.width / 2, y: AREAS.KITCHEN_PREP.y + AREAS.KITCHEN_PREP.height / 2 }, 'kitchen');
         } else if (stationType === 'cooking') {
-            setChefPosition({ x: 85, y: 45 })
+            moveChefTo({ x: AREAS.KITCHEN_COOK.x + AREAS.KITCHEN_COOK.width / 2, y: AREAS.KITCHEN_COOK.y + AREAS.KITCHEN_COOK.height / 2 }, 'kitchen');
         } else if (stationType === 'plating') {
-            setChefPosition({ x: 75, y: 85 })
+            moveChefTo({ x: AREAS.KITCHEN_PLATE.x + AREAS.KITCHEN_PLATE.width / 2, y: AREAS.KITCHEN_PLATE.y + AREAS.KITCHEN_PLATE.height / 2 }, 'kitchen');
         }
+    }
+
+    const handleOrderClick = (orderId: string) => {
+        setSelection({ type: 'order', id: orderId });
     }
 
     return (
@@ -243,7 +204,7 @@ export default function RestaurantView() {
                 activeCustomers={restaurant.activeCustomers}
                 selection={selection}
                 movingCustomers={movingCustomers}
-                chefPosition={chefPosition}
+                chefPosition={{ x: player.position.x, y: player.position.y }}
                 tablePositions={TABLE_POSITIONS}
                 onCustomerClick={handleCustomerClick}
                 onTableClick={handleTableClick}
@@ -265,7 +226,7 @@ export default function RestaurantView() {
             {/* Active Orders Area */}
             <OrdersArea
                 activeOrders={restaurant.activeOrders}
-                onOrderSelect={(orderId) => setSelection({ type: 'order', id: orderId })}
+                onOrderSelect={handleOrderClick}
                 areaStyle={AREAS.ORDERS}
             />
 
@@ -275,17 +236,21 @@ export default function RestaurantView() {
                 areaStyle={AREAS.CONTROLS}
             />
 
-            {/* Inventory Panel Modal - Rendered at the root of RestaurantView for proper modal behavior */}
-            <InventoryPanel
-                isOpen={showInventoryPanel}
-                onClose={() => setShowInventoryPanel(false)}
-            />
-
             {/* Selection Info Panel (overlay) */}
-            <SelectionInfoPanel
-                selection={selection}
-                onClose={() => setSelection({ type: null, id: null })}
-            />
+            {selection.type && selection.id && (
+                <SelectionInfoPanel
+                    selection={selection}
+                    onClose={() => setSelection({ type: null, id: null })}
+                />
+            )}
+
+            {/* Inventory Panel Modal - Rendered at the root of RestaurantView for proper modal behavior */}
+            {showInventoryPanel && (
+                <InventoryPanel
+                    isOpen={showInventoryPanel}
+                    onClose={() => setShowInventoryPanel(false)}
+                />
+            )}
         </div>
     )
 } 

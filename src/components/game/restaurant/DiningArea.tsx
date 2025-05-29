@@ -3,7 +3,8 @@
 import { Customer } from '@/types/models'
 import CustomerPatienceDisplay from '../CustomerPatienceDisplay'
 import CustomerSprite from '../CustomerSprite'
-import { GameSelection } from '../RestaurantView' // Assuming GameSelection and other types are available
+import ChefSprite from '../ChefSprite'
+import type { GameSelection } from '../RestaurantView' // Assuming GameSelection and other types are available
 // import TableIcon from '../../icons/TableIcon' // If needed
 
 interface AreaStyle {
@@ -146,14 +147,14 @@ export default function DiningArea({
 
             {/* Chef */}
             <div
-                className="absolute w-8 h-12 transition-all duration-500 z-10"
+                className="absolute transition-all duration-500 z-10"
                 style={{
                     left: `${chefPosition.x}%`,
                     top: `${chefPosition.y}%`,
                     transform: 'translate(-50%, -50%)'
                 }}
             >
-                <div className="text-3xl">👨‍🍳</div>
+                <ChefSprite />
             </div>
         </div>
     );

@@ -1,12 +1,17 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
-import { Player, PlayerAction, Position, SavedCommand, PlayerActionType } from '@/types/models'
+import {
+    Player, PlayerAction, Position, SavedCommand, PlayerActionType,
+    PlayerDirection, ChefAnimationType, ChefSpriteConfig
+} from '@/types/models'
+import { chefSpriteConfig } from '@/config/chefAnimations'
 
 interface PlayerState {
     player: Player
+    isCarryingItem: boolean
     actions: {
         setName: (name: string) => void
-        setPosition: (position: Position) => void
+        setPosition: (position: Position, oldPosition?: Position) => void
         addScore: (points: number) => void
         startAction: (actionType: PlayerActionType, targetId: string, duration: number) => string
         queueAction: (actionType: PlayerActionType, targetId: string, duration: number) => string
@@ -17,45 +22,55 @@ interface PlayerState {
         saveCommand: (command: Omit<SavedCommand, 'id'>) => string
         deleteCommand: (commandId: string) => void
         resetPlayer: () => void
+        _updateAnimationState: () => void
+        setPlayerDirection: (direction: PlayerDirection) => void
+        setCarryingItem: (isCarrying: boolean) => void
     }
 }
 
+const defaultPlayerPosition: Position = {
+    x: 0,
+    y: 0,
+    area: 'kitchen'
+}
+
 export const usePlayerStore = create<PlayerState>()(
-    immer((set) => ({
+    immer((set, get) => ({
         player: {
             id: `player_${Date.now()}`,
             name: 'Chef',
             score: 0,
             speed: 1,
             skill: 1,
-            position: {
-                x: 0,
-                y: 0,
-                area: 'kitchen'
-            },
+            position: defaultPlayerPosition,
             currentAction: null,
             actionQueue: [],
             actionHistory: [],
-            savedCommands: []
+            savedCommands: [],
+            direction: 'down',
+            animationState: 'idle',
+            spriteConfig: chefSpriteConfig,
         },
+        isCarryingItem: false,
         actions: {
             setName: (name) => set((state) => {
                 state.player.name = name
             }),
-
-            setPosition: (position) => set((state) => {
-                state.player.position = position
+            setPosition: (newPosition, oldPosition) => set((state) => {
+                const prevPos = oldPosition || state.player.position
+                state.player.position = newPosition
+                if (newPosition.x > prevPos.x) state.player.direction = 'right'
+                else if (newPosition.x < prevPos.x) state.player.direction = 'left'
+                else if (newPosition.y > prevPos.y) state.player.direction = 'down'
+                else if (newPosition.y < prevPos.y) state.player.direction = 'up'
+                get().actions._updateAnimationState()
             }),
-
             addScore: (points) => set((state) => {
                 state.player.score += points
             }),
-
             startAction: (actionType, targetId, duration) => {
                 const actionId = `action_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`
-
                 set((state) => {
-                    // Create the new action
                     const newAction: PlayerAction = {
                         id: actionId,
                         type: actionType,
@@ -65,55 +80,36 @@ export const usePlayerStore = create<PlayerState>()(
                         status: 'in_progress',
                         completionTime: null
                     }
-
-                    // Set as current action
                     state.player.currentAction = newAction
                 })
-
+                get().actions._updateAnimationState()
                 return actionId
             },
-
             queueAction: (actionType, targetId, duration) => {
                 const actionId = `action_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`
-
                 set((state) => {
-                    // Create the new action
                     const newAction: PlayerAction = {
                         id: actionId,
                         type: actionType,
                         target: targetId,
-                        startTime: 0, // Will be set when action starts
+                        startTime: 0,
                         duration,
                         status: 'queued',
                         completionTime: null
                     }
-
-                    // Add to action queue
                     state.player.actionQueue.push(newAction)
                 })
-
                 return actionId
             },
-
             completeAction: (actionId, success) => set((state) => {
-                // Check if it's the current action
                 if (state.player.currentAction && state.player.currentAction.id === actionId) {
-                    // Update status based on success
                     state.player.currentAction.status = success ? 'completed' : 'failed'
                     state.player.currentAction.completionTime = Date.now()
-
-                    // Add to action history
                     state.player.actionHistory.unshift(state.player.currentAction)
-
-                    // Limit history size
                     if (state.player.actionHistory.length > 20) {
                         state.player.actionHistory.pop()
                     }
-
-                    // Clear current action
                     state.player.currentAction = null
-
-                    // Start next action from queue if available
                     if (state.player.actionQueue.length > 0) {
                         const nextAction = state.player.actionQueue.shift()!
                         nextAction.status = 'in_progress'
@@ -121,37 +117,23 @@ export const usePlayerStore = create<PlayerState>()(
                         state.player.currentAction = nextAction
                     }
                 } else {
-                    // Check in the queue
-                    const actionIndex = state.player.actionQueue.findIndex(
-                        (action) => action.id === actionId
-                    )
-
+                    const actionIndex = state.player.actionQueue.findIndex((action) => action.id === actionId)
                     if (actionIndex !== -1) {
                         const action = state.player.actionQueue[actionIndex]
                         action.status = success ? 'completed' : 'failed'
                         action.completionTime = Date.now()
-
-                        // Add to history
                         state.player.actionHistory.unshift(action)
-
-                        // Limit history size
                         if (state.player.actionHistory.length > 20) {
                             state.player.actionHistory.pop()
                         }
-
-                        // Remove from queue
                         state.player.actionQueue.splice(actionIndex, 1)
                     }
                 }
+                get().actions._updateAnimationState()
             }),
-
             cancelAction: (actionId) => set((state) => {
-                // Check if it's the current action
                 if (state.player.currentAction && state.player.currentAction.id === actionId) {
-                    // Clear current action
                     state.player.currentAction = null
-
-                    // Start next action from queue if available
                     if (state.player.actionQueue.length > 0) {
                         const nextAction = state.player.actionQueue.shift()!
                         nextAction.status = 'in_progress'
@@ -159,55 +141,89 @@ export const usePlayerStore = create<PlayerState>()(
                         state.player.currentAction = nextAction
                     }
                 } else {
-                    // Remove from the queue
                     state.player.actionQueue = state.player.actionQueue.filter(
                         (action) => action.id !== actionId
                     )
                 }
+                get().actions._updateAnimationState()
             }),
-
             clearActionQueue: () => set((state) => {
                 state.player.actionQueue = []
             }),
-
             moveToArea: (area, x, y) => set((state) => {
+                const oldPos = state.player.position
                 state.player.position = { area, x, y }
+                if (x > oldPos.x) state.player.direction = 'right'
+                else if (x < oldPos.x) state.player.direction = 'left'
+                else if (y > oldPos.y) state.player.direction = 'down'
+                else if (y < oldPos.y) state.player.direction = 'up'
+                if (!state.player.currentAction) {
+                    state.player.animationState = get().isCarryingItem ? `running_lifting_${state.player.direction}` as ChefAnimationType : `running_${state.player.direction}` as ChefAnimationType
+                }
+                get().actions._updateAnimationState()
             }),
-
             saveCommand: (command) => {
                 const commandId = `cmd_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`
-
                 set((state) => {
                     state.player.savedCommands.push({
                         id: commandId,
                         ...command
                     })
                 })
-
                 return commandId
             },
-
             deleteCommand: (commandId) => set((state) => {
                 state.player.savedCommands = state.player.savedCommands.filter(
                     (cmd) => cmd.id !== commandId
                 )
             }),
-
             resetPlayer: () => set((state) => {
                 state.player = {
                     ...state.player,
                     score: 0,
-                    position: {
-                        x: 0,
-                        y: 0,
-                        area: 'kitchen'
-                    },
+                    position: defaultPlayerPosition,
                     currentAction: null,
                     actionQueue: [],
-                    actionHistory: []
-                    // Note: We're not resetting savedCommands as those should persist
+                    actionHistory: [],
+                    direction: 'down',
+                    animationState: 'idle',
                 }
-            })
+                state.isCarryingItem = false
+                get().actions._updateAnimationState()
+            }),
+            setPlayerDirection: (direction) => set((state) => {
+                state.player.direction = direction
+                get().actions._updateAnimationState()
+            }),
+            setCarryingItem: (isCarrying) => set((state) => {
+                state.isCarryingItem = isCarrying
+                get().actions._updateAnimationState()
+            }),
+            _updateAnimationState: () => set((state) => {
+                const { currentAction, direction } = state.player
+                const { isCarryingItem } = get()
+                if (currentAction) {
+                    switch (currentAction.type) {
+                        case 'move':
+                            state.player.animationState = isCarryingItem ? `running_lifting_${direction}` as ChefAnimationType : `running_${direction}` as ChefAnimationType
+                            break
+                        case 'prepare_ingredient':
+                        case 'cook':
+                        case 'plate':
+                            state.player.animationState = `interacting_${direction}` as ChefAnimationType
+                            break
+                        default:
+                            if (!state.player.animationState.startsWith('running')) {
+                                state.player.animationState = 'idle'
+                            }
+                            break
+                    }
+                } else {
+                    if (!state.player.animationState.startsWith('running')) {
+                        state.player.animationState = isCarryingItem ? 'idle' : 'idle'
+                    }
+                }
+            }),
         }
     }))
 ) 
