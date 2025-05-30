@@ -25,7 +25,7 @@
         "id": "recipe_burger_cheese_double",
         "ingredients": [
             "ingredient_meat",
-            "ingredient_bread", // Assuming 'ingredient_bread' is a burger bun
+            "ingredient_bread",
             "ingredient_cheese_cut",
             "ingredient_tomato_slice",
             "ingredient_onion_half"
@@ -55,7 +55,7 @@
         "id": "recipe_burger",
         "ingredients": [
             "ingredient_meat",
-            "ingredient_bread", // Assuming 'ingredient_bread' is a burger bun
+            "ingredient_bread",
             "ingredient_tomato_slice",
             "ingredient_onion_half",
             "ingredient_cabbage"
@@ -80,28 +80,41 @@
         "ingredients": [
             "ingredient_strawberry",
             "ingredient_cherries",
-            "ingredient_milk", // Placeholder for cream/dairy base
-            "ingredient_honey" // Placeholder for sugar/sweetener
-            // Missing: Flour, Egg - not available in ingredients.json
+            "ingredient_milk",
+            "ingredient_sugar",
+            "ingredient_flour",
+            "ingredient_egg"
         ],
         "cookingSteps": [
             {
+                "type": "chop",
+                "duration": 60,
+                "ingredientId": "ingredient_strawberry",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 60,
+                "ingredientId": "ingredient_cherries",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
                 "type": "bake",
                 "duration": 1200,
-                "ingredientId": "ingredient_milk", // Placeholder, actual cake batter would be baked
+                "ingredientId": "ingredient_milk",
                 "equipmentId": "equipment_oven"
             }
-            // Missing: Mixing steps, ingredient prep (e.g. chopping berries if needed)
         ]
     },
     {
         "id": "recipe_cake_cheesecake_orange",
         "ingredients": [
             "ingredient_orange",
-            "ingredient_cheese_cut", // Placeholder for cream cheese
-            "ingredient_cookie", // Placeholder for biscuit base
-            "ingredient_honey" // Placeholder for sugar
-            // Missing: Egg, Butter - not available in ingredients.json
+            "ingredient_cheese_cut",
+            "ingredient_cookie",
+            "ingredient_sugar",
+            "ingredient_egg",
+            "ingredient_butter"
         ],
         "cookingSteps": [
             {
@@ -113,26 +126,24 @@
             {
                 "type": "bake",
                 "duration": 1800,
-                "ingredientId": "ingredient_cheese_cut", // Placeholder for cheesecake mixture
+                "ingredientId": "ingredient_cheese_cut",
                 "equipmentId": "equipment_oven"
             }
-            // Missing: Mixing steps for filling and base
         ]
     },
     {
         "id": "recipe_cake_cheesecake_raspberry",
         "ingredients": [
-            // ingredient_raspberry - NOT AVAILABLE in ingredients.json, using strawberry as substitute
-            "ingredient_strawberry",
-            "ingredient_cheese_cut", // Placeholder for cream cheese
-            "ingredient_cookie", // Placeholder for biscuit base
-            "ingredient_honey" // Placeholder for sugar
+            "ingredient_raspberry",
+            "ingredient_cheese_cut",
+            "ingredient_cookie",
+            "ingredient_sugar"
         ],
         "cookingSteps": [
             {
                 "type": "chop",
                 "duration": 60,
-                "ingredientId": "ingredient_strawberry", // Substituted raspberry
+                "ingredientId": "ingredient_raspberry",
                 "equipmentId": "equipment_cutting_board"
             },
             {
@@ -147,9 +158,9 @@
         "id": "recipe_cake_cheesecake_strawberry",
         "ingredients": [
             "ingredient_strawberry",
-            "ingredient_cheese_cut", // Placeholder for cream cheese
-            "ingredient_cookie", // Placeholder for biscuit base
-            "ingredient_honey" // Placeholder for sugar
+            "ingredient_cheese_cut",
+            "ingredient_cookie",
+            "ingredient_sugar"
         ],
         "cookingSteps": [
             {
@@ -161,7 +172,7 @@
             {
                 "type": "bake",
                 "duration": 1800,
-                "ingredientId": "ingredient_cheese_cut", // Placeholder for cheesecake mixture
+                "ingredientId": "ingredient_cheese_cut",
                 "equipmentId": "equipment_oven"
             }
         ]
@@ -170,13 +181,15 @@
         "id": "recipe_cake_honey_caramel",
         "ingredients": [
             "ingredient_honey",
-            "ingredient_milk", // Placeholder for cream/butter for caramel & cake batter
-            "ingredient_chocolate" // Caramel often involves sugar, butter, cream. Chocolate is a guess for 'caramel' color/flavor.
-            // Missing: Flour, Egg, Sugar (proper caramel needs sugar)
+            "ingredient_butter",
+            "ingredient_chocolate",
+            "ingredient_flour",
+            "ingredient_egg",
+            "ingredient_sugar"
         ],
         "cookingSteps": [
             {
-                "type": "simmer", // For making caramel sauce (approximate)
+                "type": "mix",
                 "duration": 600,
                 "ingredientId": "ingredient_honey",
                 "equipmentId": "equipment_sauce_station"
@@ -184,7 +197,7 @@
             {
                 "type": "bake",
                 "duration": 1500,
-                "ingredientId": "ingredient_milk", // Placeholder for cake batter
+                "ingredientId": "ingredient_butter",
                 "equipmentId": "equipment_oven"
             }
         ]
@@ -193,9 +206,12 @@
         "id": "recipe_cake_mango_lemon_with_golden_berries",
         "ingredients": [
             "ingredient_lemon",
-            "ingredient_honey", // Placeholder for sugar
-            // Missing: Mango, Golden Berries, Flour, Egg, Butter - not in ingredients.json
-            "ingredient_cherries" // Using available berries as substitute for golden berries
+            "ingredient_sugar",
+            "ingredient_mango",
+            "ingredient_golden_berries",
+            "ingredient_flour",
+            "ingredient_egg",
+            "ingredient_butter"
         ],
         "cookingSteps": [
             {
@@ -207,77 +223,74 @@
             {
                 "type": "chop",
                 "duration": 30,
-                "ingredientId": "ingredient_cherries", // Substitute for golden berries
+                "ingredientId": "ingredient_golden_berries",
                 "equipmentId": "equipment_cutting_board"
             },
             {
                 "type": "bake",
                 "duration": 1600,
-                "ingredientId": "ingredient_honey", // Placeholder for cake batter
+                "ingredientId": "ingredient_honey",
                 "equipmentId": "equipment_oven"
             }
-            // Comment: Mango puree/pieces would ideally be used.
         ]
     },
     {
         "id": "recipe_cake_mint_pistacchio",
         "ingredients": [
-            "ingredient_chocolate", // Mint often pairs with chocolate
-            "ingredient_honey" // Placeholder for sugar
-            // Missing: Mint, Pistachios, Flour, Egg, Butter - not in ingredients.json
+            "ingredient_chocolate",
+            "ingredient_sugar",
+            "ingredient_flour",
+            "ingredient_egg",
+            "ingredient_butter"
         ],
         "cookingSteps": [
             {
                 "type": "bake",
                 "duration": 1500,
-                "ingredientId": "ingredient_chocolate", // Placeholder for cake batter
+                "ingredientId": "ingredient_chocolate",
                 "equipmentId": "equipment_oven"
             }
-            // Comment: Actual mint leaves or extract, and pistachios would be needed.
         ]
     },
     {
         "id": "recipe_cake_raspberry_shortcake",
         "ingredients": [
-            // "ingredient_raspberry" - NOT AVAILABLE, using strawberry
-            "ingredient_strawberry",
-            "ingredient_cookie", // Placeholder for shortcake biscuit/base
-            "ingredient_milk", // Placeholder for cream
-            "ingredient_honey" // Placeholder for sugar
-            // Missing: Flour, Egg, Butter for actual shortcake
+            "ingredient_raspberry",
+            "ingredient_cookie",
+            "ingredient_milk",
+            "ingredient_sugar",
+            "ingredient_flour",
+            "ingredient_egg",
+            "ingredient_butter"
         ],
         "cookingSteps": [
             {
                 "type": "chop",
                 "duration": 60,
-                "ingredientId": "ingredient_strawberry",
+                "ingredientId": "ingredient_raspberry",
                 "equipmentId": "equipment_cutting_board"
             },
             {
-                "type": "bake", // For shortcake biscuits
+                "type": "bake",
                 "duration": 900,
-                "ingredientId": "ingredient_cookie", // Placeholder for batter
+                "ingredientId": "ingredient_cookie",
                 "equipmentId": "equipment_oven"
             }
-            // Comment: Actual shortcake involves making biscuits and whipped cream.
         ]
     },
     {
-        "id": "recipe_cheese_potato_tofu_soup",
+        "id": "recipe_cheese_potato_soup",
         "ingredients": [
             "ingredient_cheese_cut",
-            // "ingredient_potato" - NOT AVAILABLE
-            "ingredient_carrot", // Using carrot as a root vegetable substitute
-            // "ingredient_tofu" - NOT AVAILABLE
-            "ingredient_mushroom", // Using mushroom as a soft texture substitute for tofu
-            "ingredient_onion_half"
-            // Missing: Broth/Stock, Seasonings
+            "ingredient_potato",
+            "ingredient_onion_half",
+            "ingredient_mushroom"
         ],
         "cookingSteps": [
             {
                 "type": "chop",
                 "duration": 45,
-                "ingredientId": "ingredient_carrot", // Substitute for potato
+                "ingredientId": "ingredient_potato",
                 "equipmentId": "equipment_cutting_board"
             },
             {
@@ -289,36 +302,30 @@
             {
                 "type": "chop",
                 "duration": 30,
-                "ingredientId": "ingredient_mushroom", // Substitute for tofu
+                "ingredientId": "ingredient_mushroom",
                 "equipmentId": "equipment_cutting_board"
             },
             {
-                "type": "boil", // Simmering soup
+                "type": "boil",
                 "duration": 1500,
-                "ingredientId": "ingredient_cheese_cut", // Placeholder for soup base
-                "equipmentId": "equipment_rice_cooker" // Assuming rice cooker can boil/simmer
-                // Missing: Actual pot/saucepan if rice_cooker is not suitable. "equipment_sauce_station" could be an alternative if available for boiling.
+                "ingredientId": "ingredient_cheese_cut",
+                "equipmentId": "equipment_pot"
             }
-            // Comment: Requires potato, tofu, and appropriate broth.
         ]
     },
     {
         "id": "recipe_chocolate_milk_shake_root_beer",
         "ingredients": [
             "ingredient_chocolate",
-            "ingredient_milk"
-            // Missing: Root Beer, Ice Cream - not available
+            "ingredient_milk",
+            "ingredient_root_beer"
         ],
         "cookingSteps": [
-            // Comment: Typically involves blending milk, chocolate syrup/powder, ice cream, and root beer.
-            // No blending equipment available (e.g., "equipment_blender").
-            // No cooking action if just mixing.
-            // If using a 'beverage_dispenser', it would be for serving, not making.
             {
-                "type": "mix", // Placeholder for blending/mixing action
+                "type": "mix",
                 "duration": 60,
                 "ingredientId": "ingredient_milk",
-                "equipmentId": "equipment_beverage_dispenser" // Using as a placeholder for mixing container/tool
+                "equipmentId": "equipment_beverage_dispenser"
             }
         ]
     },
@@ -329,7 +336,6 @@
             "ingredient_orange",
             "ingredient_grapes",
             "ingredient_lemon_half"
-            // Missing: Ice, specific cocktail mixers/syrups, alcohol if applicable
         ],
         "cookingSteps": [
             {
@@ -343,114 +349,113 @@
                 "duration": 60,
                 "ingredientId": "ingredient_orange",
                 "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "mix",
+                "duration": 120,
+                "ingredientId": "ingredient_orange",
+                "equipmentId": "equipment_beverage_dispenser"
             }
-            // Comment: Usually involves mixing fruit juices, syrups, and ice.
-            // No specific cocktail shaker or blender listed in equipment.
-            // "equipment_beverage_dispenser" could be used for serving.
         ]
     },
     {
         "id": "recipe_cocktail_lemon",
         "ingredients": [
             "ingredient_lemon",
-            "ingredient_honey" // As a sweetener substitute for sugar/syrup
-            // Missing: Water/Soda, Ice, other spirits/mixers if a complex cocktail
+            "ingredient_sugar",
+            "ingredient_cocktail_mixer"
         ],
         "cookingSteps": [
             {
-                "type": "dice", // Squeezing or muddling lemon
+                "type": "dice",
                 "duration": 60,
                 "ingredientId": "ingredient_lemon",
-                "equipmentId": "equipment_cutting_board" // Or a manual juicer if available as 'equipment_juicer'
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "mix",
+                "duration": 120,
+                "ingredientId": "ingredient_lemon",
+                "equipmentId": "equipment_beverage_dispenser"
             }
-            // Comment: Simple lemon cocktail (e.g., lemonade) could be just lemon, water, sweetener.
-            // "equipment_beverage_dispenser" for serving.
         ]
     },
     {
         "id": "recipe_cocktail",
         "ingredients": [
-            "ingredient_lemon_half", // Generic citrus
-            "ingredient_orange", // Generic fruit
-            "ingredient_honey" // Generic sweetener
-            // Missing: Base spirit, mixers, ice. This is very generic.
+            "ingredient_lemon_half",
+            "ingredient_orange",
+            "ingredient_sugar",
+            "ingredient_cocktail_mixer"
         ],
         "cookingSteps": [
-            // Comment: Highly dependent on the specific cocktail.
-            // Assuming simple mixing.
             {
-                "type": "mix", // Placeholder for shaking/stirring
+                "type": "mix",
                 "duration": 60,
                 "ingredientId": "ingredient_lemon_half",
-                "equipmentId": "equipment_beverage_dispenser" // Placeholder for mixing vessel
+                "equipmentId": "equipment_beverage_dispenser"
             }
         ]
     },
     {
         "id": "recipe_coffee_with_milk",
         "ingredients": [
-            // "ingredient_coffee_beans_or_ground" - NOT AVAILABLE
+            "ingredient_coffee",
             "ingredient_milk",
-            "ingredient_chocolate" // Using chocolate as a placeholder for coffee flavor/color
+            "ingredient_chocolate"
         ],
         "cookingSteps": [
-            // Comment: Requires coffee. Brewing equipment (e.g. coffee maker) not listed.
-            // Assuming a simple mix with pre-made coffee (represented by chocolate).
             {
-                "type": "boil", // Heating milk/water if needed
+                "type": "boil",
                 "duration": 120,
                 "ingredientId": "ingredient_milk",
-                "equipmentId": "equipment_sauce_station" // Or a pot on a stove if available
+                "equipmentId": "equipment_pot"
             }
         ]
     },
     {
         "id": "recipe_creamcaramel_coffee",
         "ingredients": [
-            "ingredient_honey", // For caramel
-            "ingredient_milk", // For cream part and coffee
-            // "ingredient_coffee_beans_or_ground" - NOT AVAILABLE
-            "ingredient_chocolate", // Placeholder for coffee
-            // Missing: Sugar for proper caramel, eggs for some cream caramel versions.
+            "ingredient_honey",
+            "ingredient_milk",
+            "ingredient_coffee",
+            "ingredient_egg"
         ],
         "cookingSteps": [
             {
-                "type": "simmer", // Making caramel
+                "type": "simmer",
                 "duration": 300,
                 "ingredientId": "ingredient_honey",
                 "equipmentId": "equipment_sauce_station"
             },
             {
-                "type": "boil", // Preparing "coffee" part
+                "type": "boil",
                 "duration": 120,
-                "ingredientId": "ingredient_chocolate", // Placeholder for coffee
-                "equipmentId": "equipment_sauce_station"
+                "ingredientId": "ingredient_coffee",
+                "equipmentId": "equipment_pan"
             }
-            // Comment: Complex dessert, involves making caramel, a custard/cream, and coffee.
-            // "equipment_oven" might be needed if it's a baked cream caramel.
         ]
     },
     {
         "id": "recipe_cucumber_salad",
         "ingredients": [
-            // "ingredient_cucumber" - NOT AVAILABLE
-            "ingredient_cabbage", // Using cabbage as a crunchy green substitute
+            "ingredient_cucumber",
+            "ingredient_cabbage",
             "ingredient_tomato",
             "ingredient_onion_half",
-            "ingredient_lemon_half" // For dressing
-            // Missing: Oil, vinegar, herbs for dressing if desired.
+            "ingredient_lemon_half"
         ],
         "cookingSteps": [
             {
                 "type": "chop",
                 "duration": 90,
-                "ingredientId": "ingredient_cabbage", // Substitute for cucumber
+                "ingredientId": "ingredient_cucumber",
                 "equipmentId": "equipment_cutting_board"
             },
             {
                 "type": "chop",
                 "duration": 60,
-                "ingredientId": "ingredient_tomato",
+                "ingredientId": "ingredient_cabbage",
                 "equipmentId": "equipment_cutting_board"
             },
             {
@@ -458,37 +463,46 @@
                 "duration": 30,
                 "ingredientId": "ingredient_onion_half",
                 "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientId": "ingredient_lemon_half",
+                "equipmentId": "equipment_sauce_station"
             }
-            // Comment: Cucumber is key. Dressing is simple with lemon.
         ]
     },
     {
         "id": "recipe_cupcake",
         "ingredients": [
-            "ingredient_milk", // Part of batter
-            "ingredient_honey", // Sweetener
-            "ingredient_chocolate" // For chocolate cupcake flavor/frosting
-            // Missing: Flour, Eggs, Butter/Oil, Baking Powder/Soda for the cupcake itself.
-            // Missing: Frosting specific ingredients if not just melted chocolate.
+            "ingredient_milk",
+            "ingredient_sugar",
+            "ingredient_flour",
+            "ingredient_egg",
+            "ingredient_butter"
         ],
         "cookingSteps": [
             {
+                "type": "mix",
+                "duration": 60,
+                "ingredientId": "ingredient_milk",
+                "equipmentId": "equipment_beverage_dispenser"
+            },
+            {
                 "type": "bake",
                 "duration": 1200,
-                "ingredientId": "ingredient_milk", // Placeholder for cupcake batter
+                "ingredientId": "ingredient_milk",
                 "equipmentId": "equipment_oven"
             }
-            // Comment: Basic cupcake ingredients are missing. Assumes a very simplified version.
-            // Mixing steps are also omitted.
         ]
     },
     {
         "id": "recipe_drink_sweet",
         "ingredients": [
-            "ingredient_strawberry", // Common sweet fruit
-            "ingredient_apple", // Another common sweet fruit
-            "ingredient_honey" // For sweetness
-            // Missing: Specific type of drink base (e.g., juice, soda, milk)
+            "ingredient_strawberry",
+            "ingredient_honey",
+            "ingredient_root_beer",
+            "ingredient_cocktail_mixer"
         ],
         "cookingSteps": [
             {
@@ -498,24 +512,20 @@
                 "equipmentId": "equipment_cutting_board"
             },
             {
-                "type": "chop",
-                "duration": 60,
-                "ingredientId": "ingredient_apple",
-                "equipmentId": "equipment_cutting_board"
+                "type": "mix",
+                "duration": 20,
+                "ingredientId": "ingredient_cocktail_mixer",
+                "equipmentId": "equipment_beverage_dispenser"
             }
-            // Comment: Assumes fruits are mixed/blended. No blender available.
-            // "equipment_beverage_dispenser" for serving.
         ]
     },
     {
         "id": "recipe_egg_soup",
         "ingredients": [
-            // "ingredient_egg" - NOT AVAILABLE
-            "ingredient_mushroom", // Using as a textural element
-            "ingredient_corn",
+            "ingredient_egg",
+            "ingredient_mushroom",
             "ingredient_carrot",
             "ingredient_onion_half"
-            // Missing: Egg, Broth/Stock, Seasonings (e.g., soy sauce, ginger)
         ],
         "cookingSteps": [
             {
@@ -531,39 +541,34 @@
                 "equipmentId": "equipment_cutting_board"
             },
             {
-                "type": "boil", // Simmering soup ingredients
+                "type": "boil",
                 "duration": 1000,
-                "ingredientId": "ingredient_corn", // Placeholder for soup base
-                "equipmentId": "equipment_rice_cooker" // Assuming it can simmer soup
+                "ingredientId": "ingredient_egg",
+                "equipmentId": "equipment_pot"
             }
-            // Comment: Egg is crucial for egg drop soup. Broth and specific seasonings also needed.
         ]
     },
     {
         "id": "recipe_eggs_with_rice",
         "ingredients": [
-            // "ingredient_egg" - NOT AVAILABLE
-            "ingredient_rice_ball", // Assuming this is cooked rice
-            "ingredient_meat_sausage", // Adding some protein as egg substitute
+            "ingredient_egg",
+            "ingredient_rice",
             "ingredient_onion_half",
-            "ingredient_pepper" // Seasoning
-            // Missing: Egg, Soy sauce (common), Oil for frying
+            "ingredient_salt_pepper"
         ],
         "cookingSteps": [
             {
-                "type": "fry", // Frying rice and other ingredients
+                "type": "fry",
                 "duration": 400,
-                "ingredientId": "ingredient_rice_ball",
-                "equipmentId": "equipment_deep_fryer" // Not ideal, a wok/pan on a stove is better.
-                // "equipment_sauce_station" might be a stove if it has burners.
+                "ingredientId": "ingredient_rice",
+                "equipmentId": "equipment_pan"
             },
             {
-                "type": "chop",
+                "type": "mix",
                 "duration": 30,
-                "ingredientId": "ingredient_meat_sausage",
-                "equipmentId": "equipment_cutting_board"
+                "ingredientId": "ingredient_salt_pepper",
+                "equipmentId": "equipment_sauce_station"
             }
-            // Comment: Key ingredient Egg is missing. Assumes pre-cooked rice.
         ]
     },
     {
@@ -571,31 +576,33 @@
         "ingredients": [
             "ingredient_fish_fillet",
             "ingredient_lemon_half",
-            "ingredient_pepper",
-            "ingredient_salt" // Assuming salt is available or part of pepper for simplicity
-            // Missing: Oil/Butter for cooking, herbs (dill, parsley typical)
+            "ingredient_salt_pepper",
+            "ingredient_butter",
         ],
         "cookingSteps": [
             {
-                "type": "grill", // Or bake/fry depending on preference
+                "type": "mix",
+                "duration": 20,
+                "ingredientId": "ingredient_lemon_half",
+                "equipmentId": "equipment_sauce_station"
+            },
+            {
+                "type": "grill",
                 "duration": 900,
                 "ingredientId": "ingredient_fish_fillet",
                 "equipmentId": "equipment_grill"
             }
-            // Comment: Simple grilled fish. Other methods like baking in "equipment_oven" or frying in "equipment_deep_fryer" are possible.
         ]
     },
     {
         "id": "recipe_fish_with_potatoes_and_carrots",
         "ingredients": [
             "ingredient_fish_fillet",
-            // "ingredient_potato" - NOT AVAILABLE, using fries as a substitute
-            "ingredient_fries",
+            "ingredient_potato",
             "ingredient_carrot",
             "ingredient_lemon_half",
-            "ingredient_pepper",
-            "ingredient_salt" // Assuming available
-            // Missing: Potato, Oil/Butter, Herbs
+            "ingredient_salt_pepper",
+            "ingredient_butter"
         ],
         "cookingSteps": [
             {
@@ -611,117 +618,114 @@
                 "equipmentId": "equipment_cutting_board"
             },
             {
-                "type": "bake", // For carrots and fries (potato substitute)
+                "type": "bake",
                 "duration": 1200,
                 "ingredientId": "ingredient_carrot",
                 "equipmentId": "equipment_oven"
             }
-            // Comment: Potato is missing. Fries used as substitute. Carrots and fish cooked separately.
         ]
     },
     {
         "id": "recipe_frappe",
         "ingredients": [
-            // "ingredient_instant_coffee" - NOT AVAILABLE
-            "ingredient_chocolate", // Using as a coffee substitute
+            "ingredient_coffee",
+            "ingredient_chocolate",
             "ingredient_milk",
-            "ingredient_honey" // As sweetener, sugar substitute
-            // Missing: Coffee, Sugar, Ice. Ice cream sometimes used.
+            "ingredient_sugar"
         ],
         "cookingSteps": [
-            // Comment: Requires blending. No "equipment_blender" available.
-            // Assumes simple mixing.
             {
                 "type": "mix",
                 "duration": 90,
                 "ingredientId": "ingredient_milk",
-                "equipmentId": "equipment_beverage_dispenser" // Placeholder for mixing container
+                "equipmentId": "equipment_beverage_dispenser"
             }
         ]
     },
     {
         "id": "recipe_hotdog",
         "ingredients": [
-            // "ingredient_sausage_hotdog" - NOT AVAILABLE, using generic sausage
             "ingredient_meat_sausage",
-            // "ingredient_hotdog_bun" - NOT AVAILABLE, using generic bread
-            "ingredient_bread"
-            // Missing: Ketchup, Mustard, Relish if desired.
+            "ingredient_hotdog_bun",
+            "ingredient_bread",
+            "ingredient_ketchup"
         ],
         "cookingSteps": [
             {
-                "type": "grill", // Or boil
+                "type": "grill",
                 "duration": 300,
                 "ingredientId": "ingredient_meat_sausage",
                 "equipmentId": "equipment_grill"
             },
             {
-                "type": "toast", // Warming the bun
+                "type": "toast",
                 "duration": 60,
                 "ingredientId": "ingredient_bread",
                 "equipmentId": "equipment_toaster"
+            },
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientId": "ingredient_ketchup",
+                "equipmentId": "equipment_sauce_station"
             }
-            // Comment: Specific hotdog sausage and bun are preferable but substituted.
         ]
     },
     {
         "id": "recipe_icecream_chocolate_caramel",
         "ingredients": [
-            // "ingredient_ice_cream_base" - NOT AVAILABLE
-            "ingredient_milk", // Component of ice cream
+            "ingredient_ice_cream",
             "ingredient_chocolate",
-            "ingredient_honey" // For caramel flavor substitute
-            // Missing: Actual ice cream, cream, sugar for caramel.
+            "ingredient_sugar"
         ],
         "cookingSteps": [
-            // Comment: Making ice cream from scratch is complex and requires specific equipment (ice cream maker) not listed.
-            // This recipe assumes a very simplified, no-churn style or just flavored milk.
             {
-                "type": "simmer", // For honey caramel attempt
+                "type": "simmer",
                 "duration": 180,
                 "ingredientId": "ingredient_honey",
                 "equipmentId": "equipment_sauce_station"
+            },
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientId": "ingredient_chocolate",
+                "equipmentId": "equipment_beverage_dispenser"
             }
-            // No freezing step/equipment possible with current setup.
         ]
     },
     {
         "id": "recipe_ice_cream",
         "ingredients": [
-            // "ingredient_ice_cream_base_vanilla_or_plain" - NOT AVAILABLE
-            "ingredient_milk",
-            "ingredient_honey" // Sweetener
-            // Missing: Cream, Sugar, Flavorings (e.g. vanilla extract)
+            "ingredient_ice_cream"
         ],
         "cookingSteps": [
-            // Comment: True ice cream making is not possible with available ingredients/equipment.
-            // Represents a very simple flavored frozen milk concept.
-            // No freezing equipment like "equipment_freezer" or "equipment_ice_cream_maker".
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientId": "ingredient_ice_cream",
+                "equipmentId": "equipment_beverage_dispenser"
+            }
         ]
     },
     {
         "id": "recipe_lamb_chop_with_potatoes",
         "ingredients": [
-            // "ingredient_lamb_chop" - NOT AVAILABLE, using generic meat steak
-            "ingredient_meat_steak",
-            // "ingredient_potato" - NOT AVAILABLE, using fries
-            "ingredient_fries",
+            "ingredient_meat_leg_4",
+            "ingredient_potato",
             "ingredient_onion_half",
-            "ingredient_pepper",
-            "ingredient_salt" // Assuming available
-            // Missing: Lamb chop, Potato, Garlic, Rosemary, Thyme (typical herbs for lamb)
+            "ingredient_salt_pepper"
         ],
         "cookingSteps": [
             {
                 "type": "grill",
                 "duration": 700,
-                "ingredientId": "ingredient_meat_steak", // Lamb substitute
+                "ingredientId": "ingredient_meat_leg_4",
                 "equipmentId": "equipment_grill"
             },
             {
-                "type": "bake", // For fries (potato substitute)
+                "type": "bake",
                 "duration": 1000,
-                "ingredientId": "ingredient_fries",
+                "ingredientId": "ingredient_potato",
                 "equipmentId": "equipment_oven"
             },
             {
@@ -729,36 +733,45 @@
                 "duration": 30,
                 "ingredientId": "ingredient_onion_half",
                 "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientId": "ingredient_salt_pepper",
+                "equipmentId": "equipment_sauce_station"
             }
-            // Comment: Lamb chop and potato are missing. Substitutions made.
         ]
     },
     {
         "id": "recipe_meat_sausage",
         "ingredients": [
-            "ingredient_meat_sausage", // Assuming this is a pre-made sausage that needs cooking
-            "ingredient_bread" // Optional, for serving
-            // Missing: Specific seasonings if preparing from raw ground meat.
+            "ingredient_meat_fat_lard",
+            "ingredient_bread",
+            "ingredient_salt_pepper",
+            "ingredient_ketchup"
         ],
         "cookingSteps": [
             {
-                "type": "grill", // Or fry
+                "type": "grill",
                 "duration": 400,
                 "ingredientId": "ingredient_meat_sausage",
                 "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientId": "ingredient_ketchup",
+                "equipmentId": "equipment_sauce_station"
             }
-            // Comment: Simple preparation for a pre-made sausage.
         ]
     },
     {
         "id": "recipe_meat_soup",
         "ingredients": [
-            "ingredient_meat", // Generic meat, could be beef, chicken chunks
+            "ingredient_meat",
             "ingredient_carrot",
             "ingredient_onion_half",
-            // "ingredient_potato" - NOT AVAILABLE, using ingredient_corn as a filler
-            "ingredient_corn"
-            // Missing: Broth/Stock, Celery, Other vegetables, Seasonings (bay leaf, thyme, etc.)
+            "ingredient_cabbage"
         ],
         "cookingSteps": [
             {
@@ -775,35 +788,37 @@
             },
             {
                 "type": "chop",
+                "duration": 60,
+                "ingredientId": "ingredient_cabbage",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
                 "duration": 30,
                 "ingredientId": "ingredient_onion_half",
                 "equipmentId": "equipment_cutting_board"
             },
             {
-                "type": "boil", // Simmering soup
+                "type": "boil",
                 "duration": 2000,
-                "ingredientId": "ingredient_meat", // Placeholder for all soup ingredients
-                "equipmentId": "equipment_rice_cooker" // Assuming it can simmer soup; a pot on equipment_sauce_station if it's a stove would be better.
+                "ingredientId": "ingredient_meat",
+                "equipmentId": "equipment_pot"
             }
-            // Comment: Basic meat soup. Broth and more vegetables would improve it.
         ]
     },
     {
         "id": "recipe_milkshake_chocolate",
         "ingredients": [
             "ingredient_milk",
-            "ingredient_chocolate", // Chocolate syrup or powder
-            "ingredient_honey" // As sweetener, if no ice cream
-            // Missing: Ice Cream (key ingredient for traditional milkshake)
+            "ingredient_chocolate",
+            "ingredient_ice_cream"
         ],
         "cookingSteps": [
-            // Comment: Typically requires blending. No "equipment_blender" available.
-            // Assumes vigorous mixing.
             {
                 "type": "mix",
                 "duration": 90,
                 "ingredientId": "ingredient_milk",
-                "equipmentId": "equipment_beverage_dispenser" // Placeholder for mixing/serving container
+                "equipmentId": "equipment_beverage_dispenser"
             }
         ]
     },
@@ -811,17 +826,16 @@
         "id": "recipe_milkshake_desert_chocolate_sweet",
         "ingredients": [
             "ingredient_milk",
-            "ingredient_chocolate", // Chocolate flavor
-            "ingredient_cookie", // For extra dessert/sweet element
-            "ingredient_honey" // Sweetener
-            // Missing: Ice Cream
+            "ingredient_chocolate",
+            "ingredient_cookie",
+            "ingredient_ice_cream"
         ],
         "cookingSteps": [
             {
-                "type": "chop", // Crushing cookies
+                "type": "chop",
                 "duration": 30,
                 "ingredientId": "ingredient_cookie",
-                "equipmentId": "equipment_cutting_board" // Or in a bag with a rolling pin if available
+                "equipmentId": "equipment_cutting_board"
             },
             {
                 "type": "mix",
@@ -829,16 +843,15 @@
                 "ingredientId": "ingredient_milk",
                 "equipmentId": "equipment_beverage_dispenser"
             }
-            // Comment: Enhanced chocolate milkshake, still missing ice cream for traditional texture. No blender.
         ]
     },
     {
         "id": "recipe_pie",
         "ingredients": [
-            "ingredient_apple", // Assuming a fruit pie, apple is available
-            "ingredient_honey", // Sweetener for filling
-            "ingredient_bread" // Placeholder for pie crust (top & bottom)
-            // Missing: Flour, Butter/Shortening for crust; Spices (cinnamon, nutmeg for apple pie).
+            "ingredient_apple",
+            "ingredient_honey",
+            "ingredient_flour",
+            "ingredient_butter"
         ],
         "cookingSteps": [
             {
@@ -850,42 +863,26 @@
             {
                 "type": "bake",
                 "duration": 2400,
-                "ingredientId": "ingredient_bread", // Placeholder for assembled pie
+                "ingredientId": "ingredient_bread",
                 "equipmentId": "equipment_oven"
             }
-            // Comment: Very simplified pie. Actual pie crust and specific filling ingredients needed.
         ]
     },
     {
         "id": "recipe_pizza",
         "ingredients": [
-            "ingredient_bread", // Placeholder for pizza dough/base
-            "ingredient_tomato", // For sauce base (crushed/sauce)
-            "ingredient_cheese_cut", // Mozzarella substitute
-            "ingredient_meat_sausage", // Topping
-            "ingredient_mushroom" // Topping
-            // Missing: Actual pizza dough, Pizza sauce (herbs, garlic), Pepperoni, Olives, etc.
+            "ingredient_bread",
+            "ingredient_tomato",
+            "ingredient_cheese_cut",
+            "ingredient_mushroom"
         ],
         "cookingSteps": [
             {
-                "type": "chop", // For toppings
-                "duration": 60,
-                "ingredientId": "ingredient_meat_sausage",
-                "equipmentId": "equipment_cutting_board"
-            },
-            {
-                "type": "chop",
-                "duration": 30,
-                "ingredientId": "ingredient_mushroom",
-                "equipmentId": "equipment_cutting_board"
-            },
-            {
                 "type": "bake",
                 "duration": 1000,
-                "ingredientId": "ingredient_bread", // Placeholder for assembled pizza
+                "ingredientId": "ingredient_bread",
                 "equipmentId": "equipment_oven"
             }
-            // Comment: Simplified pizza. Requires proper dough, sauce, and varied toppings for better quality.
         ]
     },
     {
@@ -893,132 +890,128 @@
         "ingredients": [
             "ingredient_chocolate",
             "ingredient_milk",
-            "ingredient_honey" // Sweetener
-            // Missing: Popsicle molds, sticks.
+            "ingredient_sugar"
         ],
         "cookingSteps": [
-            // Comment: Making popsicles requires freezing. No "equipment_freezer" available.
-            // Assumes mixing and then somehow freezing externally.
             {
                 "type": "mix",
                 "duration": 60,
                 "ingredientId": "ingredient_milk",
-                "equipmentId": "equipment_beverage_dispenser" // As mixing vessel
+                "equipmentId": "equipment_beverage_dispenser"
+            },
+            {
+                "type": "freeze",
+                "duration": 1800,
+                "ingredientId": "ingredient_chocolate",
+                "equipmentId": "equipment_freezer"
             }
         ]
     },
     {
         "id": "recipe_pork_belly_roasted",
         "ingredients": [
-            // "ingredient_pork_belly" - NOT AVAILABLE, using ingredient_bacon_raw as a fatty pork cut substitute
+            "ingredient_meat_steak_2",
             "ingredient_bacon_raw",
-            "ingredient_pepper",
-            "ingredient_salt" // Assuming available
-            // Missing: Pork Belly, Spices (e.g., five spice, garlic powder, onion powder)
+            "ingredient_salt_pepper"
         ],
         "cookingSteps": [
             {
-                "type": "bake", // Roasting in oven
-                "duration": 3600, // Pork belly needs long, slow roasting
-                "ingredientId": "ingredient_bacon_raw", // Substitute
+                "type": "bake",
+                "duration": 600,
+                "ingredientId": "ingredient_bacon_raw",
                 "equipmentId": "equipment_oven"
             }
-            // Comment: Pork belly is specific. Bacon is a poor substitute but the closest fatty pork available.
         ]
     },
     {
         "id": "recipe_pudding",
         "ingredients": [
             "ingredient_milk",
-            "ingredient_chocolate", // Assuming chocolate pudding
-            "ingredient_honey" // Sweetener
-            // Missing: Cornstarch/Flour (thickener), Eggs (for some puddings), Vanilla extract
+            "ingredient_chocolate",
+            "ingredient_sugar",
+            "ingredient_flour",
+            "ingredient_egg"
         ],
         "cookingSteps": [
             {
-                "type": "simmer", // Cooking the pudding mixture
+                "type": "simmer",
                 "duration": 600,
                 "ingredientId": "ingredient_milk",
-                "equipmentId": "equipment_sauce_station" // Assuming it's a stovetop for a pot
+                "equipmentId": "equipment_pot"
+            },
+            {
+                "type": "freeze",
+                "duration": 1800,
+                "ingredientId": "ingredient_chocolate",
+                "equipmentId": "equipment_freezer"
             }
-            // Comment: Simplified pudding. Thickener is usually essential.
-            // Chilling step also required but no specific equipment for it.
         ]
     },
     {
         "id": "recipe_pudding_raspberry",
         "ingredients": [
             "ingredient_milk",
-            // "ingredient_raspberry" - NOT AVAILABLE, using strawberry
-            "ingredient_strawberry",
-            "ingredient_honey" // Sweetener
-            // Missing: Raspberries, Cornstarch/Flour, Egg (optional)
+            "ingredient_raspberry",
+            "ingredient_sugar",
+            "ingredient_flour",
+            "ingredient_egg"
         ],
         "cookingSteps": [
             {
                 "type": "chop",
                 "duration": 60,
-                "ingredientId": "ingredient_strawberry", // Raspberry substitute
+                "ingredientId": "ingredient_raspberry",
                 "equipmentId": "equipment_cutting_board"
             },
             {
                 "type": "simmer",
                 "duration": 700,
                 "ingredientId": "ingredient_milk",
-                "equipmentId": "equipment_sauce_station"
+                "equipmentId": "equipment_pot"
             }
-            // Comment: Raspberry pudding needs actual raspberries. Thickener missing.
         ]
     },
     {
         "id": "recipe_ribs_cooked",
         "ingredients": [
-            "ingredient_meat", // Assuming 'ingredient_meat' can represent ribs
-            "ingredient_honey" // Common glaze ingredient for ribs (substitute for BBQ sauce)
-            // Missing: Actual ribs, BBQ sauce, specific spices for rub
+            "ingredient_meat_ribs",
+            "ingredient_honey"
         ],
         "cookingSteps": [
             {
-                "type": "bake", // Ribs are often baked or grilled
-                "duration": 7200, // Long cook time for tender ribs
-                "ingredientId": "ingredient_meat",
+                "type": "bake",
+                "duration": 2000,
+                "ingredientId": "ingredient_meat_ribs",
                 "equipmentId": "equipment_oven"
             }
-            // Comment: Slow cooking is key. Glazing steps could be added if sauce ingredients were available.
         ]
     },
     {
         "id": "recipe_croissant",
         "ingredients": [
-            "ingredient_bread" // Placeholder for croissant dough
-            // Missing: Flour, Butter (lots of it!), Yeast, Sugar, Salt for proper croissant dough.
+            "ingredient_bread",
+            "ingredient_butter",
+            "ingredient_flour",
+            "ingredient_sugar"
         ],
         "cookingSteps": [
             {
                 "type": "bake",
                 "duration": 1200,
-                "ingredientId": "ingredient_bread", // Placeholder for laminated dough
+                "ingredientId": "ingredient_bread",
                 "equipmentId": "equipment_oven"
             }
-            // Comment: Making croissants is a complex process involving lamination. This is a hyper-simplification.
         ]
     },
     {
         "id": "recipe_salmon_with_avocado_cucumber",
         "ingredients": [
-            "ingredient_fish_fillet", // Assuming this is salmon
+            "ingredient_fish_fillet",
             "ingredient_avocado_half",
-            // "ingredient_cucumber" - NOT AVAILABLE, using ingredient_cabbage for crunch
-            "ingredient_cabbage",
+            "ingredient_cucumber",
             "ingredient_lemon_half"
         ],
         "cookingSteps": [
-            {
-                "type": "grill", // Salmon is often grilled or pan-seared
-                "duration": 700,
-                "ingredientId": "ingredient_fish_fillet",
-                "equipmentId": "equipment_grill"
-            },
             {
                 "type": "chop",
                 "duration": 60,
@@ -1028,282 +1021,273 @@
             {
                 "type": "chop",
                 "duration": 60,
-                "ingredientId": "ingredient_cabbage", // Cucumber substitute
+                "ingredientId": "ingredient_cucumber",
                 "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "grill",
+                "duration": 700,
+                "ingredientId": "ingredient_fish_fillet",
+                "equipmentId": "equipment_grill"
             }
-            // Comment: Cucumber is missing. Seasoning for salmon (dill, pepper) would be typical.
         ]
     },
     {
         "id": "recipe_sandwich",
         "ingredients": [
             "ingredient_bread",
-            "ingredient_meat", // e.g., sliced turkey, ham - generic meat used
+            "ingredient_meat",
             "ingredient_cheese_cut",
             "ingredient_tomato_slice",
-            "ingredient_cabbage" // Lettuce substitute
+            "ingredient_cabbage",
+            "ingredient_ketchup"
         ],
         "cookingSteps": [
             {
-                "type": "toast", // Optional toasting of bread
+                "type": "toast",
                 "duration": 60,
                 "ingredientId": "ingredient_bread",
                 "equipmentId": "equipment_toaster"
+            },
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientId": "ingredient_ketchup",
+                "equipmentId": "equipment_sauce_station"
             }
-            // Comment: Simple assembly. No specific cooking action beyond toasting.
-            // Missing: Specific sandwich meats, lettuce, condiments (mayo, mustard).
         ]
     },
     {
         "id": "recipe_skewer_vegetables",
         "ingredients": [
-            "ingredient_mushroom",
-            "ingredient_pepper", // Assuming bell pepper
+            "ingredient_meat",
             "ingredient_onion_half",
-            "ingredient_tomato_slice", // Cherry tomatoes would be better if available
-            "ingredient_carrot"
-            // Missing: Skewers, Marinade (oil, herbs, lemon juice)
+            "ingredient_tomato_slice",
         ],
         "cookingSteps": [
             {
                 "type": "chop",
                 "duration": 120,
-                "ingredientId": "ingredient_mushroom", // Chop all vegetables to skewer size
+                "ingredientId": "ingredient_onion_half",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 120,
+                "ingredientId": "ingredient_tomato_slice",
                 "equipmentId": "equipment_cutting_board"
             },
             {
                 "type": "grill",
                 "duration": 600,
-                "ingredientId": "ingredient_mushroom", // Placeholder for all skewered veggies
+                "ingredientId": "ingredient_meat",
                 "equipmentId": "equipment_grill"
             }
-            // Comment: Requires assembly onto skewers. Assumes ingredients are cut and then grilled.
         ]
     },
     {
         "id": "recipe_soda_cola",
         "ingredients": [
-            // "ingredient_cola_syrup" - NOT AVAILABLE
-            // "ingredient_carbonated_water" - NOT AVAILABLE
-            "ingredient_honey", // Placeholder for sweetness/syrup
-            "ingredient_lemon_half" // For some flavor complexity
+            "ingredient_cola",
+            "ingredient_honey",
+            "ingredient_lemon_half"
         ],
         "cookingSteps": [
-            // Comment: Making soda requires specific syrup and carbonation.
-            // This represents a very abstract "sweet fizzy drink".
-            // No action, served directly via beverage_dispenser (assumed).
-        ]
-    },
-    {
-        "id": "recipe_soda_glass",
-        "ingredients": [
-            // "ingredient_generic_soda_syrup" - NOT AVAILABLE
-            // "ingredient_carbonated_water" - NOT AVAILABLE
-            "ingredient_apple" // For a hint of fruit flavor
-        ],
-        "cookingSteps": [
-            // Comment: Generic soda. Assumes it's poured from a dispenser.
-            // "equipment_beverage_dispenser" for serving.
-        ]
-    },
-    {
-        "id": "recipe_soda",
-        "ingredients": [
-            // "ingredient_generic_soda_syrup_or_flavoring" - NOT AVAILABLE
-            // "ingredient_carbonated_water" - NOT AVAILABLE
-            "ingredient_orange" // For a generic fruit soda flavor
-        ],
-        "cookingSteps": [
-            // Comment: Another generic soda, implies simply dispensing a pre-mixed beverage.
-            // "equipment_beverage_dispenser" is the implied equipment.
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientId": "ingredient_honey",
+                "equipmentId": "equipment_beverage_dispenser"
+            }
         ]
     },
     {
         "id": "recipe_steak_cooked",
         "ingredients": [
             "ingredient_meat_steak",
-            "ingredient_pepper",
-            "ingredient_salt" // Assuming available
-            // Missing: Oil/Butter for cooking, Garlic, Thyme, Rosemary (optional aromatics)
+            "ingredient_salt_pepper",
+            "ingredient_butter"
         ],
         "cookingSteps": [
             {
-                "type": "grill", // Common method for steak
-                "duration": 500, // Depending on desired doneness
+                "type": "grill",
+                "duration": 500,
                 "ingredientId": "ingredient_meat_steak",
                 "equipmentId": "equipment_grill"
             }
-            // Comment: Simple grilled steak. Resting after cooking is important.
         ]
     },
     {
         "id": "recipe_steak_cooked_with_leafs",
         "ingredients": [
             "ingredient_meat_steak",
-            "ingredient_cabbage", // Substitute for leafy greens like spinach or arugula
-            "ingredient_pepper",
-            "ingredient_salt" // Assuming available
-            // Missing: Specific leafy greens, dressing for greens.
+            "ingredient_cabbage",
+            "ingredient_salt_pepper",
+            "ingredient_butter"
         ],
         "cookingSteps": [
+            {
+                "type": "chop",
+                "duration": 60,
+                "ingredientId": "ingredient_cabbage",
+                "equipmentId": "equipment_cutting_board"
+            },
             {
                 "type": "grill",
                 "duration": 500,
                 "ingredientId": "ingredient_meat_steak",
                 "equipmentId": "equipment_grill"
-            },
-            {
-                "type": "chop", // Preparing the "leafs"
-                "duration": 60,
-                "ingredientId": "ingredient_cabbage",
-                "equipmentId": "equipment_cutting_board"
             }
-            // Comment: Steak served with a side of simple greens (cabbage used as substitute).
         ]
     },
     {
         "id": "recipe_steak_with_tomatoes",
         "ingredients": [
             "ingredient_meat_steak",
-            "ingredient_tomato", // Or ingredient_tomato_slice
-            "ingredient_pepper",
-            "ingredient_salt" // Assuming available
-            // Missing: Oil/Butter, Garlic, Herbs (e.g., basil, oregano for tomatoes)
+            "ingredient_cabbage",
+            "ingredient_tomato",
+            "ingredient_salt_pepper",
+            "ingredient_butter"
         ],
         "cookingSteps": [
+            {
+                "type": "chop",
+                "duration": 60,
+                "ingredientId": "ingredient_tomato",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "chop",
+                "duration": 60,
+                "ingredientId": "ingredient_cabbage",
+                "equipmentId": "equipment_cutting_board"
+            },
             {
                 "type": "grill",
                 "duration": 500,
                 "ingredientId": "ingredient_meat_steak",
                 "equipmentId": "equipment_grill"
-            },
-            {
-                "type": "chop", // Slicing tomatoes
-                "duration": 60,
-                "ingredientId": "ingredient_tomato",
-                "equipmentId": "equipment_cutting_board"
             }
-            // Comment: Tomatoes can be served fresh alongside or lightly cooked/grilled.
         ]
     },
     {
         "id": "recipe_steamed_buns",
         "ingredients": [
-            "ingredient_bread" // Placeholder for bun dough
-            // Missing: Flour, Yeast, Sugar, Water for bun dough. Filling ingredients (e.g., pork, vegetables) if it's a filled bun.
+            "ingredient_bread",
+            "ingredient_meat",
+            "ingredient_sugar",
+            "ingredient_flour"
         ],
         "cookingSteps": [
             {
-                "type": "boil", // Steaming action, boil water in a steamer (equipment_rice_cooker as placeholder if it can steam)
+                "type": "boil",
                 "duration": 900,
-                "ingredientId": "ingredient_bread", // Placeholder for buns
-                "equipmentId": "equipment_rice_cooker" // Assuming it can be used for steaming. No "equipment_steamer" available.
-            }
-            // Comment: Requires proper dough and steaming equipment. Rice cooker is a poor substitute for a steamer.
-        ]
-    },
-    {
-        "id": "recipe_sub",
-        "ingredients": [
-            "ingredient_bread", // Long roll/baguette substitute
-            "ingredient_meat", // Generic deli meat
-            "ingredient_cheese_cut",
-            "ingredient_tomato_slice",
-            "ingredient_onion_half",
-            "ingredient_cabbage" // Lettuce substitute
-            // Missing: Specific sub roll, various deli meats, lettuce, pickles, sauces (mayo, mustard, oil & vinegar).
-        ],
-        "cookingSteps": [
-            // Comment: Primarily assembly. Bread might be toasted.
-            {
-                "type": "toast",
-                "duration": 70,
                 "ingredientId": "ingredient_bread",
-                "equipmentId": "equipment_toaster"
+                "equipmentId": "equipment_pan"
+            },
+            {
+                "type": "grill",
+                "duration": 500,
+                "ingredientId": "ingredient_meat",
+                "equipmentId": "equipment_grill"
             }
         ]
     },
     {
         "id": "recipe_sushi_eggs",
         "ingredients": [
-            "ingredient_rice_ball", // Sushi rice substitute
-            // "ingredient_egg_omelette_strips_for_sushi (tamagoyaki)" - NOT AVAILABLE
-            "ingredient_mushroom", // Using mushroom as a placeholder for a cooked/prepared topping, given no egg.
-            // "ingredient_nori_sheet" - NOT AVAILABLE
-            "ingredient_pepper" // Placeholder for seasoning or visual element
+            "ingredient_rice_ball",
+            "ingredient_egg",
+            "ingredient_salt_pepper"
         ],
         "cookingSteps": [
-            // Comment: Making sushi is complex. Requires sushi rice, nori, and specific fillings/toppings like tamagoyaki (egg omelette).
-            // No rolling mat or specific sushi equipment.
-            // This is a very abstract representation.
+            {
+                "type": "boil",
+                "duration": 180,
+                "ingredientId": "ingredient_egg",
+                "equipmentId": "equipment_pan"
+            },
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientId": "ingredient_salt_pepper",
+                "equipmentId": "equipment_sauce_station"
+            }
         ]
     },
     {
         "id": "recipe_sushi_salmon",
         "ingredients": [
-            "ingredient_rice_ball", // Sushi rice substitute
-            "ingredient_fish_fillet", // Raw, sushi-grade salmon needed
-            // "ingredient_nori_sheet" - NOT AVAILABLE
-            "ingredient_avocado_half" // Common sushi ingredient
+            "ingredient_rice_ball",
+            "ingredient_fish_fillet",
+            "ingredient_avocado_half"
         ],
         "cookingSteps": [
             {
-                "type": "chop", // Slicing salmon and avocado
+                "type": "chop",
                 "duration": 120,
                 "ingredientId": "ingredient_fish_fillet",
                 "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientId": "ingredient_avocado_half",
+                "equipmentId": "equipment_sauce_station"
             }
-            // Comment: Missing nori, wasabi, soy sauce. Assumes pre-cooked seasoned rice.
-            // True sushi preparation is an art form.
         ]
     },
     {
         "id": "recipe_taco",
         "ingredients": [
-            // "ingredient_taco_shell_or_tortilla" - NOT AVAILABLE, using bread as placeholder
             "ingredient_bread",
-            "ingredient_meat", // Seasoned ground meat or shredded chicken substitute
+            "ingredient_meat",
             "ingredient_cheese_cut",
             "ingredient_tomato_slice",
-            "ingredient_cabbage" // Lettuce/cabbage for topping
-            // Missing: Taco shells/tortillas, Taco seasoning, Salsa, Sour cream, Guacamole.
+            "ingredient_cabbage"
         ],
         "cookingSteps": [
             {
-                "type": "grill", // Cooking meat filling (if using ingredient_meat_steak)
+                "type": "chop",
+                "duration": 120,
+                "ingredientId": "ingredient_tomato_slice",
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "grill",
                 "duration": 300,
                 "ingredientId": "ingredient_meat",
                 "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientId": "ingredient_cabbage",
+                "equipmentId": "equipment_sauce_station"
             }
-            // Comment: Highly simplified. Relies on many substitutions.
         ]
     },
     {
         "id": "recipe_tea_with_lemon",
         "ingredients": [
-            // "ingredient_tea_bag_or_leaves" - NOT AVAILABLE
             "ingredient_lemon_half",
-            "ingredient_honey" // Optional sweetener
-            // Missing: Tea, Hot water
+            "ingredient_honey"
         ],
         "cookingSteps": [
             {
-                "type": "boil", // Heating water for tea
+                "type": "boil",
                 "duration": 180,
-                "ingredientId": "ingredient_lemon_half", // Placeholder as water isn't an ingredient
-                "equipmentId": "equipment_sauce_station" // Assuming this can boil water, or a kettle on a stove.
+                "ingredientId": "ingredient_lemon_half",
+                "equipmentId": "equipment_beverage_dispenser"
             }
-            // Comment: Requires tea leaves/bags and hot water. Beverage dispenser may serve it.
         ]
     },
     {
         "id": "recipe_turkey",
         "ingredients": [
-            // "ingredient_whole_turkey_or_turkey_breast" - NOT AVAILABLE
-            "ingredient_chicken_breast", // Closest available poultry substitute
-            "ingredient_pepper",
-            "ingredient_salt" // Assuming available
-            // Missing: Turkey, Stuffing ingredients, Herbs (sage, rosemary, thyme), Butter/Oil for roasting.
+            "ingredient_chicken_breast",
+            "ingredient_salt_pepper",
+            "ingredient_butter"
         ],
         "cookingSteps": [
             {
@@ -1312,67 +1296,70 @@
                 "ingredientId": "ingredient_chicken_breast",
                 "equipmentId": "equipment_oven"
             }
-            // Comment: Chicken breast is a substitute for turkey. Roasting is appropriate.
         ]
     },
     {
         "id": "recipe_waffles_with_honey",
         "ingredients": [
-            // "ingredient_waffle_batter_or_mix" - NOT AVAILABLE
-            "ingredient_bread", // Placeholder for waffle itself
-            "ingredient_honey"
-            // Missing: Waffle batter (flour, eggs, milk, sugar, leavening), Waffle iron.
+            "ingredient_honey",
+            "ingredient_flour",
+            "ingredient_egg",
+            "ingredient_milk",
+            "ingredient_sugar"
         ],
         "cookingSteps": [
             {
-                "type": "toast", // Simulating waffle iron with toaster (very inaccurate)
-                "duration": 180,
-                "ingredientId": "ingredient_bread",
-                "equipmentId": "equipment_toaster"
-            }
-            // Comment: No waffle batter or waffle iron. Toaster is a very poor substitute for preparation.
-        ]
-    },
-    {
-        "id": "recipe_waffle_with_sauce",
-        "ingredients": [
-            "ingredient_bread", // Placeholder for waffle
-            "ingredient_chocolate" // Chocolate sauce substitute
-            // Missing: Waffle batter, Waffle iron, Specific sauce ingredients (e.g. fruit for fruit sauce).
-        ],
-        "cookingSteps": [
+                "type": "mix",
+                "duration": 20,
+                "ingredientId": "ingredient_flour",
+                "equipmentId": "equipment_sauce_station"
+            },
             {
                 "type": "toast",
                 "duration": 180,
                 "ingredientId": "ingredient_bread",
                 "equipmentId": "equipment_toaster"
+            }
+        ]
+    },
+    {
+        "id": "recipe_waffle_with_sauce",
+        "ingredients": [
+            "ingredient_honey",
+            "ingredient_flour",
+            "ingredient_egg",
+            "ingredient_milk",
+            "ingredient_sugar",
+            "ingredient_ketchup"
+        ],
+        "cookingSteps": [
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientId": "ingredient_flour",
+                "equipmentId": "equipment_sauce_station"
             },
             {
-                "type": "simmer", // Gently heating/melting chocolate for sauce
-                "duration": 120,
-                "ingredientId": "ingredient_chocolate",
-                "equipmentId": "equipment_sauce_station"
+                "type": "toast",
+                "duration": 180,
+                "ingredientId": "ingredient_bread",
+                "equipmentId": "equipment_toaster"
             }
-            // Comment: As above, no proper waffle making. Chocolate sauce is approximated.
         ]
     },
     {
         "id": "recipe_whole_leg",
         "ingredients": [
-            // "ingredient_chicken_leg_whole_or_thigh_drumstick_combo" - NOT AVAILABLE
-            "ingredient_chicken_breast", // Using chicken breast as the largest available chicken piece
-            "ingredient_pepper",
-            "ingredient_salt"
-            // Missing: Actual chicken leg/thigh, Marinade/seasonings (garlic, paprika, herbs).
+            "ingredient_meat_leg_3",
+            "ingredient_salt_pepper"
         ],
         "cookingSteps": [
             {
-                "type": "bake", // Roasting is suitable for a larger piece of chicken
+                "type": "bake",
                 "duration": 2700,
-                "ingredientId": "ingredient_chicken_breast",
+                "ingredientId": "ingredient_meat_leg_3",
                 "equipmentId": "equipment_oven"
             }
-            // Comment: Chicken breast substituted for a whole leg. Roasting is an appropriate cooking method.
         ]
     }
 ]

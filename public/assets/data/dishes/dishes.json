@@ -121,15 +121,15 @@
         "image": "/assets/images/dishes/cake_raspberry_shortcake.png"
     },
     {
-        "id": "dish_cheese_potato_tofu_soup",
+        "id": "dish_cheese_potato_soup",
         "name": "Cheese Potato Tofu Soup",
         "basePrice": 6.99,
-        "recipeId": "recipe_cheese_potato_tofu_soup",
+        "recipeId": "recipe_cheese_potato_soup",
         "cookingDifficulty": 2,
         "preparationTime": 1200,
         "plateAppearance": 78,
         "unlockDifficulty": 2,
-        "image": "/assets/images/dishes/cheese_potato_tofu_soup.png"
+        "image": "/assets/images/dishes/cheese_potato_soup.png"
     },
     {
         "id": "dish_chocolate_milk_shake_root_beer",
@@ -506,28 +506,6 @@
         "image": "/assets/images/dishes/soda_cola.png"
     },
     {
-        "id": "dish_soda_glass",
-        "name": "Soda Glass",
-        "basePrice": 4.99,
-        "recipeId": "recipe_soda_glass",
-        "cookingDifficulty": 1,
-        "preparationTime": 180,
-        "plateAppearance": 75,
-        "unlockDifficulty": 1,
-        "image": "/assets/images/dishes/sodaGlass.png"
-    },
-    {
-        "id": "dish_soda",
-        "name": "Soda",
-        "basePrice": 4.99,
-        "recipeId": "recipe_soda",
-        "cookingDifficulty": 1,
-        "preparationTime": 180,
-        "plateAppearance": 75,
-        "unlockDifficulty": 1,
-        "image": "/assets/images/dishes/soda.png"
-    },
-    {
         "id": "dish_steak_cooked",
         "name": "Steak Cooked",
         "basePrice": 14.99,
@@ -570,17 +548,6 @@
         "plateAppearance": 82,
         "unlockDifficulty": 2,
         "image": "/assets/images/dishes/steamed_buns.png"
-    },
-    {
-        "id": "dish_sub",
-        "name": "Sub",
-        "basePrice": 8.99,
-        "recipeId": "recipe_sub",
-        "cookingDifficulty": 2,
-        "preparationTime": 480,
-        "plateAppearance": 80,
-        "unlockDifficulty": 2,
-        "image": "/assets/images/dishes/sub.png"
     },
     {
         "id": "dish_sushi_eggs",

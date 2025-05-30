@@ -94,7 +94,7 @@ export interface Equipment {
 }
 
 // Cooking action type
-export type CookingActionType = 'chop' | 'dice' | 'mince' | 'fry' | 'boil' | 'grill' | 'bake' | 'simmer'
+export type CookingActionType = 'chop' | 'dice' | 'mince' | 'fry' | 'boil' | 'grill' | 'bake' | 'simmer' | 'mix' | 'freeze'
 
 // Game model
 export type GamePhase = 'tutorial' | 'preGame' | 'active' | 'gameOver'

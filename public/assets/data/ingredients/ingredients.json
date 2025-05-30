@@ -123,7 +123,7 @@
         "quality": 80,
         "quantity": 10,
         "cost": 2.80,
-        "image": "/chicken_breat.png"
+        "image": "/chicken_breast.png"
     },
     {
         "id": "ingredient_chocolate",
@@ -486,7 +486,7 @@
         "image": "/pear.png"
     },
     {
-        "id": "ingredient_pepper",
+        "id": "ingredient_salt_pepper",
         "name": "Pepper",
         "category": "spice",
         "quality": 80,
