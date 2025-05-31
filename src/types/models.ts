@@ -68,7 +68,7 @@ export interface Recipe {
 export interface CookingStep {
     type: CookingActionType
     duration: number
-    ingredientId: string
+    ingredientIds: string[]
     equipmentId: string
 }
 

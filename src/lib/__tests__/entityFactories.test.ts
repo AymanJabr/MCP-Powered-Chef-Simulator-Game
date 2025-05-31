@@ -109,7 +109,7 @@ describe('Entity Factories', () => {
         it('should override default values with provided partials', () => {
             const recipe = createRecipe({
                 ingredients: ['ing_1', 'ing_2'],
-                cookingSteps: [{ type: 'fry', duration: 60, ingredientId: 'ing_1', equipmentId: 'eq_1' }]
+                cookingSteps: [{ type: 'fry', duration: 60, ingredientIds: ['ing_1'], equipmentId: 'eq_1' }]
             });
 
             expect(recipe.ingredients).toEqual(['ing_1', 'ing_2']);
@@ -124,7 +124,7 @@ describe('Entity Factories', () => {
 
             expect(step.type).toBe('chop');
             expect(step.duration).toBe(30);
-            expect(step.ingredientId).toBe('');
+            expect(step.ingredientIds).toBe('');
             expect(step.equipmentId).toBe('');
         });
 
@@ -132,12 +132,12 @@ describe('Entity Factories', () => {
             const step = createCookingStep({
                 type: 'grill',
                 duration: 120,
-                ingredientId: 'ing_3'
+                ingredientIds: ['ing_3']
             });
 
             expect(step.type).toBe('grill');
             expect(step.duration).toBe(120);
-            expect(step.ingredientId).toBe('ing_3');
+            expect(step.ingredientIds).toBe(['ing_3']);
         });
     });
 

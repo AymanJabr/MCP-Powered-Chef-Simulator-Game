@@ -77,7 +77,7 @@ export function createCookingStep(partial: Partial<CookingStep> = {}): CookingSt
     return {
         type: 'chop',
         duration: 30, // seconds
-        ingredientId: '',
+        ingredientIds: [],
         equipmentId: '',
         ...partial
     };
