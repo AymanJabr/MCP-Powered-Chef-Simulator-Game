@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
-import { PrepStation, PreparationTask, CookingStation, CookingProcess, PlatingStation, PlatingTask } from '@/types/models'
+import { PrepStation, PreparationTask, CookingStation, CookingProcess, PlatingStation, PlatingTask, CookingActionType } from '@/types/models'
 
 // Basic types for kitchen elements used in preparation system
 export interface KitchenState {
@@ -46,7 +46,7 @@ export const useKitchenStore = create<KitchenState>()(
                 id: 'cooking_demo_001',
                 stationId: 'cook_1',
                 ingredients: ['beef_patty'],
-                cookingMethod: 'fry' as const,
+                type: 'fry',
                 startTime: Date.now() - 60000, // Started 1 minute ago
                 optimalCookingTime: 120000, // 2 minutes total
                 progress: 50, // Half done
@@ -56,7 +56,7 @@ export const useKitchenStore = create<KitchenState>()(
                 id: 'cooking_demo_002',
                 stationId: 'cook_3',
                 ingredients: ['chicken_breast'],
-                cookingMethod: 'grill' as const,
+                type: 'grill',
                 startTime: Date.now() - 90000, // Started 1.5 minutes ago
                 optimalCookingTime: 180000, // 3 minutes total
                 progress: 80, // Almost done
@@ -75,6 +75,8 @@ export const useKitchenStore = create<KitchenState>()(
             startPreparation: (stationId, task) => set((state) => {
                 const station = state.prepStations.find((s) => s.id === stationId)
                 if (!station) return
+
+
                 station.status = 'busy'
                 state.activePreparations[task.id] = { ...task, status: 'in_progress' }
             }),

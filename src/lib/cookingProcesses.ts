@@ -1,5 +1,5 @@
 import { useKitchenStore } from '@/state/game/kitchenStore'
-import { CookingMethod, CookingProcess } from '@/types/models'
+import { CookingActionType, CookingProcess } from '@/types/models'
 import { eventBus } from './eventBus'
 
 export interface StartCookingResult {
@@ -25,17 +25,25 @@ export interface CookingComplete {
 /**
  * Start a cooking process on the first available station that matches method.
  */
-export function startCooking(ingredients: { id: string }[], method: CookingMethod): StartCookingResult {
+export function startCooking(ingredients: { id: string }[], type: CookingActionType): StartCookingResult {
     const kitchenState = useKitchenStore.getState()
-    // Map method to station type preference simple mapping
-    const stationPreference: Record<CookingMethod, string> = {
+    // Map type to station type preference simple mapping
+    const stationPreference: Record<CookingActionType, string> = {
         fry: 'stove',
         grill: 'grill',
         bake: 'oven',
         boil: 'stove',
-        steam: 'steamer',
+        chop: 'cutting_board',
+        simmer: 'stove',
+        mix: 'mixing_bowl',
+        freeze: 'freezer',
     }
-    const station = kitchenState.cookingStations.find((s) => s.type === stationPreference[method] && s.status === 'idle')
+    const targetStationType = stationPreference[type];
+    if (!targetStationType) {
+        return { success: false, message: `No suitable station type defined for action: ${type}` }
+    }
+    const station = kitchenState.cookingStations.find((s) => s.type === targetStationType && s.status === 'idle')
+
     if (!station) return { success: false, message: 'No available cooking station' }
 
     const cookingId = `cook_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
@@ -44,12 +52,12 @@ export function startCooking(ingredients: { id: string }[], method: CookingMetho
     kitchenState.actions.startCookingProcess(station.id, {
         id: cookingId,
         ingredients: ingredients.map((i) => i.id),
-        cookingMethod: method,
+        type,
         startTime: Date.now(),
         optimalCookingTime: optimalTime,
     } as CookingProcess)
 
-    eventBus.emit('cookingStarted', { stationId: station.id, cookingId })
+    eventBus.emit('cookingStarted', { stationId: station.id, processId: cookingId })
 
     return { success: true, message: 'Cooking started', cookingId, stationId: station.id }
 }
@@ -67,7 +75,7 @@ export function checkCookingProgress(processId: string): CookingProgress | null 
     const isOvercooked = progress > 120 // arbitrary threshold
 
     kitchenState.actions.updateCookingProgress(processId, progress, isOvercooked)
-    eventBus.emit('cookingProgress', { cookingId: processId, progress })
+    eventBus.emit('cookingProgress', { processId: processId, progress })
 
     return { cookingId: processId, progress, isOvercooked }
 }
@@ -90,7 +98,7 @@ export function completeCooking(processId: string): CookingComplete {
     quality = Math.max(0, Math.min(quality, 100))
 
     kitchenState.actions.finishCookingProcess(processId, quality)
-    eventBus.emit('cookingCompleted', { cookingId: processId, qualityScore: quality, isOvercooked })
+    eventBus.emit('cookingCompleted', { processId: processId, quality: quality })
 
     return { success: true, cookingId: processId, qualityScore: quality, isOvercooked }
 } 

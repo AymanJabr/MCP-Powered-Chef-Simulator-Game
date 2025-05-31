@@ -1,6 +1,6 @@
 import { startCooking, checkCookingProgress, completeCooking } from '@/lib/cookingProcesses'
 import { eventBus } from '@/lib/eventBus'
-import { CookingMethod, CookingProcess, CookingStation } from '@/types/models'
+import { CookingActionType, CookingProcess, CookingStation } from '@/types/models'
 
 // Define interfaces for the mocked kitchen store
 interface MockKitchenStateActions {
@@ -29,7 +29,7 @@ jest.mock('@/state/game/kitchenStore', () => {
                     id: proc.id || `proc_${Date.now()}`,
                     stationId,
                     ingredients: proc.ingredients || [],
-                    cookingMethod: proc.cookingMethod || 'fry',
+                    type: proc.type || 'fry',
                     startTime: proc.startTime || Date.now(),
                     optimalCookingTime: proc.optimalCookingTime || 60000,
                     progress: 0,
@@ -73,20 +73,20 @@ describe('Cooking Processes', () => {
     })
 
     it('starts cooking on a free station', () => {
-        const result = startCooking([{ id: 'ing_1' }], 'fry' as CookingMethod)
+        const result = startCooking([{ id: 'ing_1' }], 'fry' as CookingActionType)
         expect(result.success).toBe(true)
         expect(kitchenState.actions.startCookingProcess).toHaveBeenCalled()
-        expect(eventBus.emit).toHaveBeenCalledWith('cookingStarted', expect.any(Object))
+        expect(eventBus.emit).toHaveBeenCalledWith('cookingStarted', { stationId: 'station_1', processId: expect.any(String) })
     })
 
     it('fails when no station available', () => {
         kitchenState.cookingStations.forEach((s: CookingStation) => (s.status = 'busy'))
-        const res = startCooking([{ id: 'ing_1' }], 'fry' as CookingMethod)
+        const res = startCooking([{ id: 'ing_1' }], 'fry' as CookingActionType)
         expect(res.success).toBe(false)
     })
 
     it('updates progress and completes cooking', () => {
-        const { cookingId } = startCooking([{ id: 'ing_2' }], 'bake' as CookingMethod)
+        const { cookingId } = startCooking([{ id: 'ing_2' }], 'bake' as CookingActionType)
         // simulate time passage by manipulating startTime
         const proc = kitchenState.activeCookingProcesses[0]
         if (proc) {
@@ -99,6 +99,6 @@ describe('Cooking Processes', () => {
         const res = completeCooking(cookingId!)
         expect(res.success).toBe(true)
         expect(kitchenState.actions.finishCookingProcess).toHaveBeenCalled()
-        expect(eventBus.emit).toHaveBeenCalledWith('cookingCompleted', expect.any(Object))
+        expect(eventBus.emit).toHaveBeenCalledWith('cookingCompleted', { processId: cookingId, quality: expect.any(Number) })
     })
 }) 

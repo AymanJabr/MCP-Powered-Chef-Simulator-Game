@@ -7,8 +7,7 @@ import {
     CookingProcess,
     PreparationTask,
     PlayerActionType,
-    PreparationType,
-    CookingMethod
+    CookingActionType
 } from '@/types/models'
 import { usePlayerStore } from '@/state/player/playerStore'
 
@@ -61,7 +60,17 @@ export const tools = [
             }
 
             // Verify the dish exists in unlocked menu (simplified – assume it does)
-            const dish: Dish = { id: dishId, name: dishId, basePrice: 10, recipe: { id: 'recipe', ingredients: [], cookingSteps: [] }, cookingDifficulty: 1, preparationTime: 60, plateAppearance: 50 }
+            // TODO: Actually fetch dish details from a menu or recipe list
+            const dish: Dish = {
+                id: dishId,
+                name: `Dish ${dishId.substring(dishId.length - 4)}`, // Placeholder name
+                basePrice: 10, // Placeholder price
+                recipeId: `recipe_${dishId.replace('dish_', '')}`, // Derive recipeId
+                cookingDifficulty: 3, // Placeholder
+                preparationTime: 300, // Placeholder
+                plateAppearance: 3, // Placeholder
+                // unlockDifficulty can be omitted or set to a default
+            }
 
             // Build order
             const order: Order = {
@@ -119,7 +128,7 @@ export const tools = [
             const task: PreparationTask = {
                 id: taskId,
                 ingredientId: ingredientId,
-                preparationType: preparation_type as PreparationType,
+                type: preparation_type as CookingActionType,
                 startTime: now(),
                 stationId: stationId,
                 status: 'in_progress'
@@ -150,7 +159,7 @@ export const tools = [
                 id: processId,
                 stationId: stationId,
                 ingredients: ingredientIds,
-                cookingMethod: cooking_method as CookingMethod,
+                type: cooking_method as CookingActionType,
                 startTime: now(),
                 optimalCookingTime: optimal_time_ms,
                 progress: 0,

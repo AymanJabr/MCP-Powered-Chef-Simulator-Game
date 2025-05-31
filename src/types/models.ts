@@ -94,7 +94,7 @@ export interface Equipment {
 }
 
 // Cooking action type
-export type CookingActionType = 'chop' | 'dice' | 'mince' | 'fry' | 'boil' | 'grill' | 'bake' | 'simmer' | 'mix' | 'freeze'
+export type CookingActionType = 'chop' | 'fry' | 'boil' | 'grill' | 'bake' | 'simmer' | 'mix' | 'freeze'
 
 // Game model
 export type GamePhase = 'tutorial' | 'preGame' | 'active' | 'gameOver'
@@ -341,12 +341,10 @@ export interface PrepStation {
 
 export type PreparationStatus = 'in_progress' | 'completed' | 'failed'
 
-export type PreparationType = 'chop' | 'dice' | 'mince' | 'slice' | 'mix' | 'marinate'
-
 export interface PreparationTask {
     id: string
     ingredientId: string
-    preparationType: PreparationType
+    type: CookingActionType
     startTime: number
     stationId: string
     qualityScore?: number
@@ -365,15 +363,13 @@ export interface CookingStation {
     temperature: number // °C
 }
 
-export type CookingMethod = 'fry' | 'grill' | 'bake' | 'boil' | 'steam'
-
 export type CookingProcessStatus = 'in_progress' | 'completed' | 'failed'
 
 export interface CookingProcess {
     id: string
     stationId: string
     ingredients: string[]
-    cookingMethod: CookingMethod
+    type: CookingActionType
     startTime: number
     optimalCookingTime: number // ms
     progress: number // 0-100+

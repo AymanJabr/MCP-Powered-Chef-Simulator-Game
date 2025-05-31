@@ -199,7 +199,7 @@ describe('MCP Store', () => {
             commandId,
             'cook_ingredient',
             'ingredient_123',
-            { cookingMethod: 'fry', duration: 60 }
+            { type: 'fry', duration: 60 }
         )
 
         // Record a successful result

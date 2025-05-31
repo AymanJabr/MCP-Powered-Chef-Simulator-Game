@@ -479,7 +479,7 @@
         ],
         "cookingSteps": [
             {
-                "type": "dice",
+                "type": "chop",
                 "duration": 60,
                 "ingredientIds": [
                     "ingredient_lemon"

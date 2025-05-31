@@ -12,7 +12,7 @@ jest.mock('@/state/game/kitchenStore')
             { id: 's2', type: 'oven', status: 'busy', temperature: 180 },
         ],
         activeCookingProcesses: [
-            { id: 'p1', stationId: 's2', progress: 50, status: 'in_progress', ingredients: [], cookingMethod: 'bake', startTime: 0, optimalCookingTime: 100 },
+            { id: 'p1', stationId: 's2', progress: 50, status: 'in_progress', ingredients: [], type: 'bake', startTime: 0, optimalCookingTime: 100 },
         ],
     })
 

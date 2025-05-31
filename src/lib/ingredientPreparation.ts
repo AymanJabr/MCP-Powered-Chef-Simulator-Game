@@ -1,6 +1,6 @@
 import { useKitchenStore } from '@/state/game/kitchenStore'
 import { eventBus } from './eventBus'
-import { PreparationType } from '@/types/models'
+import { CookingActionType } from '@/types/models'
 
 export interface PrepResult {
     success: boolean
@@ -13,7 +13,7 @@ export interface PrepResult {
 interface IngredientInput {
     id: string
     name?: string
-    preparationType: PreparationType
+    type: CookingActionType
 }
 
 /**
@@ -32,12 +32,12 @@ export function prepareIngredient(ingredient: IngredientInput, requiredStationTy
     kitchenState.actions.startPreparation(station.id, {
         id: prepId,
         ingredientId: ingredient.id,
-        preparationType: ingredient.preparationType,
+        type: ingredient.type,
         startTime: Date.now(),
         stationId: station.id,
     })
 
-    eventBus.emit('preparationStarted', { stationId: station.id, ingredientId: ingredient.id, preparationId: prepId })
+    eventBus.emit('preparationStarted', { stationId: station.id, ingredientId: ingredient.id, taskId: prepId })
 
     return { success: true, message: 'Preparation started', stationId: station.id, preparationId: prepId }
 }
@@ -53,7 +53,7 @@ export function completePreparation(stationId: string, preparationId: string, qu
 
     kitchenState.actions.completePreparation(stationId, preparationId, qualityScore)
 
-    eventBus.emit('preparationCompleted', { stationId, preparationId, qualityScore })
+    eventBus.emit('preparationCompleted', { taskId: preparationId, quality: qualityScore })
 
     return { success: true, message: 'Preparation completed', qualityScore }
 } 

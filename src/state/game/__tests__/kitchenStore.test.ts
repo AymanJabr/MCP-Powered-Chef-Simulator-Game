@@ -28,7 +28,7 @@ describe('Kitchen Store', () => {
         useKitchenStore.getState().actions.startPreparation('station_1', {
             id: prepId,
             ingredientId: 'ing_1',
-            preparationType: 'chop',
+            type: 'chop',
             startTime: Date.now(),
             stationId: 'station_1',
         })
@@ -43,7 +43,7 @@ describe('Kitchen Store', () => {
         actions.startPreparation('station_1', {
             id: prepId,
             ingredientId: 'ing_2',
-            preparationType: 'dice',
+            type: 'chop',
             startTime: Date.now(),
             stationId: 'station_1',
         })
