@@ -1,6 +1,8 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import { Restaurant, Customer, Order, Ingredient, Equipment, Dish } from '@/types/models'
+import { createOrder } from '@/lib/entityFactories'
+import { eventBus } from '@/lib/eventBus'
 
 interface RestaurantState {
     restaurant: Restaurant
@@ -116,7 +118,6 @@ export const useRestaurantStore = create<RestaurantState>()(
                         basePrice: 10,
                         recipeId: 'recipe_placeholder',
                         cookingDifficulty: 3,
-                        preparationTime: 300,
                         plateAppearance: 3,
                     };
 

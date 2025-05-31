@@ -38,7 +38,6 @@
   - `recipe`: List of required ingredients and cooking steps
   - `basePrice`: Standard price of the dish without tips
   - `cookingDifficulty`: Affects likelihood of errors
-  - `preparationTime`: Base time required to prepare
   - `plateAppearance`: Visual presentation score
 
 ### Ingredient

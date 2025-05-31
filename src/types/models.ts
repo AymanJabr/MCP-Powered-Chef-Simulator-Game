@@ -52,7 +52,6 @@ export interface Dish {
     basePrice: number
     recipeId: string
     cookingDifficulty: number
-    preparationTime: number
     plateAppearance: number
     unlockDifficulty?: number
 }

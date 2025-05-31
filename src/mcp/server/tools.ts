@@ -67,7 +67,6 @@ export const tools = [
                 basePrice: 10, // Placeholder price
                 recipeId: `recipe_${dishId.replace('dish_', '')}`, // Derive recipeId
                 cookingDifficulty: 3, // Placeholder
-                preparationTime: 300, // Placeholder
                 plateAppearance: 3, // Placeholder
                 // unlockDifficulty can be omitted or set to a default
             }

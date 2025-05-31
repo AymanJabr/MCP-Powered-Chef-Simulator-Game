@@ -25,13 +25,13 @@ jest.mock('@/state/game/restaurantStore', () => {
     // Construct mock objects that conform to the Order and Customer types more closely.
     const mockDish1: Dish = {
         id: 'dish_1', name: 'Burger', basePrice: 12,
-        recipe: { id: 'r1', ingredients: [], cookingSteps: [] } as Recipe,
-        cookingDifficulty: 1, preparationTime: 0, plateAppearance: 0
+        recipeId: 'r1',
+        cookingDifficulty: 1, plateAppearance: 0
     }
     const mockDish2: Dish = {
         id: 'dish_2', name: 'Salad', basePrice: 10,
-        recipe: { id: 'r2', ingredients: [], cookingSteps: [] } as Recipe,
-        cookingDifficulty: 1, preparationTime: 0, plateAppearance: 0
+        recipeId: 'r2',
+        cookingDifficulty: 1, plateAppearance: 0
     }
 
     const mockActiveOrders: Order[] = [

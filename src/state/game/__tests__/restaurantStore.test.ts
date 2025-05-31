@@ -16,13 +16,8 @@ const mockDish: Dish = {
     id: 'dish_1',
     name: 'Test Dish',
     basePrice: 10,
-    recipe: {
-        id: 'recipe_1',
-        ingredients: [],
-        cookingSteps: []
-    },
+    recipeId: 'recipe_1',
     cookingDifficulty: 1,
-    preparationTime: 60,
     plateAppearance: 5
 }
 
@@ -71,7 +66,9 @@ describe('Restaurant Store', () => {
                 activeOrders: [],
                 completedOrders: [],
                 inventory: [{ ...mockIngredient }], // Copy to avoid reference issues
-                equipment: [{ ...mockEquipment }]
+                equipment: [{ ...mockEquipment }],
+                menuItems: [],
+                unlockedMenuItems: []
             }
         })
     })

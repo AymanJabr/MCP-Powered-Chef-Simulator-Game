@@ -29,13 +29,13 @@ jest.mock('@/state/game/restaurantStore', () => {
     // Define full Dish objects for the mock
     const mockDish1: Dish = {
         id: 'dish_1', name: 'Burger', basePrice: 20,
-        recipe: { id: 'r1', ingredients: [], cookingSteps: [] } as Recipe,
-        cookingDifficulty: 1, preparationTime: 120, plateAppearance: 5
+        recipeId: 'r1',
+        cookingDifficulty: 1, plateAppearance: 5
     }
     const mockDish2: Dish = {
         id: 'dish_2', name: 'Pizza', basePrice: 15,
-        recipe: { id: 'r2', ingredients: [], cookingSteps: [] } as Recipe,
-        cookingDifficulty: 1, preparationTime: 180, plateAppearance: 4
+        recipeId: 'r2',
+        cookingDifficulty: 1, plateAppearance: 4
     }
 
     const mockRestaurantState: MockFinanceRestaurantState = {
