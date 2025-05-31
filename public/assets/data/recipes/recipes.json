@@ -9,19 +9,20 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 30,
+                "duration": 60,
                 "ingredientIds": [
-                    "ingredient_strawberry"
+                    "ingredient_strawberry",
+                    "ingredient_cherries"
                 ],
                 "equipmentId": "equipment_cutting_board"
             },
             {
-                "type": "chop",
+                "type": "mix",
                 "duration": 30,
                 "ingredientIds": [
-                    "ingredient_cherries"
+                    "ingredient_milk"
                 ],
-                "equipmentId": "equipment_cutting_board"
+                "equipmentId": "equipment_beverage_dispenser"
             }
         ]
     },
@@ -39,15 +40,7 @@
                 "type": "grill",
                 "duration": 180,
                 "ingredientIds": [
-                    "ingredient_meat_steak"
-                ],
-                "equipmentId": "equipment_grill"
-            },
-            {
-                "type": "grill",
-                "duration": 180,
-                "ingredientIds": [
-                    "ingredient_meat_steak"
+                    "ingredient_meat"
                 ],
                 "equipmentId": "equipment_grill"
             },
@@ -58,6 +51,16 @@
                     "ingredient_bread"
                 ],
                 "equipmentId": "equipment_toaster"
+            },
+            {
+                "type": "mix",
+                "duration": 30,
+                "ingredientIds": [
+                    "ingredient_cheese_cut",
+                    "ingredient_tomato_slice",
+                    "ingredient_onion_half"
+                ],
+                "equipmentId": "equipment_cutting_board"
             }
         ]
     },
@@ -75,7 +78,7 @@
                 "type": "grill",
                 "duration": 180,
                 "ingredientIds": [
-                    "ingredient_meat_steak"
+                    "ingredient_meat"
                 ],
                 "equipmentId": "equipment_grill"
             },
@@ -86,6 +89,16 @@
                     "ingredient_bread"
                 ],
                 "equipmentId": "equipment_toaster"
+            },
+            {
+                "type": "mix",
+                "duration": 30,
+                "ingredientIds": [
+                    "ingredient_tomato_slice",
+                    "ingredient_onion_half",
+                    "ingredient_cabbage"
+                ],
+                "equipmentId": "equipment_cutting_board"
             }
         ]
     },
@@ -102,26 +115,28 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 60,
+                "duration": 80,
                 "ingredientIds": [
-                    "ingredient_strawberry"
+                    "ingredient_strawberry",
+                    "ingredient_cherries"
                 ],
                 "equipmentId": "equipment_cutting_board"
             },
             {
-                "type": "chop",
-                "duration": 60,
+                "type": "mix",
+                "duration": 30,
                 "ingredientIds": [
-                    "ingredient_cherries"
+                    "ingredient_milk",
+                    "ingredient_sugar",
+                    "ingredient_flour",
+                    "ingredient_egg"
                 ],
                 "equipmentId": "equipment_cutting_board"
             },
             {
                 "type": "bake",
                 "duration": 1200,
-                "ingredientIds": [
-                    "ingredient_milk"
-                ],
+                "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
         ]
@@ -146,11 +161,21 @@
                 "equipmentId": "equipment_cutting_board"
             },
             {
+                "type": "mix",
+                "duration": 30,
+                "ingredientIds": [
+                    "ingredient_cheese_cut",
+                    "ingredient_cookie",
+                    "ingredient_sugar",
+                    "ingredient_egg",
+                    "ingredient_butter"
+                ],
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
                 "type": "bake",
                 "duration": 1800,
-                "ingredientIds": [
-                    "ingredient_cheese_cut"
-                ],
+                "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
         ]
@@ -173,11 +198,19 @@
                 "equipmentId": "equipment_cutting_board"
             },
             {
+                "type": "mix",
+                "duration": 30,
+                "ingredientIds": [
+                    "ingredient_cheese_cut",
+                    "ingredient_cookie",
+                    "ingredient_sugar"
+                ],
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
                 "type": "bake",
                 "duration": 1800,
-                "ingredientIds": [
-                    "ingredient_cheese_cut"
-                ],
+                "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
         ]
@@ -200,11 +233,19 @@
                 "equipmentId": "equipment_cutting_board"
             },
             {
+                "type": "mix",
+                "duration": 30,
+                "ingredientIds": [
+                    "ingredient_cheese_cut",
+                    "ingredient_cookie",
+                    "ingredient_sugar"
+                ],
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
                 "type": "bake",
                 "duration": 1800,
-                "ingredientIds": [
-                    "ingredient_cheese_cut"
-                ],
+                "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
         ]
@@ -224,16 +265,19 @@
                 "type": "mix",
                 "duration": 600,
                 "ingredientIds": [
-                    "ingredient_honey"
+                    "ingredient_honey",
+                    "ingredient_chocolate",
+                    "ingredient_sugar",
+                    "ingredient_flour",
+                    "ingredient_egg",
+                    "ingredient_butter"
                 ],
                 "equipmentId": "equipment_sauce_station"
             },
             {
                 "type": "bake",
                 "duration": 1500,
-                "ingredientIds": [
-                    "ingredient_butter"
-                ],
+                "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
         ]
@@ -252,26 +296,29 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 30,
+                "duration": 60,
                 "ingredientIds": [
-                    "ingredient_lemon"
+                    "ingredient_lemon",
+                    "ingredient_golden_berries",
+                    "ingredient_mango"
                 ],
                 "equipmentId": "equipment_cutting_board"
             },
             {
-                "type": "chop",
+                "type": "mix",
                 "duration": 30,
                 "ingredientIds": [
-                    "ingredient_golden_berries"
+                    "ingredient_sugar",
+                    "ingredient_flour",
+                    "ingredient_egg",
+                    "ingredient_butter"
                 ],
                 "equipmentId": "equipment_cutting_board"
             },
             {
                 "type": "bake",
                 "duration": 1600,
-                "ingredientIds": [
-                    "ingredient_honey"
-                ],
+                "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
         ]
@@ -287,11 +334,20 @@
         ],
         "cookingSteps": [
             {
+                "type": "mix",
+                "ingredientIds": [
+                    "ingredient_chocolate",
+                    "ingredient_sugar",
+                    "ingredient_flour",
+                    "ingredient_egg",
+                    "ingredient_butter"
+                ],
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
                 "type": "bake",
                 "duration": 1500,
-                "ingredientIds": [
-                    "ingredient_chocolate"
-                ],
+                "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
         ]
@@ -317,11 +373,22 @@
                 "equipmentId": "equipment_cutting_board"
             },
             {
+                "type": "mix",
+                "duration": 30,
+                "ingredientIds": [
+                    "ingredient_cookie",
+                    "ingredient_milk",
+                    "ingredient_sugar",
+                    "ingredient_flour",
+                    "ingredient_egg",
+                    "ingredient_butter"
+                ],
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
                 "type": "bake",
                 "duration": 900,
-                "ingredientIds": [
-                    "ingredient_cookie"
-                ],
+                "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
         ]
@@ -337,24 +404,10 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 45,
+                "duration": 105,
                 "ingredientIds": [
-                    "ingredient_potato"
-                ],
-                "equipmentId": "equipment_cutting_board"
-            },
-            {
-                "type": "chop",
-                "duration": 30,
-                "ingredientIds": [
-                    "ingredient_onion_half"
-                ],
-                "equipmentId": "equipment_cutting_board"
-            },
-            {
-                "type": "chop",
-                "duration": 30,
-                "ingredientIds": [
+                    "ingredient_potato",
+                    "ingredient_onion_half",
                     "ingredient_mushroom"
                 ],
                 "equipmentId": "equipment_cutting_board"
@@ -381,7 +434,9 @@
                 "type": "mix",
                 "duration": 60,
                 "ingredientIds": [
-                    "ingredient_milk"
+                    "ingredient_milk",
+                    "ingredient_chocolate",
+                    "ingredient_root_beer"
                 ],
                 "equipmentId": "equipment_beverage_dispenser"
             }
@@ -398,26 +453,19 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 90,
+                "duration": 150,
                 "ingredientIds": [
-                    "ingredient_apple"
-                ],
-                "equipmentId": "equipment_cutting_board"
-            },
-            {
-                "type": "chop",
-                "duration": 60,
-                "ingredientIds": [
-                    "ingredient_orange"
+                    "ingredient_apple",
+                    "ingredient_orange",
+                    "ingredient_grapes",
+                    "ingredient_lemon_half"
                 ],
                 "equipmentId": "equipment_cutting_board"
             },
             {
                 "type": "mix",
                 "duration": 120,
-                "ingredientIds": [
-                    "ingredient_orange"
-                ],
+                "ingredientIds": [],
                 "equipmentId": "equipment_beverage_dispenser"
             }
         ]
@@ -442,7 +490,8 @@
                 "type": "mix",
                 "duration": 120,
                 "ingredientIds": [
-                    "ingredient_lemon"
+                    "ingredient_sugar",
+                    "ingredient_cocktail_mixer"
                 ],
                 "equipmentId": "equipment_beverage_dispenser"
             }
@@ -461,7 +510,10 @@
                 "type": "mix",
                 "duration": 60,
                 "ingredientIds": [
-                    "ingredient_lemon_half"
+                    "ingredient_lemon_half",
+                    "ingredient_orange",
+                    "ingredient_sugar",
+                    "ingredient_cocktail_mixer"
                 ],
                 "equipmentId": "equipment_beverage_dispenser"
             }
@@ -479,7 +531,9 @@
                 "type": "boil",
                 "duration": 120,
                 "ingredientIds": [
-                    "ingredient_milk"
+                    "ingredient_coffee",
+                    "ingredient_milk",
+                    "ingredient_chocolate"
                 ],
                 "equipmentId": "equipment_pot"
             }
@@ -498,7 +552,9 @@
                 "type": "simmer",
                 "duration": 300,
                 "ingredientIds": [
-                    "ingredient_honey"
+                    "ingredient_honey",
+                    "ingredient_milk",
+                    "ingredient_egg"
                 ],
                 "equipmentId": "equipment_sauce_station"
             },
@@ -524,24 +580,11 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 90,
+                "duration": 100,
                 "ingredientIds": [
-                    "ingredient_cucumber"
-                ],
-                "equipmentId": "equipment_cutting_board"
-            },
-            {
-                "type": "chop",
-                "duration": 60,
-                "ingredientIds": [
-                    "ingredient_cabbage"
-                ],
-                "equipmentId": "equipment_cutting_board"
-            },
-            {
-                "type": "dice",
-                "duration": 30,
-                "ingredientIds": [
+                    "ingredient_cucumber",
+                    "ingredient_cabbage",
+                    "ingredient_tomato",
                     "ingredient_onion_half"
                 ],
                 "equipmentId": "equipment_cutting_board"
@@ -570,16 +613,18 @@
                 "type": "mix",
                 "duration": 60,
                 "ingredientIds": [
-                    "ingredient_milk"
+                    "ingredient_milk",
+                    "ingredient_sugar",
+                    "ingredient_flour",
+                    "ingredient_egg",
+                    "ingredient_butter"
                 ],
                 "equipmentId": "equipment_beverage_dispenser"
             },
             {
                 "type": "bake",
                 "duration": 1200,
-                "ingredientIds": [
-                    "ingredient_milk"
-                ],
+                "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
         ]
@@ -605,6 +650,8 @@
                 "type": "mix",
                 "duration": 20,
                 "ingredientIds": [
+                    "ingredient_honey",
+                    "ingredient_root_beer",
                     "ingredient_cocktail_mixer"
                 ],
                 "equipmentId": "equipment_beverage_dispenser"
@@ -622,23 +669,17 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 30,
+                "duration": 70,
                 "ingredientIds": [
-                    "ingredient_mushroom"
-                ],
-                "equipmentId": "equipment_cutting_board"
-            },
-            {
-                "type": "dice",
-                "duration": 30,
-                "ingredientIds": [
+                    "ingredient_mushroom",
+                    "ingredient_onion_half",
                     "ingredient_carrot"
                 ],
                 "equipmentId": "equipment_cutting_board"
             },
             {
                 "type": "boil",
-                "duration": 1000,
+                "duration": 400,
                 "ingredientIds": [
                     "ingredient_egg"
                 ],
@@ -659,7 +700,9 @@
                 "type": "fry",
                 "duration": 400,
                 "ingredientIds": [
-                    "ingredient_rice"
+                    "ingredient_rice",
+                    "ingredient_egg",
+                    "ingredient_onion_half"
                 ],
                 "equipmentId": "equipment_pan"
             },
@@ -686,7 +729,9 @@
                 "type": "mix",
                 "duration": 20,
                 "ingredientIds": [
-                    "ingredient_lemon_half"
+                    "ingredient_lemon_half",
+                    "ingredient_salt_pepper",
+                    "ingredient_butter"
                 ],
                 "equipmentId": "equipment_sauce_station"
             },
@@ -712,6 +757,25 @@
         ],
         "cookingSteps": [
             {
+                "type": "chop",
+                "duration": 60,
+                "ingredientIds": [
+                    "ingredient_carrot",
+                    "ingredient_potato"
+                ],
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "mix",
+                "duration": 30,
+                "ingredientIds": [
+                    "ingredient_lemon_half",
+                    "ingredient_salt_pepper",
+                    "ingredient_butter"
+                ],
+                "equipmentId": "equipment_sauce_station"
+            },
+            {
                 "type": "grill",
                 "duration": 900,
                 "ingredientIds": [
@@ -720,19 +784,9 @@
                 "equipmentId": "equipment_grill"
             },
             {
-                "type": "chop",
-                "duration": 60,
-                "ingredientIds": [
-                    "ingredient_carrot"
-                ],
-                "equipmentId": "equipment_cutting_board"
-            },
-            {
                 "type": "bake",
                 "duration": 1200,
-                "ingredientIds": [
-                    "ingredient_carrot"
-                ],
+                "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
         ]
@@ -750,7 +804,10 @@
                 "type": "mix",
                 "duration": 90,
                 "ingredientIds": [
-                    "ingredient_milk"
+                    "ingredient_coffee",
+                    "ingredient_chocolate",
+                    "ingredient_milk",
+                    "ingredient_sugar"
                 ],
                 "equipmentId": "equipment_beverage_dispenser"
             }
@@ -761,7 +818,6 @@
         "ingredients": [
             "ingredient_meat_sausage",
             "ingredient_hotdog_bun",
-            "ingredient_bread",
             "ingredient_ketchup"
         ],
         "cookingSteps": [
@@ -777,7 +833,7 @@
                 "type": "toast",
                 "duration": 60,
                 "ingredientIds": [
-                    "ingredient_bread"
+                    "ingredient_hotdog_bun"
                 ],
                 "equipmentId": "equipment_toaster"
             },
@@ -803,7 +859,7 @@
                 "type": "simmer",
                 "duration": 180,
                 "ingredientIds": [
-                    "ingredient_honey"
+                    "ingredient_sugar"
                 ],
                 "equipmentId": "equipment_sauce_station"
             },
@@ -811,6 +867,7 @@
                 "type": "mix",
                 "duration": 20,
                 "ingredientIds": [
+                    "ingredient_ice_cream",
                     "ingredient_chocolate"
                 ],
                 "equipmentId": "equipment_beverage_dispenser"
@@ -843,6 +900,14 @@
         ],
         "cookingSteps": [
             {
+                "type": "chop",
+                "duration": 30,
+                "ingredientIds": [
+                    "ingredient_onion_half"
+                ],
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
                 "type": "grill",
                 "duration": 700,
                 "ingredientIds": [
@@ -857,14 +922,6 @@
                     "ingredient_potato"
                 ],
                 "equipmentId": "equipment_oven"
-            },
-            {
-                "type": "chop",
-                "duration": 30,
-                "ingredientIds": [
-                    "ingredient_onion_half"
-                ],
-                "equipmentId": "equipment_cutting_board"
             },
             {
                 "type": "mix",
@@ -889,7 +946,8 @@
                 "type": "grill",
                 "duration": 400,
                 "ingredientIds": [
-                    "ingredient_meat_sausage"
+                    "ingredient_meat_sausage",
+                    "ingredient_meat_fat_lard"
                 ],
                 "equipmentId": "equipment_grill"
             },
@@ -897,6 +955,8 @@
                 "type": "mix",
                 "duration": 20,
                 "ingredientIds": [
+                    "ingredient_bread",
+                    "ingredient_salt_pepper",
                     "ingredient_ketchup"
                 ],
                 "equipmentId": "equipment_sauce_station"
@@ -914,42 +974,19 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 120,
+                "duration": 270,
                 "ingredientIds": [
-                    "ingredient_meat"
-                ],
-                "equipmentId": "equipment_cutting_board"
-            },
-            {
-                "type": "chop",
-                "duration": 60,
-                "ingredientIds": [
-                    "ingredient_carrot"
-                ],
-                "equipmentId": "equipment_cutting_board"
-            },
-            {
-                "type": "chop",
-                "duration": 60,
-                "ingredientIds": [
+                    "ingredient_meat",
+                    "ingredient_carrot",
+                    "ingredient_onion_half",
                     "ingredient_cabbage"
-                ],
-                "equipmentId": "equipment_cutting_board"
-            },
-            {
-                "type": "chop",
-                "duration": 30,
-                "ingredientIds": [
-                    "ingredient_onion_half"
                 ],
                 "equipmentId": "equipment_cutting_board"
             },
             {
                 "type": "boil",
                 "duration": 2000,
-                "ingredientIds": [
-                    "ingredient_meat"
-                ],
+                "ingredientIds": [],
                 "equipmentId": "equipment_pot"
             }
         ]
@@ -966,7 +1003,9 @@
                 "type": "mix",
                 "duration": 90,
                 "ingredientIds": [
-                    "ingredient_milk"
+                    "ingredient_milk",
+                    "ingredient_chocolate",
+                    "ingredient_ice_cream"
                 ],
                 "equipmentId": "equipment_beverage_dispenser"
             }
@@ -993,7 +1032,9 @@
                 "type": "mix",
                 "duration": 100,
                 "ingredientIds": [
-                    "ingredient_milk"
+                    "ingredient_milk",
+                    "ingredient_chocolate",
+                    "ingredient_ice_cream"
                 ],
                 "equipmentId": "equipment_beverage_dispenser"
             }
@@ -1017,11 +1058,19 @@
                 "equipmentId": "equipment_cutting_board"
             },
             {
+                "type": "mix",
+                "duration": 60,
+                "ingredientIds": [
+                    "ingredient_honey",
+                    "ingredient_flour",
+                    "ingredient_butter"
+                ],
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
                 "type": "bake",
                 "duration": 2400,
-                "ingredientIds": [
-                    "ingredient_bread"
-                ],
+                "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
         ]
@@ -1035,6 +1084,23 @@
             "ingredient_mushroom"
         ],
         "cookingSteps": [
+            {
+                "type": "chop",
+                "duration": 60,
+                "ingredientIds": [
+                    "ingredient_tomato",
+                    "ingredient_mushroom"
+                ],
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
+                "type": "mix",
+                "duration": 30,
+                "ingredientIds": [
+                    "ingredient_cheese_cut"
+                ],
+                "equipmentId": "equipment_cutting_board"
+            },
             {
                 "type": "bake",
                 "duration": 1000,
@@ -1057,16 +1123,16 @@
                 "type": "mix",
                 "duration": 60,
                 "ingredientIds": [
-                    "ingredient_milk"
+                    "ingredient_milk",
+                    "ingredient_sugar",
+                    "ingredient_chocolate"
                 ],
                 "equipmentId": "equipment_beverage_dispenser"
             },
             {
                 "type": "freeze",
                 "duration": 1800,
-                "ingredientIds": [
-                    "ingredient_chocolate"
-                ],
+                "ingredientIds": [],
                 "equipmentId": "equipment_freezer"
             }
         ]
@@ -1083,9 +1149,18 @@
                 "type": "bake",
                 "duration": 600,
                 "ingredientIds": [
+                    "ingredient_meat_steak_2",
                     "ingredient_bacon_raw"
                 ],
                 "equipmentId": "equipment_oven"
+            },
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientIds": [
+                    "ingredient_salt_pepper"
+                ],
+                "equipmentId": "equipment_sauce_station"
             }
         ]
     },
@@ -1103,16 +1178,18 @@
                 "type": "simmer",
                 "duration": 600,
                 "ingredientIds": [
-                    "ingredient_milk"
+                    "ingredient_milk",
+                    "ingredient_sugar",
+                    "ingredient_flour",
+                    "ingredient_egg",
+                    "ingredient_chocolate"
                 ],
                 "equipmentId": "equipment_pot"
             },
             {
                 "type": "freeze",
                 "duration": 1800,
-                "ingredientIds": [
-                    "ingredient_chocolate"
-                ],
+                "ingredientIds": [],
                 "equipmentId": "equipment_freezer"
             }
         ]
@@ -1139,7 +1216,10 @@
                 "type": "simmer",
                 "duration": 700,
                 "ingredientIds": [
-                    "ingredient_milk"
+                    "ingredient_milk",
+                    "ingredient_sugar",
+                    "ingredient_flour",
+                    "ingredient_egg"
                 ],
                 "equipmentId": "equipment_pot"
             }
@@ -1159,24 +1239,39 @@
                     "ingredient_meat_ribs"
                 ],
                 "equipmentId": "equipment_oven"
+            },
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientIds": [
+                    "ingredient_honey"
+                ],
+                "equipmentId": "equipment_sauce_station"
             }
         ]
     },
     {
         "id": "recipe_croissant",
         "ingredients": [
-            "ingredient_bread",
             "ingredient_butter",
             "ingredient_flour",
             "ingredient_sugar"
         ],
         "cookingSteps": [
             {
+                "type": "mix",
+                "duration": 120,
+                "ingredientIds": [
+                    "ingredient_butter",
+                    "ingredient_flour",
+                    "ingredient_sugar"
+                ],
+                "equipmentId": "equipment_cutting_board"
+            },
+            {
                 "type": "bake",
                 "duration": 1200,
-                "ingredientIds": [
-                    "ingredient_bread"
-                ],
+                "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
         ]
@@ -1192,19 +1287,20 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 60,
+                "duration": 80,
                 "ingredientIds": [
-                    "ingredient_avocado_half"
+                    "ingredient_avocado_half",
+                    "ingredient_cucumber"
                 ],
                 "equipmentId": "equipment_cutting_board"
             },
             {
-                "type": "chop",
-                "duration": 60,
+                "type": "mix",
+                "duration": 30,
                 "ingredientIds": [
-                    "ingredient_cucumber"
+                    "ingredient_lemon_half"
                 ],
-                "equipmentId": "equipment_cutting_board"
+                "equipmentId": "equipment_sauce_station"
             },
             {
                 "type": "grill",
@@ -1239,6 +1335,10 @@
                 "type": "mix",
                 "duration": 20,
                 "ingredientIds": [
+                    "ingredient_meat",
+                    "ingredient_cheese_cut",
+                    "ingredient_tomato_slice",
+                    "ingredient_cabbage",
                     "ingredient_ketchup"
                 ],
                 "equipmentId": "equipment_sauce_station"
@@ -1255,16 +1355,9 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 120,
+                "duration": 80,
                 "ingredientIds": [
-                    "ingredient_onion_half"
-                ],
-                "equipmentId": "equipment_cutting_board"
-            },
-            {
-                "type": "chop",
-                "duration": 120,
-                "ingredientIds": [
+                    "ingredient_onion_half",
                     "ingredient_tomato_slice"
                 ],
                 "equipmentId": "equipment_cutting_board"
@@ -1291,7 +1384,9 @@
                 "type": "mix",
                 "duration": 20,
                 "ingredientIds": [
-                    "ingredient_honey"
+                    "ingredient_cola",
+                    "ingredient_honey",
+                    "ingredient_lemon_half"
                 ],
                 "equipmentId": "equipment_beverage_dispenser"
             }
@@ -1309,9 +1404,18 @@
                 "type": "grill",
                 "duration": 500,
                 "ingredientIds": [
-                    "ingredient_meat_steak"
+                    "ingredient_meat_steak",
+                    "ingredient_butter"
                 ],
                 "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientIds": [
+                    "ingredient_salt_pepper"
+                ],
+                "equipmentId": "equipment_sauce_station"
             }
         ]
     },
@@ -1336,9 +1440,18 @@
                 "type": "grill",
                 "duration": 500,
                 "ingredientIds": [
-                    "ingredient_meat_steak"
+                    "ingredient_meat_steak",
+                    "ingredient_butter"
                 ],
                 "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientIds": [
+                    "ingredient_salt_pepper"
+                ],
+                "equipmentId": "equipment_sauce_station"
             }
         ]
     },
@@ -1354,16 +1467,9 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 60,
+                "duration": 80,
                 "ingredientIds": [
-                    "ingredient_tomato"
-                ],
-                "equipmentId": "equipment_cutting_board"
-            },
-            {
-                "type": "chop",
-                "duration": 60,
-                "ingredientIds": [
+                    "ingredient_tomato",
                     "ingredient_cabbage"
                 ],
                 "equipmentId": "equipment_cutting_board"
@@ -1372,9 +1478,18 @@
                 "type": "grill",
                 "duration": 500,
                 "ingredientIds": [
-                    "ingredient_meat_steak"
+                    "ingredient_meat_steak",
+                    "ingredient_butter"
                 ],
                 "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientIds": [
+                    "ingredient_salt_pepper"
+                ],
+                "equipmentId": "equipment_sauce_station"
             }
         ]
     },
@@ -1388,12 +1503,13 @@
         ],
         "cookingSteps": [
             {
-                "type": "boil",
-                "duration": 900,
+                "type": "mix",
+                "duration": 60,
                 "ingredientIds": [
-                    "ingredient_bread"
+                    "ingredient_sugar",
+                    "ingredient_flour"
                 ],
-                "equipmentId": "equipment_pan"
+                "equipmentId": "equipment_cutting_board"
             },
             {
                 "type": "grill",
@@ -1402,6 +1518,14 @@
                     "ingredient_meat"
                 ],
                 "equipmentId": "equipment_grill"
+            },
+            {
+                "type": "boil",
+                "duration": 900,
+                "ingredientIds": [
+                    "ingredient_bread"
+                ],
+                "equipmentId": "equipment_pan"
             }
         ]
     },
@@ -1425,6 +1549,7 @@
                 "type": "mix",
                 "duration": 20,
                 "ingredientIds": [
+                    "ingredient_rice_ball",
                     "ingredient_salt_pepper"
                 ],
                 "equipmentId": "equipment_sauce_station"
@@ -1451,6 +1576,7 @@
                 "type": "mix",
                 "duration": 20,
                 "ingredientIds": [
+                    "ingredient_rice_ball",
                     "ingredient_avocado_half"
                 ],
                 "equipmentId": "equipment_sauce_station"
@@ -1469,9 +1595,10 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 120,
+                "duration": 80,
                 "ingredientIds": [
-                    "ingredient_tomato_slice"
+                    "ingredient_tomato_slice",
+                    "ingredient_cabbage"
                 ],
                 "equipmentId": "equipment_cutting_board"
             },
@@ -1487,7 +1614,8 @@
                 "type": "mix",
                 "duration": 20,
                 "ingredientIds": [
-                    "ingredient_cabbage"
+                    "ingredient_bread",
+                    "ingredient_cheese_cut"
                 ],
                 "equipmentId": "equipment_sauce_station"
             }
@@ -1504,7 +1632,8 @@
                 "type": "boil",
                 "duration": 180,
                 "ingredientIds": [
-                    "ingredient_lemon_half"
+                    "ingredient_lemon_half",
+                    "ingredient_honey"
                 ],
                 "equipmentId": "equipment_beverage_dispenser"
             }
@@ -1522,9 +1651,18 @@
                 "type": "bake",
                 "duration": 2000,
                 "ingredientIds": [
-                    "ingredient_chicken_breast"
+                    "ingredient_chicken_breast",
+                    "ingredient_butter"
                 ],
                 "equipmentId": "equipment_oven"
+            },
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientIds": [
+                    "ingredient_salt_pepper"
+                ],
+                "equipmentId": "equipment_sauce_station"
             }
         ]
     },
@@ -1540,19 +1678,28 @@
         "cookingSteps": [
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 40,
                 "ingredientIds": [
-                    "ingredient_flour"
+                    "ingredient_flour",
+                    "ingredient_egg",
+                    "ingredient_milk",
+                    "ingredient_sugar"
                 ],
-                "equipmentId": "equipment_sauce_station"
+                "equipmentId": "equipment_cutting_board"
             },
             {
                 "type": "toast",
                 "duration": 180,
-                "ingredientIds": [
-                    "ingredient_bread"
-                ],
+                "ingredientIds": [],
                 "equipmentId": "equipment_toaster"
+            },
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientIds": [
+                    "ingredient_honey"
+                ],
+                "equipmentId": "equipment_sauce_station"
             }
         ]
     },
@@ -1569,19 +1716,29 @@
         "cookingSteps": [
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 120,
                 "ingredientIds": [
-                    "ingredient_flour"
+                    "ingredient_flour",
+                    "ingredient_egg",
+                    "ingredient_milk",
+                    "ingredient_sugar"
                 ],
-                "equipmentId": "equipment_sauce_station"
+                "equipmentId": "equipment_cutting_board"
             },
             {
                 "type": "toast",
                 "duration": 180,
-                "ingredientIds": [
-                    "ingredient_bread"
-                ],
+                "ingredientIds": [],
                 "equipmentId": "equipment_toaster"
+            },
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientIds": [
+                    "ingredient_honey",
+                    "ingredient_ketchup"
+                ],
+                "equipmentId": "equipment_sauce_station"
             }
         ]
     },
@@ -1594,11 +1751,19 @@
         "cookingSteps": [
             {
                 "type": "bake",
-                "duration": 2700,
+                "duration": 2000,
                 "ingredientIds": [
                     "ingredient_meat_leg_3"
                 ],
                 "equipmentId": "equipment_oven"
+            },
+            {
+                "type": "mix",
+                "duration": 20,
+                "ingredientIds": [
+                    "ingredient_salt_pepper"
+                ],
+                "equipmentId": "equipment_sauce_station"
             }
         ]
     }
