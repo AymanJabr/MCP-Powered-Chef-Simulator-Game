@@ -1,8 +1,8 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import { Restaurant, Customer, Order, Ingredient, Equipment, Dish } from '@/types/models'
-import { createOrder } from '@/lib/entityFactories'
-import { eventBus } from '@/lib/eventBus'
+import { useGameStore } from '@/state/game/gameStore'
+import { calculateMaxOrderableDifficulty } from '@/lib/gameLoop'
 
 interface RestaurantState {
     restaurant: Restaurant
@@ -21,6 +21,7 @@ interface RestaurantState {
         updateIngredientQuantity: (ingredientId: string, quantityChange: number) => void
         updateEquipmentStatus: (equipmentId: string, status: Equipment['status']) => void
         initializeInventory: () => Promise<void>;
+        initializeFullMenu: () => Promise<void>;
         resetRestaurantState: () => void;
     }
 }
@@ -39,7 +40,7 @@ export const useRestaurantStore = create<RestaurantState>()(
             completedOrders: [],
             inventory: [],
             equipment: [],
-            unlockedMenuItems: [] as string[]
+            menuItems: []
         },
         actions: {
             setName: (name) => set((state) => {
@@ -100,6 +101,8 @@ export const useRestaurantStore = create<RestaurantState>()(
                 let success = false;
                 let message = 'Failed to take order';
                 let order: Order | undefined = undefined;
+                const { game } = useGameStore.getState();
+                const maxDifficulty = calculateMaxOrderableDifficulty(game.difficulty);
 
                 set((state) => {
                     const customerIndex = state.restaurant.activeCustomers.findIndex(
@@ -112,13 +115,17 @@ export const useRestaurantStore = create<RestaurantState>()(
                     }
 
                     const customer = state.restaurant.activeCustomers[customerIndex];
-                    const dish: Dish = state.restaurant.menuItems?.find(d => d.id === dishId) || {
-                        id: dishId,
-                        name: 'Placeholder Dish ' + dishId.slice(-3),
-                        basePrice: 10,
-                        recipeId: 'recipe_placeholder',
-                        cookingDifficulty: 3,
-                    };
+                    const dish = state.restaurant.menuItems?.find(d => d.id === dishId);
+
+                    if (!dish) {
+                        message = `Dish with ID ${dishId} not found in the menu.`;
+                        return;
+                    }
+
+                    if (dish.cookingDifficulty > maxDifficulty) {
+                        message = `Dish ${dish.name} is too difficult to prepare at the current game difficulty. Max allowed: ${maxDifficulty}`;
+                        return;
+                    }
 
                     const newOrder: Order = {
                         id: `order_${Date.now()}_${customer.id.slice(-3)}`,
@@ -228,7 +235,22 @@ export const useRestaurantStore = create<RestaurantState>()(
                     console.log('Restaurant inventory initialized from JSON.');
                 } catch (error) {
                     console.error("Failed to initialize inventory:", error);
-                    // Optionally, set some default/fallback inventory or handle error state
+                }
+            },
+
+            initializeFullMenu: async () => {
+                try {
+                    const response = await fetch('/assets/data/dishes/dishes.json');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const dishes: Dish[] = await response.json();
+                    set((state) => {
+                        state.restaurant.menuItems = dishes;
+                    });
+                    console.log('Restaurant full menu initialized from JSON.');
+                } catch (error) {
+                    console.error("Failed to initialize full menu:", error);
                 }
             },
 
@@ -239,9 +261,6 @@ export const useRestaurantStore = create<RestaurantState>()(
                 state.restaurant.completedOrders = [];
                 state.restaurant.funds = 1000; // Initial funds
                 state.restaurant.reputation = 2.5; // Initial reputation
-                // Note: We are not resetting inventory or equipment here,
-                // as initializeInventory handles that.
-                // If menuItems or unlockedMenuItems need reset, add them here.
             })
         }
     }))

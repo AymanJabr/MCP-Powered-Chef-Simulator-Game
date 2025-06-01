@@ -66,8 +66,7 @@ describe('Restaurant Store', () => {
                 completedOrders: [],
                 inventory: [{ ...mockIngredient }], // Copy to avoid reference issues
                 equipment: [{ ...mockEquipment }],
-                menuItems: [],
-                unlockedMenuItems: []
+                menuItems: []
             }
         })
     })

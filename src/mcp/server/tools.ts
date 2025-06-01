@@ -7,9 +7,12 @@ import {
     CookingProcess,
     PreparationTask,
     PlayerActionType,
-    CookingActionType
+    CookingActionType,
+    Game
 } from '@/types/models'
 import { usePlayerStore } from '@/state/player/playerStore'
+import { useGameStore } from '@/state/game/gameStore'
+import { calculateMaxOrderableDifficulty } from '@/lib/gameLoop'
 
 /* -------------------------------------------------------------------------- */
 /* Helper utilities                                                            */
@@ -52,28 +55,32 @@ export const tools = [
             dishId: { type: 'string', description: 'ID of the dish being ordered' }
         },
         execute: async ({ customerId, dishId }: { customerId: string; dishId: string }) => {
-            const { restaurant, actions } = useRestaurantStore.getState()
-            // Verify customer exists
+            const { restaurant, actions: restaurantActions } = useRestaurantStore.getState()
+            const { game } = useGameStore.getState()
+
             const customer = restaurant.activeCustomers.find((c) => c.id === customerId)
             if (!customer) {
                 return { success: false, message: 'Customer not found or not seated' }
             }
 
-            // Verify the dish exists in unlocked menu (simplified – assume it does)
-            // TODO: Actually fetch dish details from a menu or recipe list
-            const dish: Dish = {
-                id: dishId,
-                name: `Dish ${dishId.substring(dishId.length - 4)}`, // Placeholder name
-                basePrice: 10, // Placeholder price
-                recipeId: `recipe_${dishId.replace('dish_', '')}`, // Derive recipeId
-                cookingDifficulty: 3,
+            const dishToOrder = restaurant.menuItems?.find(d => d.id === dishId);
+            if (!dishToOrder) {
+                return { success: false, message: `Dish with ID ${dishId} not found in menu.` };
+            }
+
+            const maxDifficulty = calculateMaxOrderableDifficulty(game.difficulty);
+            if (dishToOrder.cookingDifficulty > maxDifficulty) {
+                return {
+                    success: false,
+                    message: `Dish ${dishToOrder.name} (difficulty ${dishToOrder.cookingDifficulty}) is too difficult. Max allowed: ${maxDifficulty}.`
+                };
             }
 
             // Build order
             const order: Order = {
                 id: generateId('order'),
                 customerId: customerId,
-                dish,
+                dish: dishToOrder,
                 customizations: [],
                 status: 'received',
                 startTime: now(),
@@ -81,7 +88,7 @@ export const tools = [
                 qualityScore: 0,
                 tip: 0
             }
-            actions.addActiveOrder(order)
+            restaurantActions.addActiveOrder(order)
             eventBus.emit('order_received', order)
             return { success: true, orderId: order.id }
         }

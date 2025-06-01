@@ -74,7 +74,6 @@ describe('Entity Factories', () => {
     describe('createDish', () => {
         it('should create a dish with default values', () => {
             const dish = createDish();
-
             expect(dish.id).toContain('dish_');
             expect(dish.name).toBe('New Dish');
             expect(dish.basePrice).toBe(10);

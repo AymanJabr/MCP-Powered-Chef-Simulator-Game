@@ -5,7 +5,6 @@
         "basePrice": 4.99,
         "recipeId": "recipe_berry_desert_drink",
         "cookingDifficulty": 1,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/berry_desert_drink.png"
     },
     {
@@ -14,7 +13,6 @@
         "basePrice": 10.99,
         "recipeId": "recipe_burger_cheese_double",
         "cookingDifficulty": 3,
-        "unlockDifficulty": 3,
         "image": "/assets/images/dishes/burgerCheeseDouble.png"
     },
     {
@@ -23,7 +21,6 @@
         "basePrice": 8.99,
         "recipeId": "recipe_burger",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/burger.png"
     },
     {
@@ -32,7 +29,6 @@
         "basePrice": 6.49,
         "recipeId": "recipe_cake_berry",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/cake_berry.png"
     },
     {
@@ -41,7 +37,6 @@
         "basePrice": 6.49,
         "recipeId": "recipe_cake_cheesecake_orange",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/cake_cheesecake_orange.png"
     },
     {
@@ -50,7 +45,6 @@
         "basePrice": 6.49,
         "recipeId": "recipe_cake_cheesecake_raspberry",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/cake_cheesecake_raspberry.png"
     },
     {
@@ -59,7 +53,6 @@
         "basePrice": 6.49,
         "recipeId": "recipe_cake_cheesecake_strawberry",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/cake_cheesecake_strawberry.png"
     },
     {
@@ -68,7 +61,6 @@
         "basePrice": 6.49,
         "recipeId": "recipe_cake_honey_caramel",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/cake_honey_caramel.png"
     },
     {
@@ -77,7 +69,6 @@
         "basePrice": 8.99,
         "recipeId": "recipe_cake_mango_lemon_with_golden_berries",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 3,
         "image": "/assets/images/dishes/cake_mango_lemon_with_golden_berries.png"
     },
     {
@@ -86,7 +77,6 @@
         "basePrice": 6.49,
         "recipeId": "recipe_cake_mint_pistacchio",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/cake_mint_pistacchio.png"
     },
     {
@@ -95,7 +85,6 @@
         "basePrice": 6.49,
         "recipeId": "recipe_cake_raspberry_shortcake",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/cake_raspberry_shortcake.png"
     },
     {
@@ -104,7 +93,6 @@
         "basePrice": 6.99,
         "recipeId": "recipe_cheese_potato_soup",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/cheese_potato_soup.png"
     },
     {
@@ -113,7 +101,6 @@
         "basePrice": 5.99,
         "recipeId": "recipe_chocolate_milk_shake_root_beer",
         "cookingDifficulty": 1,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/chocolate_milk_shake_root_bear.png"
     },
     {
@@ -122,7 +109,6 @@
         "basePrice": 4.99,
         "recipeId": "recipe_cocktail_fruit_iced",
         "cookingDifficulty": 1,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/cocktail_fruit_iced.png"
     },
     {
@@ -131,7 +117,6 @@
         "basePrice": 4.99,
         "recipeId": "recipe_cocktail_lemon",
         "cookingDifficulty": 1,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/cocktail_lemon.png"
     },
     {
@@ -140,7 +125,6 @@
         "basePrice": 4.99,
         "recipeId": "recipe_cocktail",
         "cookingDifficulty": 1,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/cocktail.png"
     },
     {
@@ -149,7 +133,6 @@
         "basePrice": 4.99,
         "recipeId": "recipe_coffee_with_milk",
         "cookingDifficulty": 1,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/coffea_with_milk.png"
     },
     {
@@ -158,7 +141,6 @@
         "basePrice": 4.99,
         "recipeId": "recipe_creamcaramel_coffee",
         "cookingDifficulty": 1,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/creamcaramel_coffea.png"
     },
     {
@@ -167,7 +149,6 @@
         "basePrice": 7.49,
         "recipeId": "recipe_cucumber_salad",
         "cookingDifficulty": 1,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/cucumber_salad.png"
     },
     {
@@ -176,7 +157,6 @@
         "basePrice": 6.49,
         "recipeId": "recipe_cupcake",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/cupcake.png"
     },
     {
@@ -185,7 +165,6 @@
         "basePrice": 4.99,
         "recipeId": "recipe_drink_sweet",
         "cookingDifficulty": 1,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/drink_sweet.png"
     },
     {
@@ -194,7 +173,6 @@
         "basePrice": 6.99,
         "recipeId": "recipe_egg_soup",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/egg_soup.png"
     },
     {
@@ -203,7 +181,6 @@
         "basePrice": 7.99,
         "recipeId": "recipe_eggs_with_rice",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/eggs_with_rice.png"
     },
     {
@@ -212,7 +189,6 @@
         "basePrice": 14.99,
         "recipeId": "recipe_fish",
         "cookingDifficulty": 3,
-        "unlockDifficulty": 3,
         "image": "/assets/images/dishes/fish.png"
     },
     {
@@ -221,7 +197,6 @@
         "basePrice": 14.99,
         "recipeId": "recipe_fish_with_potatoes_and_carrots",
         "cookingDifficulty": 4,
-        "unlockDifficulty": 4,
         "image": "/assets/images/dishes/fish_with_potatoes_and_carrots.png"
     },
     {
@@ -230,7 +205,6 @@
         "basePrice": 4.99,
         "recipeId": "recipe_frappe",
         "cookingDifficulty": 1,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/frappe.png"
     },
     {
@@ -239,7 +213,6 @@
         "basePrice": 8.99,
         "recipeId": "recipe_hotdog",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/hotdog.png"
     },
     {
@@ -248,7 +221,6 @@
         "basePrice": 3.99,
         "recipeId": "recipe_icecream_chocolate_caramel",
         "cookingDifficulty": 1,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/icecream_chocolate_caramel.png"
     },
     {
@@ -257,7 +229,6 @@
         "basePrice": 3.99,
         "recipeId": "recipe_ice_cream",
         "cookingDifficulty": 1,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/iceCream.png"
     },
     {
@@ -266,7 +237,6 @@
         "basePrice": 14.99,
         "recipeId": "recipe_lamb_chop_with_potatoes",
         "cookingDifficulty": 4,
-        "unlockDifficulty": 4,
         "image": "/assets/images/dishes/lamb_chop_with_potatoes.png"
     },
     {
@@ -275,7 +245,6 @@
         "basePrice": 7.99,
         "recipeId": "recipe_meat_sausage",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/meatSausage.png"
     },
     {
@@ -284,7 +253,6 @@
         "basePrice": 6.99,
         "recipeId": "recipe_meat_soup",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/meat_soup.png"
     },
     {
@@ -293,7 +261,6 @@
         "basePrice": 4.99,
         "recipeId": "recipe_milkshake_chocolate",
         "cookingDifficulty": 1,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/milkshake_chocolate.png"
     },
     {
@@ -302,7 +269,6 @@
         "basePrice": 4.99,
         "recipeId": "recipe_milkshake_desert_chocolate_sweet",
         "cookingDifficulty": 1,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/milkshake_desert_chocolate_sweet.png"
     },
     {
@@ -311,7 +277,6 @@
         "basePrice": 6.49,
         "recipeId": "recipe_pie",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/pie.png"
     },
     {
@@ -320,7 +285,6 @@
         "basePrice": 12.99,
         "recipeId": "recipe_pizza",
         "cookingDifficulty": 3,
-        "unlockDifficulty": 3,
         "image": "/assets/images/dishes/pizza.png"
     },
     {
@@ -329,7 +293,6 @@
         "basePrice": 3.99,
         "recipeId": "recipe_popsicle_chocolate",
         "cookingDifficulty": 1,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/popsicleChocolate.png"
     },
     {
@@ -338,7 +301,6 @@
         "basePrice": 14.99,
         "recipeId": "recipe_pork_belly_roasted",
         "cookingDifficulty": 3,
-        "unlockDifficulty": 3,
         "image": "/assets/images/dishes/pork_belly_roasted.png"
     },
     {
@@ -347,7 +309,6 @@
         "basePrice": 6.49,
         "recipeId": "recipe_pudding",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/pudding.png"
     },
     {
@@ -356,7 +317,6 @@
         "basePrice": 6.49,
         "recipeId": "recipe_pudding_raspberry",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/pudding_raspberry.png"
     },
     {
@@ -365,7 +325,6 @@
         "basePrice": 14.99,
         "recipeId": "recipe_ribs_cooked",
         "cookingDifficulty": 3,
-        "unlockDifficulty": 3,
         "image": "/assets/images/dishes/ribs_cooked.png"
     },
     {
@@ -374,7 +333,6 @@
         "basePrice": 3.49,
         "recipeId": "recipe_croissant",
         "cookingDifficulty": 1,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/roissant.png"
     },
     {
@@ -383,7 +341,6 @@
         "basePrice": 14.99,
         "recipeId": "recipe_salmon_with_avocado_cucumber",
         "cookingDifficulty": 4,
-        "unlockDifficulty": 4,
         "image": "/assets/images/dishes/salmon_with_avocado_cucumber.png"
     },
     {
@@ -392,7 +349,6 @@
         "basePrice": 8.99,
         "recipeId": "recipe_sandwich",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/sandwich.png"
     },
     {
@@ -401,7 +357,6 @@
         "basePrice": 7.99,
         "recipeId": "recipe_skewer_vegetables",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/skewerVegetables.png"
     },
     {
@@ -410,7 +365,6 @@
         "basePrice": 4.99,
         "recipeId": "recipe_soda_cola",
         "cookingDifficulty": 1,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/soda_cola.png"
     },
     {
@@ -419,7 +373,6 @@
         "basePrice": 14.99,
         "recipeId": "recipe_steak_cooked",
         "cookingDifficulty": 3,
-        "unlockDifficulty": 3,
         "image": "/assets/images/dishes/steak_cooked.png"
     },
     {
@@ -428,7 +381,6 @@
         "basePrice": 14.99,
         "recipeId": "recipe_steak_cooked_with_leafs",
         "cookingDifficulty": 4,
-        "unlockDifficulty": 4,
         "image": "/assets/images/dishes/steak_cooked_with_leafs.png"
     },
     {
@@ -437,7 +389,6 @@
         "basePrice": 14.99,
         "recipeId": "recipe_steak_with_tomatoes",
         "cookingDifficulty": 4,
-        "unlockDifficulty": 4,
         "image": "/assets/images/dishes/steak_with_tomatoes.png"
     },
     {
@@ -446,7 +397,6 @@
         "basePrice": 6.99,
         "recipeId": "recipe_steamed_buns",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/steamed_buns.png"
     },
     {
@@ -455,7 +405,6 @@
         "basePrice": 11.99,
         "recipeId": "recipe_sushi_eggs",
         "cookingDifficulty": 3,
-        "unlockDifficulty": 3,
         "image": "/assets/images/dishes/sushi_eggs.png"
     },
     {
@@ -464,7 +413,6 @@
         "basePrice": 11.99,
         "recipeId": "recipe_sushi_salmon",
         "cookingDifficulty": 3,
-        "unlockDifficulty": 3,
         "image": "/assets/images/dishes/sushi_salmon.png"
     },
     {
@@ -473,7 +421,6 @@
         "basePrice": 8.99,
         "recipeId": "recipe_taco",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/taco.png"
     },
     {
@@ -482,7 +429,6 @@
         "basePrice": 4.99,
         "recipeId": "recipe_tea_with_lemon",
         "cookingDifficulty": 1,
-        "unlockDifficulty": 1,
         "image": "/assets/images/dishes/tea_with_lemon.png"
     },
     {
@@ -491,7 +437,6 @@
         "basePrice": 14.99,
         "recipeId": "recipe_turkey",
         "cookingDifficulty": 3,
-        "unlockDifficulty": 3,
         "image": "/assets/images/dishes/turkey.png"
     },
     {
@@ -500,7 +445,6 @@
         "basePrice": 6.49,
         "recipeId": "recipe_waffles_with_honey",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/waffles_with_honey.png"
     },
     {
@@ -509,7 +453,6 @@
         "basePrice": 6.49,
         "recipeId": "recipe_waffle_with_sauce",
         "cookingDifficulty": 2,
-        "unlockDifficulty": 2,
         "image": "/assets/images/dishes/waffle_with_sauce.png"
     },
     {
@@ -518,7 +461,6 @@
         "basePrice": 14.99,
         "recipeId": "recipe_whole_leg",
         "cookingDifficulty": 3,
-        "unlockDifficulty": 3,
         "image": "/assets/images/dishes/whole_leg.png"
     }
 ]

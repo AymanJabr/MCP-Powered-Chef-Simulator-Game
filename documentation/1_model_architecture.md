@@ -4,12 +4,13 @@
 
 ### Restaurant
 - **Properties**:
-  - `level`: Current difficulty level
+  - `level`: Current difficulty level // Note: Game.difficulty is the primary driver now
   - `customers`: Array of active customers
   - `queue`: Queue of waiting customers
   - `money`: Current funds
   - `inventory`: Available ingredients and supplies
   - `equipment`: Available cooking equipment
+  - `menuItems`: List of all possible dishes the restaurant *could* offer.
 
 ### Customer
 - **Properties**:
@@ -35,9 +36,9 @@
 - **Properties**:
   - `id`: Unique identifier
   - `name`: Name of the dish
-  - `recipe`: List of required ingredients and cooking steps
+  - `recipe`: List of required ingredients and cooking steps (refers to Recipe model via recipeId)
   - `basePrice`: Standard price of the dish without tips
-  - `cookingDifficulty`: Affects likelihood of errors
+  - `cookingDifficulty`: Determines availability based on game difficulty.
 
 ### Ingredient
 - **Properties**:
@@ -98,10 +99,17 @@
 ## State Flow
 
 1. Customers arrive and join queue
-2. Customers place orders
+2. Customers place orders (for dishes available at current game difficulty)
 3. Player/MCP prepares ingredients
 4. Player/MCP performs cooking actions
 5. Player/MCP plates the dish
 6. Player/MCP serves the customer
 7. Customer pays and provides satisfaction rating
 8. Cycle repeats with increasing difficulty
+
+## Dish Availability (New Section)
+Dish availability is now determined dynamically based on the current game difficulty (managed in `Game.difficulty` from `gameStore.ts`).
+- Each `Dish` has a `cookingDifficulty` property.
+- A helper function, `calculateMaxOrderableDifficulty(gameDifficulty)`, determines the maximum `cookingDifficulty` a dish can have to be orderable at the current `gameDifficulty`.
+- Customers can only order dishes where `Dish.cookingDifficulty <= calculateMaxOrderableDifficulty(Game.difficulty)`.
+- The `Restaurant.menuItems` array in `restaurantStore.ts` now holds *all* dishes loaded from `dishes.json`, and filtering for availability happens at the point of order creation or when presenting menu options to the player/customer AI.

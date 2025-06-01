@@ -58,7 +58,6 @@ export function createDish(partial: Partial<Dish> = {}): Dish {
         basePrice: 10,
         recipeId: '',
         cookingDifficulty: 1,
-        unlockDifficulty: 1,
         ...partial
     };
 }
@@ -160,7 +159,6 @@ export function createRestaurant(partial: Partial<Restaurant> = {}): Restaurant 
         inventory: [],
         equipment: [],
         menuItems: [],
-        unlockedMenuItems: [],
         ...partial
     };
 }

@@ -52,7 +52,6 @@ export interface Dish {
     basePrice: number
     recipeId: string
     cookingDifficulty: number
-    unlockDifficulty?: number
     image?: string
 }
 
@@ -133,7 +132,6 @@ export interface Restaurant {  //TODO: maybe change from full Interfaces to just
     inventory: Ingredient[]
     equipment: Equipment[]
     menuItems?: Dish[]
-    unlockedMenuItems: string[] // IDs of dishes that have been unlocked
 }
 
 // Player model
