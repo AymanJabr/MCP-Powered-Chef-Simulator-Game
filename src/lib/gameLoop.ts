@@ -11,7 +11,7 @@ import { Game } from '@/types/models'
 // TODO: This mapping might need to be more sophisticated based on game balance.
 // For now, it's a simple mapping: max orderable difficulty = game difficulty level + 1,
 // capped at a max of 20 for example.
-const MAX_POSSIBLE_COOKING_DIFFICULTY = 20;
+const MAX_POSSIBLE_COOKING_DIFFICULTY = 5;
 
 export const calculateMaxOrderableDifficulty = (gameDifficulty: Game['difficulty']): number => {
     return Math.min(MAX_POSSIBLE_COOKING_DIFFICULTY, gameDifficulty + 1);
