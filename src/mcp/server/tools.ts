@@ -66,9 +66,7 @@ export const tools = [
                 name: `Dish ${dishId.substring(dishId.length - 4)}`, // Placeholder name
                 basePrice: 10, // Placeholder price
                 recipeId: `recipe_${dishId.replace('dish_', '')}`, // Derive recipeId
-                cookingDifficulty: 3, // Placeholder
-                plateAppearance: 3, // Placeholder
-                // unlockDifficulty can be omitted or set to a default
+                cookingDifficulty: 3,
             }
 
             // Build order

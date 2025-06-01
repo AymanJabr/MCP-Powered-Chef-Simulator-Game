@@ -17,8 +17,7 @@ const mockDish: Dish = {
     name: 'Test Dish',
     basePrice: 10,
     recipeId: 'recipe_1',
-    cookingDifficulty: 1,
-    plateAppearance: 5
+    cookingDifficulty: 1
 }
 
 const mockOrder: Order = {

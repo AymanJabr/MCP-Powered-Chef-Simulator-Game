@@ -52,8 +52,8 @@ export interface Dish {
     basePrice: number
     recipeId: string
     cookingDifficulty: number
-    plateAppearance: number
     unlockDifficulty?: number
+    image?: string
 }
 
 // Recipe model

@@ -38,7 +38,6 @@
   - `recipe`: List of required ingredients and cooking steps
   - `basePrice`: Standard price of the dish without tips
   - `cookingDifficulty`: Affects likelihood of errors
-  - `plateAppearance`: Visual presentation score
 
 ### Ingredient
 - **Properties**:
@@ -105,4 +104,4 @@
 5. Player/MCP plates the dish
 6. Player/MCP serves the customer
 7. Customer pays and provides satisfaction rating
-8. Cycle repeats with increasing difficulty 
+8. Cycle repeats with increasing difficulty

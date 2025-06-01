@@ -58,7 +58,7 @@ export function createDish(partial: Partial<Dish> = {}): Dish {
         basePrice: 10,
         recipeId: '',
         cookingDifficulty: 1,
-        plateAppearance: 1,
+        unlockDifficulty: 1,
         ...partial
     };
 }

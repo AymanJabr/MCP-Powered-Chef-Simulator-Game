@@ -118,7 +118,6 @@ export const useRestaurantStore = create<RestaurantState>()(
                         basePrice: 10,
                         recipeId: 'recipe_placeholder',
                         cookingDifficulty: 3,
-                        plateAppearance: 3,
                     };
 
                     const newOrder: Order = {

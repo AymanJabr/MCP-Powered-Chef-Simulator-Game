@@ -79,7 +79,6 @@ describe('Entity Factories', () => {
             expect(dish.name).toBe('New Dish');
             expect(dish.basePrice).toBe(10);
             expect(dish.cookingDifficulty).toBe(1);
-            expect(dish.plateAppearance).toBe(1);
             expect(dish.recipeId).toBe('');
         });
 
