@@ -50,6 +50,7 @@ const CustomerSprite = (props: CustomerSpriteProps) => {
                 heightFrame={sheetFrameHeight}
                 steps={steps}
                 fps={fps}
+                direction='forward'
                 autoplay={autoplay}
                 loop={loop}
                 isResponsive={false}

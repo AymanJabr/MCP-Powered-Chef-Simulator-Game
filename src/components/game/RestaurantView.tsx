@@ -62,7 +62,11 @@ export const QUEUE_POSITIONS = [
     { x: 50, y: 15 },
     { x: 50, y: 25 },
     { x: 50, y: 35 },
-    { x: 50, y: 45 }
+    { x: 50, y: 45 },
+    { x: 50, y: 55 },
+    { x: 50, y: 65 },
+    { x: 50, y: 75 },
+    { x: 50, y: 85 }
 ]
 
 // Define restaurant layout areas (in percentage coordinates)
