@@ -202,6 +202,12 @@ export const usePlayerStore = create<PlayerState>()(
             _updateAnimationState: () => set((state) => {
                 const { currentAction, direction } = state.player
                 const { isCarryingItem } = get()
+
+                // Ensure animationState is defined
+                if (typeof state.player.animationState === 'undefined') {
+                    state.player.animationState = 'idle';
+                }
+
                 if (currentAction) {
                     switch (currentAction.type) {
                         case 'move':
@@ -219,8 +225,12 @@ export const usePlayerStore = create<PlayerState>()(
                             break
                     }
                 } else {
+                    // Ensure animationState is defined here too before startsWith check
+                    if (typeof state.player.animationState === 'undefined') {
+                        state.player.animationState = 'idle';
+                    }
                     if (!state.player.animationState.startsWith('running')) {
-                        state.player.animationState = isCarryingItem ? 'idle' : 'idle'
+                        state.player.animationState = isCarryingItem ? 'idle' : 'idle' // Consider if this should be running_lifting_idle or similar
                     }
                 }
             }),

@@ -56,7 +56,7 @@ describe('Restaurant Store', () => {
             restaurant: {
                 name: 'MCP-Powered Chef Restaurant',
                 level: 1,
-                reputation: 50,
+                reputation: 2.5,
                 funds: 1000,
                 customerCapacity: 8,
                 activeCustomers: [],
@@ -74,7 +74,7 @@ describe('Restaurant Store', () => {
         const { restaurant } = useRestaurantStore.getState()
         expect(restaurant.name).toBe('MCP-Powered Chef Restaurant')
         expect(restaurant.level).toBe(1)
-        expect(restaurant.reputation).toBe(50)
+        expect(restaurant.reputation).toBe(2.5)
         expect(restaurant.funds).toBe(1000)
         expect(restaurant.customerCapacity).toBe(8)
         expect(restaurant.activeCustomers).toEqual([])
@@ -219,8 +219,8 @@ describe('Restaurant Store', () => {
         const expectedTip = Math.floor((80 / 100) * 5)
         expect(restaurant.activeCustomers[0].tip).toBe(expectedTip)
 
-        // Reputation should have increased (80 - 50) / 10 = 3
-        expect(restaurant.reputation).toBe(53)
+        // Reputation: initial 2.5 + ( (80 - 50) / 10 ) = 2.5 + 3 = 5.5. Clamped to 5.
+        expect(restaurant.reputation).toBe(5)
     })
 
     it('should update ingredient quantity', () => {

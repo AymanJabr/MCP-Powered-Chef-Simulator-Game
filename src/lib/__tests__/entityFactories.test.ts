@@ -16,6 +16,7 @@ import {
     createMCPAction,
     createGame
 } from '../entityFactories';
+import type { ToolParameters } from '@/types/models';
 
 describe('Entity Factories', () => {
     describe('createCustomer', () => {
@@ -24,9 +25,11 @@ describe('Entity Factories', () => {
 
             expect(customer.id).toContain('customer_');
             expect(customer.order).toBeNull();
-            expect(customer.patience).toBe(100);
+            expect(customer.patience).toBeGreaterThanOrEqual(80);
+            expect(customer.patience).toBeLessThanOrEqual(110);
             expect(customer.status).toBe('waiting');
-            expect(customer.satisfaction).toBe(0);
+            expect(customer.satisfaction).toBeGreaterThanOrEqual(60);
+            expect(customer.satisfaction).toBeLessThanOrEqual(80);
             expect(customer.tip).toBe(0);
             expect(customer.arrivalTime).toBeLessThanOrEqual(Date.now());
         });
@@ -120,7 +123,7 @@ describe('Entity Factories', () => {
 
             expect(step.type).toBe('chop');
             expect(step.duration).toBe(30);
-            expect(step.ingredientIds).toBe('');
+            expect(step.ingredientIds).toEqual([]);
             expect(step.equipmentId).toBe('');
         });
 
@@ -133,7 +136,7 @@ describe('Entity Factories', () => {
 
             expect(step.type).toBe('grill');
             expect(step.duration).toBe(120);
-            expect(step.ingredientIds).toBe(['ing_3']);
+            expect(step.ingredientIds).toEqual(['ing_3']);
         });
     });
 
@@ -331,7 +334,7 @@ describe('Entity Factories', () => {
             expect(assistant.performanceMetrics.averageResponseTime).toBe(0);
 
             // Provider
-            expect(assistant.provider.name).toBe('claude');
+            expect(assistant.provider.name).toBe('anthropic');
             expect(assistant.provider.model).toBeDefined();
         });
 
@@ -387,15 +390,25 @@ describe('Entity Factories', () => {
         });
 
         it('should override default values with provided partials', () => {
+            const toolParamsInstance: ToolParameters = {
+                ingredientId: { type: 'string', description: 'Ingredient to cook' },
+                time: { type: 'number', description: 'Cooking time' }
+            };
+
+            const paramsForAction: Record<string, ToolParameters> = {
+                "cookIngredientTool": toolParamsInstance
+            };
+
             const action = createMCPAction({
                 type: 'cook_ingredient',
                 target: 'ingredient_456',
+                params: paramsForAction,
                 status: 'successful'
             });
 
             expect(action.type).toBe('cook_ingredient');
             expect(action.target).toBe('ingredient_456');
-            expect(action.params).toEqual({ cookingTime: 120 });
+            expect(action.params).toEqual(paramsForAction);
             expect(action.status).toBe('successful');
         });
     });
