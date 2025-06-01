@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import {
     Player, PlayerAction, Position, SavedCommand, PlayerActionType,
-    PlayerDirection, ChefAnimationType, ChefSpriteConfig
+    PlayerDirection, ChefAnimationType
 } from '@/types/models'
 import { chefSpriteConfig } from '@/config/chefAnimations'
 

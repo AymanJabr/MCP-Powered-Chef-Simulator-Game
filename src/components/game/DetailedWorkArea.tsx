@@ -67,10 +67,9 @@ function OrderTakingDialog({
 }: {
     customerId: string
     onClose: () => void
-    onOrderPlace: (dishId: string, customizations: string[]) => void
+    onOrderPlace: (dishId: string) => void
 }) {
     const [selectedDish, setSelectedDish] = useState<string>('')
-    const [customizations, setCustomizations] = useState<string[]>([])
 
     // Mock menu items - in real app this would come from props
     const menuItems = [
@@ -82,7 +81,7 @@ function OrderTakingDialog({
 
     const handleOrder = () => {
         if (selectedDish) {
-            onOrderPlace(selectedDish, customizations)
+            onOrderPlace(selectedDish)
             onClose()
         }
     }
@@ -168,18 +167,19 @@ export default function DetailedWorkArea({
     inventory,
     gameMode
 }: DetailedWorkAreaProps) {
-    const [showOrderDialog, setShowOrderDialog] = useState(false)
-
     // Check if we need to show order taking dialog
-    const needsOrderTaking = selection.type === 'customer' && selection.data?.needsOrder
+    const needsOrderTaking = selection.type === 'customer'
+    // TODO: Re-evaluate needsOrderTaking logic. For now, assume if a customer is selected, we might want to take an order.
+    // A more robust check would be if selection.data.tableId exists and customer at that table has no order.
+    // For now, this will make the dialog appear more readily when a customer is selected.
 
     const handleIngredientSelect = (ingredientId: string) => {
         onSelectionChange({ type: 'ingredient', id: ingredientId })
     }
 
-    const handleOrderPlace = (dishId: string, customizations: string[]) => {
+    const handleOrderPlace = (dishId: string) => {
         // This would normally interact with the game store to place the order
-        console.log('Placing order:', { dishId, customizations, customerId: selection.id })
+        console.log('Placing order:', { dishId, customerId: selection.id })
         onSelectionChange({ type: null, id: null })
     }
 

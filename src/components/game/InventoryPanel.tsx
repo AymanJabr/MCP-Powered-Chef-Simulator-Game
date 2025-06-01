@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useRestaurantStore } from '@/state/game/restaurantStore';
 import { Ingredient } from '@/types/models';
 
@@ -7,7 +8,7 @@ interface InventoryPanelProps {
     onClose: () => void;
 }
 
-const InventoryPanel: React.FunctionComponent<InventoryPanelProps> = ({ isOpen, onClose }) => {
+const InventoryPanel = ({ isOpen, onClose }: InventoryPanelProps) => {
     const { restaurant, actions } = useRestaurantStore();
     const [searchTerm, setSearchTerm] = useState(''); // State for search term
 
@@ -108,7 +109,14 @@ const InventoryPanel: React.FunctionComponent<InventoryPanelProps> = ({ isOpen, 
                                         <div className="flex items-center flex-grow mr-2">
                                             {/* Image display */}
                                             {ingredient.image ? (
-                                                <img src={ingredient.image} alt={ingredient.name} className="w-10 h-10 rounded mr-3 object-cover" />
+                                                <div className="relative w-10 h-10 rounded mr-3">
+                                                    <Image 
+                                                        src={ingredient.image} 
+                                                        alt={ingredient.name}
+                                                        fill
+                                                        className="object-cover rounded"
+                                                    />
+                                                </div>
                                             ) : (
                                                 <div className="w-10 h-10 bg-gray-300 rounded mr-3 flex items-center justify-center text-xs text-gray-500">
                                                     N/A
@@ -172,4 +180,4 @@ const InventoryPanel: React.FunctionComponent<InventoryPanelProps> = ({ isOpen, 
     );
 };
 
-export default InventoryPanel; 
+export default InventoryPanel;

@@ -1,6 +1,6 @@
 import { processPayment, calculateDailyExpenses } from '@/lib/financeSystem'
 import { eventBus } from '@/lib/eventBus'
-import { Order, Dish, Recipe } from '@/types/models'
+import { Order, Dish } from '@/types/models'
 
 // ---------------------------------------------------------------------------
 // Mock restaurant store
@@ -30,12 +30,12 @@ jest.mock('@/state/game/restaurantStore', () => {
     const mockDish1: Dish = {
         id: 'dish_1', name: 'Burger', basePrice: 20,
         recipeId: 'r1',
-        cookingDifficulty: 1, plateAppearance: 5
+        cookingDifficulty: 1
     }
     const mockDish2: Dish = {
         id: 'dish_2', name: 'Pizza', basePrice: 15,
         recipeId: 'r2',
-        cookingDifficulty: 1, plateAppearance: 4
+        cookingDifficulty: 1
     }
 
     const mockRestaurantState: MockFinanceRestaurantState = {
@@ -50,7 +50,6 @@ jest.mock('@/state/game/restaurantStore', () => {
                     startTime: now - 30000,
                     completionTime: now - 5000,
                     customerId: 'cust_mock_1',
-                    customizations: [],
                     tip: 0
                 },
                 {
@@ -61,7 +60,6 @@ jest.mock('@/state/game/restaurantStore', () => {
                     startTime: now - 20000,
                     completionTime: null,
                     customerId: 'cust_mock_2',
-                    customizations: [],
                     tip: 0
                 },
             ],

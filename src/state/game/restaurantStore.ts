@@ -27,7 +27,7 @@ interface RestaurantState {
 }
 
 export const useRestaurantStore = create<RestaurantState>()(
-    immer((set, get) => ({
+    immer((set) => ({
         restaurant: {
             name: 'MCP-Powered Chef Restaurant',
             level: 1,
@@ -131,7 +131,6 @@ export const useRestaurantStore = create<RestaurantState>()(
                         id: `order_${Date.now()}_${customer.id.slice(-3)}`,
                         customerId: customer.id,
                         dish: dish,
-                        customizations: [],
                         status: 'received',
                         startTime: Date.now(),
                         completionTime: null,

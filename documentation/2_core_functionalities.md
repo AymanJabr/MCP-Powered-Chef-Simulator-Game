@@ -54,7 +54,6 @@
 
 - **Complexity Scaling**
   - Introduce more complex dishes at higher levels
-  - Add special requests and customizations
   - Introduce equipment failures and emergencies
 
 ### Player Interface

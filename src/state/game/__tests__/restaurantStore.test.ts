@@ -24,7 +24,6 @@ const mockOrder: Order = {
     id: 'order_1',
     customerId: 'customer_1',
     dish: mockDish,
-    customizations: [],
     status: 'received',
     startTime: Date.now(),
     completionTime: null,

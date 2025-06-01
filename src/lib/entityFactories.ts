@@ -41,7 +41,6 @@ export function createOrder(partial: Partial<Order> = {}): Order {
         id: `order_${Date.now()}`,
         customerId: '',
         dish: createDish(),
-        customizations: [],
         status: 'received',
         startTime: Date.now(),
         completionTime: null,

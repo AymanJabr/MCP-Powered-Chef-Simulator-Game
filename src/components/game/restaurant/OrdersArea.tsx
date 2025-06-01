@@ -1,7 +1,6 @@
 'use client'
 
 import { Order } from '@/types/models'
-import { GameSelection } from '../RestaurantView' // Assuming GameSelection is exported
 
 interface AreaStyle {
     x: number;

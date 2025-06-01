@@ -1,6 +1,6 @@
 import { serveOrder, checkOrderStatus, rushOrder } from '@/lib/orderFulfillment'
 import { eventBus } from '@/lib/eventBus'
-import { Order, Customer, Dish, Recipe } from '@/types/models'
+import { Order, Customer, Dish } from '@/types/models'
 
 // Define types for the mocked restaurant store
 interface MockFulfillmentRestaurantActions {
@@ -26,12 +26,12 @@ jest.mock('@/state/game/restaurantStore', () => {
     const mockDish1: Dish = {
         id: 'dish_1', name: 'Burger', basePrice: 12,
         recipeId: 'r1',
-        cookingDifficulty: 1, plateAppearance: 0
+        cookingDifficulty: 1
     }
     const mockDish2: Dish = {
         id: 'dish_2', name: 'Salad', basePrice: 10,
         recipeId: 'r2',
-        cookingDifficulty: 1, plateAppearance: 0
+        cookingDifficulty: 1
     }
 
     const mockActiveOrders: Order[] = [
@@ -39,7 +39,6 @@ jest.mock('@/state/game/restaurantStore', () => {
             id: 'order_1',
             customerId: 'cust1',
             dish: mockDish1,
-            customizations: [],
             status: 'plated',
             startTime: now - 30000,
             completionTime: now - 5000,
@@ -50,7 +49,6 @@ jest.mock('@/state/game/restaurantStore', () => {
             id: 'order_2',
             customerId: 'cust2',
             dish: mockDish2,
-            customizations: [],
             status: 'cooking',
             startTime: now - 10000,
             completionTime: null,

@@ -51,7 +51,6 @@ describe('Entity Factories', () => {
 
             expect(order.id).toContain('order_');
             expect(order.customerId).toBe('');
-            expect(order.customizations).toEqual([]);
             expect(order.status).toBe('received');
             expect(order.startTime).toBeLessThanOrEqual(Date.now());
             expect(order.completionTime).toBeNull();

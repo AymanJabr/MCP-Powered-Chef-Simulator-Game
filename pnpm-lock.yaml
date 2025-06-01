@@ -81,6 +81,9 @@ importers:
       '@types/react-dom':
         specifier: ^19
         version: 19.1.5(@types/react@19.1.4)
+      '@types/react-responsive-spritesheet':
+        specifier: ^1.0.3
+        version: 1.0.3
       eslint:
         specifier: ^9
         version: 9.26.0(jiti@2.4.2)
@@ -893,6 +896,9 @@ packages:
     resolution: {integrity: sha512-CMCjrWucUBZvohgZxkjd6S9h0nZxXjzus6yDfUb+xLxYM7VvjKNH1tQrE9GWLql1XoOP4/Ds3bwFqShHUYraGg==}
     peerDependencies:
       '@types/react': ^19.0.0
+
+  '@types/react-responsive-spritesheet@1.0.3':
+    resolution: {integrity: sha512-At930z9Jvar022QTE6HC/cZkW2o09n/187S6D23do/C5ftn3z8bc7dg17Tp45DGOzlum2Jo8W+jaPIeMiJ0WXQ==}
 
   '@types/react@19.1.4':
     resolution: {integrity: sha512-EB1yiiYdvySuIITtD5lhW4yPyJ31RkJkkDw794LaQYrxCSaQV/47y5o1FMC4zF9ZyjUjzJMZwbovEnT5yHTW6g==}
@@ -4407,6 +4413,11 @@ snapshots:
   '@types/react-dom@19.1.5(@types/react@19.1.4)':
     dependencies:
       '@types/react': 19.1.4
+
+  '@types/react-responsive-spritesheet@1.0.3':
+    dependencies:
+      '@types/react': 19.1.4
+      csstype: 3.1.3
 
   '@types/react@19.1.4':
     dependencies:

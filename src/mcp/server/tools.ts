@@ -3,12 +3,10 @@ import { useKitchenStore } from '@/state/game/kitchenStore'
 import { eventBus } from '@/lib/eventBus'
 import {
     Order,
-    Dish,
     CookingProcess,
     PreparationTask,
     PlayerActionType,
-    CookingActionType,
-    Game
+    CookingActionType
 } from '@/types/models'
 import { usePlayerStore } from '@/state/player/playerStore'
 import { useGameStore } from '@/state/game/gameStore'
@@ -81,7 +79,6 @@ export const tools = [
                 id: generateId('order'),
                 customerId: customerId,
                 dish: dishToOrder,
-                customizations: [],
                 status: 'received',
                 startTime: now(),
                 completionTime: null,

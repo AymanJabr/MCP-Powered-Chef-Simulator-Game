@@ -184,7 +184,7 @@ async function fetchGeminiModels(apiKey: string): Promise<ModelInfo[]> {
                 throw new Error(`Gemini API error (${response.status}): ${jsonError.error.message}`);
             }
         } catch (e) {
-            // Fallback if error is not JSON or not in expected format
+            console.error('Error parsing Gemini API error:', e);
         }
         throw new Error(`Gemini API error (${response.status}): ${errorData}`);
     }

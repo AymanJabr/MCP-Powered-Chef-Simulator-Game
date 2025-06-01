@@ -1,7 +1,5 @@
 'use client'
 
-import { useGameStore } from '@/state/game/gameStore'
-import { useRestaurantStore } from '@/state/game/restaurantStore'
 import { formatTime, formatCurrency, renderStars } from '@/utils/formatters'
 
 interface AreaStyle {

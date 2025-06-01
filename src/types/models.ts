@@ -33,7 +33,6 @@ export interface Order {
     id: string
     customerId: string
     dish: Dish
-    customizations: string[]
     status: 'received' | 'cooking' | 'plated' | 'served'
     startTime: number
     completionTime: number | null

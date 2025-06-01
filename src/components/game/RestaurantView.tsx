@@ -4,12 +4,9 @@ import { useGameStore } from '@/state/game/gameStore'
 import { useRestaurantStore } from '@/state/game/restaurantStore'
 import { useKitchenStore } from '@/state/game/kitchenStore'
 import { usePlayerStore } from '@/state/player/playerStore'
-import { useState, useEffect } from 'react'
-import { Customer, PrepStation, CookingStation, PlatingStation, CookingProcess, Order, Position as PlayerStorePosition } from '@/types/models'
+import { useState, useEffect, useRef } from 'react'
+import { Position as PlayerStorePosition } from '@/types/models'
 import InventoryPanel from './InventoryPanel'
-import CustomerPatienceDisplay from './CustomerPatienceDisplay'
-import CustomerSprite from './CustomerSprite'
-import TableIcon from '../icons/TableIcon'
 import StatusBar from './restaurant/StatusBar'
 import QueueArea from './restaurant/QueueArea'
 import DiningArea from './restaurant/DiningArea'
@@ -18,11 +15,23 @@ import OrdersArea from './restaurant/OrdersArea'
 import ControlsArea from './restaurant/ControlsArea'
 import SelectionInfoPanel from './restaurant/SelectionInfoPanel'
 
-export interface GameSelection {
-    type: 'customer' | 'table' | 'station' | 'order' | 'ingredient' | null
-    id: string | null
-    data?: any
+// Define specific data payloads for each selection type
+interface CustomerSelectionData {
+    tableId?: string;
 }
+
+interface StationSelectionData {
+    type: 'prep' | 'cooking' | 'plating';
+}
+
+// Redefine GameSelection as a discriminated union
+export type GameSelection =
+    | { type: 'customer'; id: string; data: CustomerSelectionData }
+    | { type: 'table'; id: string; data?: undefined }
+    | { type: 'station'; id: string; data: StationSelectionData }
+    | { type: 'order'; id: string; data?: undefined }
+    | { type: 'ingredient'; id: string; data?: undefined }
+    | { type: null; id: null; data?: undefined };
 
 interface Position {
     x: number
@@ -81,39 +90,36 @@ export default function RestaurantView() {
     const [selection, setSelection] = useState<GameSelection>({ type: null, id: null })
     const [movingCustomers, setMovingCustomers] = useState<Record<string, MovingEntity>>({})
     const [showInventoryPanel, setShowInventoryPanel] = useState(false)
+    const initializedPosition = useRef(false); // Renamed for clarity
 
     useEffect(() => {
         // Set initial chef position in the dining area when the view loads.
-        // Using x: 60, y: 45 as a starting point to the right of the tables.
-        // The player.position (which is the default {x:0,y:0,area:'kitchen'}) is passed as oldPosition.
-        playerActions.setPosition({ x: 70, y: 45, area: 'dining' }, player.position);
-    }, [playerActions]); // Runs once on mount because playerActions is stable
+        if (!initializedPosition.current) {
+            // Using x: 70, y: 45 as a starting point to the right of the tables.
+            // The player.position (which is the default {x:0,y:0,area:'kitchen'}) is passed as oldPosition.
+            // We only set if it's not already the target, to be absolutely sure, though initializedPosition.current is the main guard.
+            if (player.position.x !== 70 || player.position.y !== 45 || player.position.area !== 'dining') {
+                playerActions.setPosition({ x: 70, y: 45, area: 'dining' }, player.position);
+            }
+            initializedPosition.current = true;
+        }
+    }, [playerActions, player.position]); // player.position is now a dependency
 
     const moveChefTo = (newPos: { x: number, y: number }, targetArea: PlayerStorePosition['area']) => {
         playerActions.setPosition({ ...newPos, area: targetArea }, player.position);
     };
 
     const handleCustomerSelect = (customerId: string) => {
-        setSelection({ type: 'customer', id: customerId })
+        setSelection({ type: 'customer', id: customerId, data: {} })
     }
 
     const handleCustomerClick = (customerId: string, tableId: string | undefined) => {
         if (!tableId) return;
         const customerAtTable = restaurant.activeCustomers.find(c => c.id === customerId);
         if (customerAtTable && customerAtTable.status === 'seated' && !customerAtTable.order) {
-            const placeholderDishId = restaurant.unlockedMenuItems && restaurant.unlockedMenuItems.length > 0
-                ? restaurant.unlockedMenuItems[0]
-                : 'dish_burger_001';
-            const result = restaurantActions.takeOrder(tableId, placeholderDishId);
-            if (result.success) {
-                const tablePos = TABLE_POSITIONS.find(t => t.id === tableId);
-                if (tablePos) {
-                    moveChefTo({ x: tablePos.x - 5, y: tablePos.y + 5 }, 'dining');
-                    setTimeout(() => {
-                        moveChefTo({ x: 40, y: 50 }, 'dining');
-                    }, 1500);
-                }
-            } else { console.warn(result.message); }
+            // Customer is ready to order. Select them.
+            // The UI, possibly via SelectionInfoPanel, should now offer the option to take an order.
+            console.log(`Selected customer ${customerId} at table ${tableId} who is ready to order.`);
             setSelection({ type: 'customer', id: customerId, data: { tableId } });
         } else {
             setSelection({ type: 'customer', id: customerId, data: { tableId } });
@@ -143,17 +149,9 @@ export default function RestaurantView() {
                 setSelection({ type: null, id: null })
             }
         } else if (customerAtTable && customerAtTable.status === 'seated' && !customerAtTable.order) {
-            const placeholderDishId = restaurant.unlockedMenuItems && restaurant.unlockedMenuItems.length > 0 ? restaurant.unlockedMenuItems[0] : 'dish_burger_001';
-            const result = restaurantActions.takeOrder(tableId, placeholderDishId);
-            if (result.success) {
-                const tablePos = TABLE_POSITIONS.find(t => t.id === tableId);
-                if (tablePos) {
-                    moveChefTo({ x: tablePos.x - 5, y: tablePos.y + 5 }, 'dining');
-                    setTimeout(() => {
-                        moveChefTo({ x: 40, y: 50 }, 'dining');
-                    }, 1500);
-                }
-            } else { console.warn(result.message); }
+            // Customer at the table is ready to order. Select the table.
+            // The UI, possibly via SelectionInfoPanel, should now offer the option to take an order.
+            console.log(`Selected table ${tableId} with a customer ready to order.`);
             setSelection({ type: 'table', id: tableId });
         } else {
             setSelection({ type: 'table', id: tableId })

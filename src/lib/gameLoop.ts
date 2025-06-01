@@ -126,7 +126,7 @@ function gameLoop(timestamp: number): void {
 function processCustomerPatience(deltaSeconds: number): void {
     const gameDifficulty = useGameStore.getState().game.difficulty;
     // Get the current state and actions from the store
-    const { restaurant, actions } = useRestaurantStore.getState();
+    const { restaurant } = useRestaurantStore.getState();
 
     const queueDecay = 1 + gameDifficulty * 0.3; // waiting line loses patience quick
     const seatedDecay = 0.5 + gameDifficulty * 0.15; // seated customers, slower

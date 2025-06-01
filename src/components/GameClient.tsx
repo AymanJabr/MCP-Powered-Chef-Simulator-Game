@@ -6,14 +6,14 @@ import MainMenu from './game/MainMenu';
 import GameOverScreen from './game/GameOverScreen';
 import RestaurantView from './game/RestaurantView';
 // import PerformanceMetrics from './game/PerformanceMetrics'; // Removed
-import MCPInterface from './mcp/MCPInterface';
+// import MCPInterface from './mcp/MCPInterface';
 // import { preloadCriticalAssets } from '@/lib/assetLoader'; // Assuming assetLoader.ts exists
 import { LoadingOverlay } from '@mantine/core';
 
 const GameClient = () => {
     const gamePhase = useGameStore(state => state.game.gamePhase);
-    const gameMode = useGameStore(state => state.game.gameMode);
-    const gamePerformanceMetrics = useGameStore(state => state.game.performanceMetrics);
+    // const gameMode = useGameStore(state => state.game.gameMode);
+    // const gamePerformanceMetrics = useGameStore(state => state.game.performanceMetrics);
     const isPaused = useGameStore(state => state.game.isPaused);
     const initializeInventory = useRestaurantStore(state => state.actions.initializeInventory);
 

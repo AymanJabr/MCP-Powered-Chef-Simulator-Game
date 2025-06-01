@@ -26,7 +26,6 @@
 - **Properties**:
   - `id`: Unique identifier
   - `dish`: Reference to the ordered dish
-  - `customizations`: Any special requests
   - `status`: Current state (received, cooking, plated, served)
   - `startTime`: When order was placed
   - `completionTime`: When order was served

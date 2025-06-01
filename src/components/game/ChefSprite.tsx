@@ -1,6 +1,6 @@
 import React from 'react';
 import Spritesheet from 'react-responsive-spritesheet';
-import { AnimationDetails, ChefAnimationType, ChefSpriteConfig } from '@/types/models';
+import { AnimationDetails, ChefSpriteConfig } from '@/types/models';
 import { usePlayerStore } from '@/state/player/playerStore';
 
 interface ChefSpriteProps {

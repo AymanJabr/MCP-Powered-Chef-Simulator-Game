@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
-import { PrepStation, PreparationTask, CookingStation, CookingProcess, PlatingStation, PlatingTask, CookingActionType } from '@/types/models'
+import { PrepStation, PreparationTask, CookingStation, CookingProcess, PlatingStation, PlatingTask } from '@/types/models'
 
 // Basic types for kitchen elements used in preparation system
 export interface KitchenState {
