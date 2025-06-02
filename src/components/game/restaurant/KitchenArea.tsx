@@ -1,6 +1,7 @@
 'use client'
 
 import { PrepStation, CookingStation, PlatingStation, CookingProcess } from '@/types/models'
+import { useRestaurantStore } from '@/state/game/restaurantStore';
 
 interface AreaStyle {
     x: number;
@@ -30,6 +31,22 @@ export default function KitchenArea({
     cookAreaStyle,
     plateAreaStyle
 }: KitchenAreaProps) {
+    const { restaurant } = useRestaurantStore();
+
+    const getEquipmentImage = (stationType: PrepStation['type'] | CookingStation['type']) => {
+        let equipmentId = '';
+        switch (stationType) {
+            case 'cutting_board': equipmentId = 'equipment_cutting_board'; break;
+            case 'grill': equipmentId = 'equipment_grill'; break;
+            case 'oven': equipmentId = 'equipment_oven'; break;
+            case 'fryer': equipmentId = 'equipment_deep_fryer'; break;
+            case 'stove': equipmentId = 'equipment_pot'; break;
+            default: return null;
+        }
+        const equipmentDef = restaurant.equipment.find(eq => eq.id === equipmentId);
+        return equipmentDef?.image || null;
+    };
+
     return (
         <>
             {/* Kitchen - Prep Stations (Top) */}
@@ -53,10 +70,13 @@ export default function KitchenArea({
                                 `}
                                 onClick={() => onStationClick(station.id, 'prep')}
                             >
-                                <div className="text-lg">
-                                    {station.type === 'cutting_board' ? '🔪' :
-                                        station.type === 'mixing_bowl' ? '🥄' :
-                                            station.type === 'blender' ? '🍹' : '🥣'}
+                                <div className="text-lg w-8 h-8 flex items-center justify-center">
+                                    {getEquipmentImage(station.type) ?
+                                        <img src={getEquipmentImage(station.type)!} alt={station.type} className="w-full h-full object-contain" /> :
+                                        (station.type === 'cutting_board' ? '🔪' :
+                                            station.type === 'mixing_bowl' ? '🥄' :
+                                                station.type === 'blender' ? '🍹' : '🥣')
+                                    }
                                 </div>
                                 <div>{station.status === 'busy' ? 'Busy' : 'Ready'}</div>
                             </div>
@@ -88,11 +108,14 @@ export default function KitchenArea({
                                     `}
                                     onClick={() => onStationClick(station.id, 'cooking')}
                                 >
-                                    <div className="text-lg">
-                                        {station.type === 'stove' ? '🔥' :
-                                            station.type === 'oven' ? '🔥' :
-                                                station.type === 'grill' ? '🥩' :
-                                                    station.type === 'fryer' ? '🍟' : '💨'}
+                                    <div className="text-lg w-10 h-10 flex items-center justify-center">
+                                        {getEquipmentImage(station.type) ?
+                                            <img src={getEquipmentImage(station.type)!} alt={station.type} className="w-full h-full object-contain" /> :
+                                            (station.type === 'stove' ? '🔥' :
+                                                station.type === 'oven' ? '🔥' :
+                                                    station.type === 'grill' ? '🥩' :
+                                                        station.type === 'fryer' ? '🍟' : '💨')
+                                        }
                                     </div>
                                     <div>{station.temperature}°</div>
                                     {process && (

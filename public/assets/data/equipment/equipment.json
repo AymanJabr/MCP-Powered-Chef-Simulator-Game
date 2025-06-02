@@ -5,7 +5,8 @@
         "status": "idle",
         "capacity": 4,
         "efficiency": 85,
-        "reliability": 90
+        "reliability": 90,
+        "image": "/grill.png"
     },
     {
         "id": "equipment_deep_fryer",
@@ -13,7 +14,8 @@
         "status": "idle",
         "capacity": 3,
         "efficiency": 90,
-        "reliability": 85
+        "reliability": 85,
+        "image": "/deep_fryer.png"
     },
     {
         "id": "equipment_cutting_board",
@@ -21,7 +23,8 @@
         "status": "idle",
         "capacity": 2,
         "efficiency": 80,
-        "reliability": 95
+        "reliability": 95,
+        "image": "/cutting_board.png"
     },
     {
         "id": "equipment_beverage_dispenser",
@@ -29,7 +32,8 @@
         "status": "idle",
         "capacity": 4,
         "efficiency": 98,
-        "reliability": 92
+        "reliability": 92,
+        "image": "/beverage_dispenser.png"
     },
     {
         "id": "equipment_rice_cooker",
@@ -37,7 +41,8 @@
         "status": "idle",
         "capacity": 3,
         "efficiency": 80,
-        "reliability": 88
+        "reliability": 88,
+        "image": "/rice_cooker.png"
     },
     {
         "id": "equipment_oven",
@@ -45,7 +50,8 @@
         "status": "idle",
         "capacity": 3,
         "efficiency": 70,
-        "reliability": 86
+        "reliability": 86,
+        "image": "/oven.png"
     },
     {
         "id": "equipment_sauce_station",
@@ -53,7 +59,8 @@
         "status": "idle",
         "capacity": 5,
         "efficiency": 90,
-        "reliability": 95
+        "reliability": 95,
+        "image": "/sauce_station.png"
     },
     {
         "id": "equipment_toaster",
@@ -61,6 +68,25 @@
         "status": "idle",
         "capacity": 6,
         "efficiency": 95,
-        "reliability": 85
+        "reliability": 85,
+        "image": "/toaster.png"
+    },
+    {
+        "id": "equipment_pot",
+        "name": "Pot",
+        "status": "idle",
+        "capacity": 3,
+        "efficiency": 80,
+        "reliability": 90,
+        "image": "/pot.png"
+    },
+    {
+        "id": "equipment_freezer",
+        "name": "Freezer",
+        "status": "idle",
+        "capacity": 3,
+        "efficiency": 80,
+        "reliability": 90,
+        "image": "/freezer.png"
     }
 ]

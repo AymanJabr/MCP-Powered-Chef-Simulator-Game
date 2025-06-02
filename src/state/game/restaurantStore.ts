@@ -22,6 +22,7 @@ interface RestaurantState {
         updateEquipmentStatus: (equipmentId: string, status: Equipment['status']) => void
         initializeInventory: () => Promise<void>;
         initializeFullMenu: () => Promise<void>;
+        initializeEquipment: () => Promise<void>;
         resetRestaurantState: () => void;
     }
 }
@@ -250,6 +251,22 @@ export const useRestaurantStore = create<RestaurantState>()(
                     console.log('Restaurant full menu initialized from JSON.');
                 } catch (error) {
                     console.error("Failed to initialize full menu:", error);
+                }
+            },
+
+            initializeEquipment: async () => {
+                try {
+                    const response = await fetch('/assets/data/equipment/equipment.json');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const equipment: Equipment[] = await response.json();
+                    set((state) => {
+                        state.restaurant.equipment = equipment;
+                    });
+                    console.log('Restaurant equipment initialized from JSON.');
+                } catch (error) {
+                    console.error("Failed to initialize equipment:", error);
                 }
             },
 

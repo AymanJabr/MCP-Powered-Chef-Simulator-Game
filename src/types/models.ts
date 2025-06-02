@@ -89,6 +89,7 @@ export interface Equipment {
     capacity: number
     efficiency: number
     reliability: number
+    image?: string;
 }
 
 // Cooking action type

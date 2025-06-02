@@ -101,6 +101,7 @@ export function createEquipment(partial: Partial<Equipment> = {}): Equipment {
         capacity: 1,
         efficiency: 1,
         reliability: 1,
+        image: '',
         ...partial
     };
 }

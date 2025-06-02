@@ -583,5 +583,167 @@
         "quantity": 10,
         "cost": 2.00,
         "image": "/watermelon.png"
+    },
+    {
+        "id": "ingredient_burger_bun",
+        "name": "Burger Bun",
+        "category": "grain",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.50,
+        "image": "/burger_bun.png"
+    },
+    {
+        "id": "ingredient_cream_cheese",
+        "name": "Cream Cheese",
+        "category": "dairy",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.20,
+        "image": "/cream_cheese.png"
+    },
+    {
+        "id": "ingredient_coffee",
+        "name": "Coffee",
+        "category": "spice",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 3.00,
+        "image": "/coffee.png"
+    },
+    {
+        "id": "ingredient_rice",
+        "name": "Rice",
+        "category": "grain",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.80,
+        "image": "/rice.png"
+    },
+    {
+        "id": "ingredient_salt_and_pepper",
+        "name": "Salt and Pepper",
+        "category": "spice",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.30,
+        "image": "/salt_and_pepper.png"
+    },
+    {
+        "id": "ingredient_flour",
+        "name": "Flour",
+        "category": "grain",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.70,
+        "image": "/flour.png"
+    },
+    {
+        "id": "ingredient_egg",
+        "name": "Egg",
+        "category": "dairy",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.20,
+        "image": "/egg.png"
+    },
+    {
+        "id": "ingredient_butter",
+        "name": "Butter",
+        "category": "dairy",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.50,
+        "image": "/butter.png"
+    },
+    {
+        "id": "ingredient_raspberry",
+        "name": "Raspberry",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.80,
+        "image": "/raspberry.png"
+    },
+    {
+        "id": "ingredient_sugar",
+        "name": "Sugar",
+        "category": "spice",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.60,
+        "image": "/sugar.png"
+    },
+    {
+        "id": "ingredient_mango",
+        "name": "Mango",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.70,
+        "image": "/mango.png"
+    },
+    {
+        "id": "ingredient_golden_berries",
+        "name": "Golden Berries",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 2.00,
+        "image": "/golden_berries.png"
+    },
+    {
+        "id": "ingredient_pistachios",
+        "name": "Pistachios",
+        "category": "grain",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 2.50,
+        "image": "/pistachios.png"
+    },
+    {
+        "id": "ingredient_potato",
+        "name": "Potato",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.40,
+        "image": "/potato.png"
+    },
+    {
+        "id": "ingredient_root_beer",
+        "name": "Root Beer",
+        "category": "sauce",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 1.00,
+        "image": "/root_beer.png"
+    },
+    {
+        "id": "ingredient_cocktail_mixer",
+        "name": "Cocktail Mixer",
+        "category": "sauce",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 2.20,
+        "image": "/cocktail_mixer.png"
+    },
+    {
+        "id": "ingredient_cucumber",
+        "name": "Cucumber",
+        "category": "vegetable",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.70,
+        "image": "/cucumber.png"
+    },
+    {
+        "id": "ingredient_hotdog_bun",
+        "name": "Hotdog Bun",
+        "category": "grain",
+        "quality": 80,
+        "quantity": 10,
+        "cost": 0.45,
+        "image": "/hotdog_bun.png"
     }
 ]
