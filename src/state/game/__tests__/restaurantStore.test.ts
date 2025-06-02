@@ -4,6 +4,7 @@ import { Customer, Order, Dish, Ingredient, Equipment } from '@/types/models'
 // Mock data
 const mockCustomer: Customer = {
     id: 'customer_1',
+    name: 'John',
     order: null,
     patience: 100,
     arrivalTime: Date.now(),

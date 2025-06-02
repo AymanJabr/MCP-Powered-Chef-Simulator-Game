@@ -17,6 +17,7 @@ export interface CustomerSpriteConfig {
 
 export interface Customer {
     id: string
+    name: string
     order: Order | null
     patience: number
     arrivalTime: number

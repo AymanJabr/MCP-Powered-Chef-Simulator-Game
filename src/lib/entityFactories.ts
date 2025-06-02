@@ -24,6 +24,7 @@ export function createCustomer(partial: Partial<Customer> = {}): Customer {
 
     return {
         id: `customer_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+        name: template.name,
         order: null,
         patience: randomPatience,
         arrivalTime: Date.now(),

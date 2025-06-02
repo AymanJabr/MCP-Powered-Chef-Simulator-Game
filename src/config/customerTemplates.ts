@@ -2,7 +2,7 @@ import { Customer } from '@/types/models';
 
 export const customerTemplates: Omit<Customer, 'id' | 'order' | 'patience' | 'arrivalTime' | 'status' | 'satisfaction' | 'tip' | 'tableId'>[] = [
     {
-        // id: 'girl_1', // ID will be generated dynamically
+        name: 'Alice',
         animationState: 'idle',
         spriteConfig: {
             idle: {
@@ -26,7 +26,7 @@ export const customerTemplates: Omit<Customer, 'id' | 'order' | 'patience' | 'ar
         }
     },
     {
-        // id: 'girl_2',
+        name: 'Bella',
         animationState: 'idle',
         spriteConfig: {
             idle: {
@@ -50,7 +50,7 @@ export const customerTemplates: Omit<Customer, 'id' | 'order' | 'patience' | 'ar
         }
     },
     {
-        // id: 'man_1',
+        name: 'Charles',
         animationState: 'idle',
         spriteConfig: {
             idle: {
@@ -74,7 +74,7 @@ export const customerTemplates: Omit<Customer, 'id' | 'order' | 'patience' | 'ar
         }
     },
     {
-        // id: 'girl_3',
+        name: 'Diana',
         animationState: 'idle',
         spriteConfig: {
             idle: {
@@ -98,7 +98,7 @@ export const customerTemplates: Omit<Customer, 'id' | 'order' | 'patience' | 'ar
         }
     },
     {
-        // id: 'girl_4',
+        name: 'Eva',
         animationState: 'idle',
         spriteConfig: {
             idle: {
@@ -122,7 +122,7 @@ export const customerTemplates: Omit<Customer, 'id' | 'order' | 'patience' | 'ar
         }
     },
     {
-        // id: 'girl_5',
+        name: 'Fiona',
         animationState: 'idle',
         spriteConfig: {
             idle: {
@@ -146,7 +146,7 @@ export const customerTemplates: Omit<Customer, 'id' | 'order' | 'patience' | 'ar
         }
     },
     {
-        // id: 'man_2',
+        name: 'George',
         animationState: 'idle',
         spriteConfig: {
             idle: {
@@ -170,7 +170,7 @@ export const customerTemplates: Omit<Customer, 'id' | 'order' | 'patience' | 'ar
         }
     },
     {
-        // id: 'man_3',
+        name: 'Henry',
         animationState: 'idle',
         spriteConfig: {
             idle: {
@@ -194,7 +194,7 @@ export const customerTemplates: Omit<Customer, 'id' | 'order' | 'patience' | 'ar
         }
     },
     {
-        // id: 'man_4',
+        name: 'Ian',
         animationState: 'idle',
         spriteConfig: {
             idle: {
@@ -218,7 +218,7 @@ export const customerTemplates: Omit<Customer, 'id' | 'order' | 'patience' | 'ar
         }
     },
     {
-        // id: 'man_5',
+        name: 'Jack',
         animationState: 'idle',
         spriteConfig: {
             idle: {

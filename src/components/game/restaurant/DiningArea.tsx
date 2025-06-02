@@ -108,6 +108,19 @@ export default function DiningArea({
                                     className="mt-1"
                                 />
                             )}
+                            {/* Dish Image Bubble */}
+                            {customer.order && customer.order.dish.image && (
+                                <div
+                                    className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-10 h-10 bg-white rounded-full border-2 border-gray-300 shadow-md flex items-center justify-center"
+                                    style={{ zIndex: 26 }} // Ensure it's above the customer sprite
+                                >
+                                    <img
+                                        src={customer.order.dish.image}
+                                        alt={customer.order.dish.name}
+                                        className="w-8 h-8 object-contain"
+                                    />
+                                </div>
+                            )}
                         </div>
                     </div>
                 );

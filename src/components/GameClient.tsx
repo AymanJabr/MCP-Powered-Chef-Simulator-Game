@@ -16,20 +16,21 @@ const GameClient = () => {
     // const gamePerformanceMetrics = useGameStore(state => state.game.performanceMetrics);
     const isPaused = useGameStore(state => state.game.isPaused);
     const initializeInventory = useRestaurantStore(state => state.actions.initializeInventory);
+    const initializeFullMenu = useRestaurantStore(state => state.actions.initializeFullMenu);
 
     const [assetsLoaded, setAssetsLoaded] = useState(false);
     const [showLoading, setShowLoading] = useState(true);
 
     useEffect(() => {
         // Initialize inventory and then simulate asset loading
-        initializeInventory().then(() => {
+        Promise.all([initializeInventory(), initializeFullMenu()]).then(() => {
             // For now, simulate asset loading delay after inventory is initialized
             setTimeout(() => {
                 setAssetsLoaded(true);
                 setShowLoading(false);
             }, 100); // Simulate a short load time
         });
-    }, [initializeInventory]);
+    }, [initializeInventory, initializeFullMenu]);
 
     useEffect(() => {
         if (gamePhase === 'active' && !isPaused && !isGameLoopRunning()) {
