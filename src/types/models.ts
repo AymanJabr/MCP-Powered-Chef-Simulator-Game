@@ -132,6 +132,7 @@ export interface Restaurant {  //TODO: maybe change from full Interfaces to just
     inventory: Ingredient[]
     equipment: Equipment[]
     menuItems?: Dish[]
+    allRecipes?: Recipe[]; // Added for storing all loaded recipes
 }
 
 // Player model

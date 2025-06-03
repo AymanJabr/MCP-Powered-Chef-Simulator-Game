@@ -1,13 +1,5 @@
 import { useKitchenStore } from '@/state/game/kitchenStore'
-import { CookingActionType, CookingProcess } from '@/types/models'
 import { eventBus } from './eventBus'
-
-export interface StartCookingResult {
-    success: boolean
-    message: string
-    cookingId?: string
-    stationId?: string
-}
 
 export interface CookingProgress {
     cookingId: string
@@ -20,46 +12,6 @@ export interface CookingComplete {
     cookingId: string
     qualityScore: number
     isOvercooked: boolean
-}
-
-/**
- * Start a cooking process on the first available station that matches method.
- */
-export function startCooking(ingredients: { id: string }[], type: CookingActionType): StartCookingResult {
-    const kitchenState = useKitchenStore.getState()
-    // Map type to station type preference simple mapping
-    const stationPreference: Record<CookingActionType, string> = {
-        fry: 'stove',
-        grill: 'grill',
-        bake: 'oven',
-        boil: 'stove',
-        chop: 'cutting_board',
-        simmer: 'stove',
-        mix: 'mixing_bowl',
-        freeze: 'freezer',
-    }
-    const targetStationType = stationPreference[type];
-    if (!targetStationType) {
-        return { success: false, message: `No suitable station type defined for action: ${type}` }
-    }
-    const station = kitchenState.cookingStations.find((s) => s.type === targetStationType && s.status === 'idle')
-
-    if (!station) return { success: false, message: 'No available cooking station' }
-
-    const cookingId = `cook_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
-    const optimalTime = 60000 // default 60s for now TODO difficulty
-
-    kitchenState.actions.startCookingProcess(station.id, {
-        id: cookingId,
-        ingredients: ingredients.map((i) => i.id),
-        type,
-        startTime: Date.now(),
-        optimalCookingTime: optimalTime,
-    } as CookingProcess)
-
-    eventBus.emit('cookingStarted', { stationId: station.id, processId: cookingId })
-
-    return { success: true, message: 'Cooking started', cookingId, stationId: station.id }
 }
 
 /**

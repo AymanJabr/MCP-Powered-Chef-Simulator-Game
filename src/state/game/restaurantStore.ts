@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
-import { Restaurant, Customer, Order, Ingredient, Equipment, Dish } from '@/types/models'
+import { Restaurant, Customer, Order, Ingredient, Equipment, Dish, Recipe } from '@/types/models'
 import { useGameStore } from '@/state/game/gameStore'
 import { calculateMaxOrderableDifficulty } from '@/lib/gameLoop'
 
@@ -23,6 +23,7 @@ interface RestaurantState {
         initializeInventory: () => Promise<void>;
         initializeFullMenu: () => Promise<void>;
         initializeEquipment: () => Promise<void>;
+        initializeRecipes: () => Promise<void>;
         resetRestaurantState: () => void;
     }
 }
@@ -41,7 +42,8 @@ export const useRestaurantStore = create<RestaurantState>()(
             completedOrders: [],
             inventory: [],
             equipment: [],
-            menuItems: []
+            menuItems: [],
+            allRecipes: []
         },
         actions: {
             setName: (name) => set((state) => {
@@ -267,6 +269,22 @@ export const useRestaurantStore = create<RestaurantState>()(
                     console.log('Restaurant equipment initialized from JSON.');
                 } catch (error) {
                     console.error("Failed to initialize equipment:", error);
+                }
+            },
+
+            initializeRecipes: async () => {
+                try {
+                    const response = await fetch('/assets/data/recipes/recipes.json');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const recipes: Recipe[] = await response.json();
+                    set((state) => {
+                        state.restaurant.allRecipes = recipes;
+                    });
+                    console.log('Restaurant recipes initialized from JSON.');
+                } catch (error) {
+                    console.error("Failed to initialize recipes:", error);
                 }
             },
 

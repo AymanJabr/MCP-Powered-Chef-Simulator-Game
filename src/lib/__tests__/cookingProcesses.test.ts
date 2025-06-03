@@ -1,4 +1,4 @@
-import { startCooking, checkCookingProgress, completeCooking } from '@/lib/cookingProcesses'
+import { checkCookingProgress, completeCooking } from '@/lib/cookingProcesses'
 import { eventBus } from '@/lib/eventBus'
 import { CookingActionType, CookingProcess, CookingStation } from '@/types/models'
 
@@ -72,33 +72,30 @@ describe('Cooking Processes', () => {
         kitchenState.activeCookingProcesses.length = 0
     })
 
-    it('starts cooking on a free station', () => {
-        const result = startCooking([{ id: 'ing_1' }], 'fry' as CookingActionType)
-        expect(result.success).toBe(true)
-        expect(kitchenState.actions.startCookingProcess).toHaveBeenCalled()
-        expect(eventBus.emit).toHaveBeenCalledWith('cookingStarted', { stationId: 'station_1', processId: expect.any(String) })
-    })
-
-    it('fails when no station available', () => {
-        kitchenState.cookingStations.forEach((s: CookingStation) => (s.status = 'busy'))
-        const res = startCooking([{ id: 'ing_1' }], 'fry' as CookingActionType)
-        expect(res.success).toBe(false)
-    })
-
     it('updates progress and completes cooking', () => {
-        const { cookingId } = startCooking([{ id: 'ing_2' }], 'bake' as CookingActionType)
-        // simulate time passage by manipulating startTime
-        const proc = kitchenState.activeCookingProcesses[0]
-        if (proc) {
-            proc.startTime -= 70000 // 70s ago
-        }
-        const prog = checkCookingProgress(cookingId!)
-        expect(prog).not.toBeNull()
-        expect(prog!.progress).toBeGreaterThan(100)
+        // To test completeCooking and checkCookingProgress, we need an active process.
+        // Since startCooking is removed, we'll manually add a process to the mock store for testing purposes.
+        const testProcessId = 'test_proc_123';
+        const initialTimestamp = Date.now() - 70000; // 70s ago
+        kitchenState.activeCookingProcesses.push({
+            id: testProcessId,
+            stationId: 'station_2', // Assuming 'station_2' is an oven for 'bake'
+            ingredients: [{ id: 'ing_2' }].map(i => i.id),
+            type: 'bake' as CookingActionType,
+            startTime: initialTimestamp,
+            optimalCookingTime: 60000, // 60s
+            progress: 0, // Will be calculated by checkCookingProgress
+            status: 'in_progress',
+        });
+        // We also need to ensure the station is marked as busy for some tests, if relevant, but not strictly for these two functions.
 
-        const res = completeCooking(cookingId!)
-        expect(res.success).toBe(true)
-        expect(kitchenState.actions.finishCookingProcess).toHaveBeenCalled()
-        expect(eventBus.emit).toHaveBeenCalledWith('cookingCompleted', { processId: cookingId, quality: expect.any(Number) })
-    })
+        const prog = checkCookingProgress(testProcessId);
+        expect(prog).not.toBeNull();
+        expect(prog!.progress).toBeGreaterThan(100);
+
+        const res = completeCooking(testProcessId);
+        expect(res.success).toBe(true);
+        expect(kitchenState.actions.finishCookingProcess).toHaveBeenCalled();
+        expect(eventBus.emit).toHaveBeenCalledWith('cookingCompleted', { processId: testProcessId, quality: expect.any(Number) });
+    });
 }) 

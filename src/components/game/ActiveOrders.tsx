@@ -1,6 +1,8 @@
 'use client'
 
 import { Order } from '@/types/models'
+import { useRestaurantStore } from '@/state/game/restaurantStore'
+import { calculateDishPreparationTime } from '@/lib/recipeUtils'
 
 interface ActiveOrdersProps {
     orders: Order[]
@@ -17,6 +19,8 @@ function OrderCard({
     isSelected: boolean
     onClick: () => void
 }) {
+    const allRecipes = useRestaurantStore(state => state.restaurant.allRecipes)
+
     const getStatusColor = () => {
         switch (order.status) {
             case 'received': return 'bg-gray-200 border-gray-400'
@@ -40,7 +44,8 @@ function OrderCard({
     const getProgressPercentage = () => {
         const now = Date.now()
         const elapsed = now - order.startTime
-        const totalTime = order.dish.preparationTime * 1000 // Convert to milliseconds
+        const totalTime = calculateDishPreparationTime(order.dish, allRecipes) * 1000
+        if (totalTime === 0) return 0
         return Math.min((elapsed / totalTime) * 100, 100)
     }
 
