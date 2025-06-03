@@ -77,7 +77,7 @@
         "status": "idle",
         "capacity": 3,
         "efficiency": 80,
-        "reliability": 90,
+        "reliability": 0,
         "image": "/pot.png"
     },
     {
@@ -86,7 +86,7 @@
         "status": "idle",
         "capacity": 3,
         "efficiency": 80,
-        "reliability": 90,
+        "reliability": 15,
         "image": "/freezer.png"
     }
 ]
