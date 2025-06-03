@@ -38,12 +38,12 @@ export const useRestaurantStore = create<RestaurantState>()(
             customerCapacity: 8,
             activeCustomers: [] as Customer[],
             customerQueue: [] as Customer[],
-            activeOrders: [],
-            completedOrders: [],
-            inventory: [],
-            equipment: [],
-            menuItems: [],
-            allRecipes: []
+            activeOrders: [] as Order[],
+            completedOrders: [] as Order[],
+            inventory: [] as Ingredient[],
+            equipment: [] as Equipment[],
+            menuItems: [] as Dish[],
+            allRecipes: [] as Recipe[]
         },
         actions: {
             setName: (name) => set((state) => {
@@ -228,7 +228,7 @@ export const useRestaurantStore = create<RestaurantState>()(
 
                     const processedIngredients = rawIngredients.map(ing => ({
                         ...ing,
-                        image: ing.image ? `/assets/images/ingredients${ing.image.startsWith('/') ? ing.image : '/' + ing.image}` : undefined
+                        image: ing.image ? `/assets/images/ingredients/${ing.image}` : undefined
                     }));
 
                     set((state) => {
@@ -262,9 +262,15 @@ export const useRestaurantStore = create<RestaurantState>()(
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
-                    const equipment: Equipment[] = await response.json();
+                    const rawEquipment: Equipment[] = await response.json();
+
+                    const processedEquipment = rawEquipment.map(eq => ({
+                        ...eq,
+                        image: `/assets/images/equipment${eq.image}`
+                    }));
+
                     set((state) => {
-                        state.restaurant.equipment = equipment;
+                        state.restaurant.equipment = processedEquipment;
                     });
                     console.log('Restaurant equipment initialized from JSON.');
                 } catch (error) {

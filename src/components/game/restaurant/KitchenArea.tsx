@@ -1,7 +1,8 @@
 'use client'
 
-import { PrepStation, CookingStation, PlatingStation, CookingProcess } from '@/types/models'
+import { Equipment, CookingProcess } from '@/types/models';
 import { useRestaurantStore } from '@/state/game/restaurantStore';
+import { IconCircleCheck, IconCircleX, IconClockHour4 } from '@tabler/icons-react'; // Using Tabler Icons
 
 interface AreaStyle {
     x: number;
@@ -11,156 +12,111 @@ interface AreaStyle {
 }
 
 interface KitchenAreaProps {
-    prepStations: PrepStation[];
-    cookingStations: CookingStation[];
-    platingStations: PlatingStation[];
     activeCookingProcesses: CookingProcess[];
-    onStationClick: (stationId: string, stationType: 'prep' | 'cooking' | 'plating') => void;
-    prepAreaStyle: AreaStyle;
-    cookAreaStyle: AreaStyle;
-    plateAreaStyle: AreaStyle;
+    onStationClick: (id: string, type: 'prep' | 'cooking' | 'plating') => void;
+    kitchenAreaStyle: AreaStyle;
 }
 
+const inferStationType = (equipmentId: string): 'prep' | 'cooking' | 'plating' => {
+    const id = equipmentId.toLowerCase();
+    if (id.includes('cut') || id.includes('mix') || id.includes('prep') || id.includes('board') || id.includes('blender')) {
+        return 'prep';
+    }
+    if (id.includes('plate') || id.includes('plating')) {
+        return 'plating';
+    }
+    return 'cooking';
+};
+
 export default function KitchenArea({
-    prepStations,
-    cookingStations,
-    platingStations,
     activeCookingProcesses,
     onStationClick,
-    prepAreaStyle,
-    cookAreaStyle,
-    plateAreaStyle
+    kitchenAreaStyle
 }: KitchenAreaProps) {
     const { restaurant } = useRestaurantStore();
-
-    const getEquipmentImage = (stationType: PrepStation['type'] | CookingStation['type']) => {
-        let equipmentId = '';
-        switch (stationType) {
-            case 'cutting_board': equipmentId = 'equipment_cutting_board'; break;
-            case 'grill': equipmentId = 'equipment_grill'; break;
-            case 'oven': equipmentId = 'equipment_oven'; break;
-            case 'fryer': equipmentId = 'equipment_deep_fryer'; break;
-            case 'stove': equipmentId = 'equipment_pot'; break;
-            default: return null;
-        }
-        const equipmentDef = restaurant.equipment.find(eq => eq.id === equipmentId);
-        return equipmentDef?.image || null;
-    };
+    const allEquipment = restaurant.equipment;
 
     return (
-        <>
-            {/* Kitchen - Prep Stations (Top) */}
-            <div
-                className="absolute bg-orange-100 border-b border-orange-200"
-                style={{
-                    left: `${prepAreaStyle.x}%`,
-                    top: `${prepAreaStyle.y}%`,
-                    width: `${prepAreaStyle.width}%`,
-                    height: `${prepAreaStyle.height}%`
-                }}
-            >
-                <div className="p-2">
-                    <div className="text-sm font-bold text-orange-800 mb-2">🔪 Prep Stations</div>
-                    <div className="grid grid-cols-4 gap-2">
-                        {prepStations.map((station) => (
-                            <div
-                                key={station.id}
-                                className={`w-12 h-12 rounded border-2 cursor-pointer flex flex-col items-center justify-center text-xs
-                                    ${station.status === 'busy' ? 'bg-yellow-200 border-yellow-500' : 'bg-green-200 border-green-500'}
-                                `}
-                                onClick={() => onStationClick(station.id, 'prep')}
-                            >
-                                <div className="text-lg w-8 h-8 flex items-center justify-center">
-                                    {getEquipmentImage(station.type) ?
-                                        <img src={getEquipmentImage(station.type)!} alt={station.type} className="w-full h-full object-contain" /> :
-                                        (station.type === 'cutting_board' ? '🔪' :
-                                            station.type === 'mixing_bowl' ? '🥄' :
-                                                station.type === 'blender' ? '🍹' : '🥣')
-                                    }
-                                </div>
-                                <div>{station.status === 'busy' ? 'Busy' : 'Ready'}</div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
+        <div
+            className="absolute bg-orange-100 border border-orange-300 overflow-y-auto p-3 rounded-lg shadow-md"
+            style={{
+                left: `${kitchenAreaStyle.x}%`,
+                top: `${kitchenAreaStyle.y}%`,
+                width: `${kitchenAreaStyle.width}%`,
+                height: `${kitchenAreaStyle.height}%`,
+                boxSizing: 'border-box'
+            }}
+        >
+            <div className="text-orange-800 text-xl font-semibold mb-3 sticky top-0 bg-orange-100 py-2 z-10">Kitchen Equipment</div>
+            {allEquipment.length === 0 && (
+                <div className="text-center text-orange-600 py-10">No equipment available.</div>
+            )}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3">
+                {allEquipment.map((item: Equipment) => {
+                    const process = activeCookingProcesses.find(p => p.stationId === item.id);
+                    const stationType = inferStationType(item.id);
 
-            {/* Kitchen - Cooking Stations (Right) */}
-            <div
-                className="absolute bg-red-100 border-l border-red-200"
-                style={{
-                    left: `${cookAreaStyle.x}%`,
-                    top: `${cookAreaStyle.y}%`,
-                    width: `${cookAreaStyle.width}%`,
-                    height: `${cookAreaStyle.height}%`
-                }}
-            >
-                <div className="p-2">
-                    <div className="text-sm font-bold text-red-800 mb-2">🔥 Cooking</div>
-                    <div className="space-y-2">
-                        {cookingStations.map((station) => {
-                            const process = activeCookingProcesses.find(p => p.stationId === station.id)
-                            return (
-                                <div
-                                    key={station.id}
-                                    className={`w-16 h-16 rounded border-2 cursor-pointer flex flex-col items-center justify-center text-xs relative
-                                        ${station.status === 'busy' ? 'bg-red-200 border-red-500' : 'bg-blue-200 border-blue-500'}
-                                    `}
-                                    onClick={() => onStationClick(station.id, 'cooking')}
-                                >
-                                    <div className="text-lg w-10 h-10 flex items-center justify-center">
-                                        {getEquipmentImage(station.type) ?
-                                            <img src={getEquipmentImage(station.type)!} alt={station.type} className="w-full h-full object-contain" /> :
-                                            (station.type === 'stove' ? '🔥' :
-                                                station.type === 'oven' ? '🔥' :
-                                                    station.type === 'grill' ? '🥩' :
-                                                        station.type === 'fryer' ? '🍟' : '💨')
-                                        }
+                    let StatusIconComponent;
+                    let statusColorClass = 'text-gray-500';
+
+                    switch (item.status) {
+                        case 'idle':
+                            StatusIconComponent = IconCircleCheck;
+                            statusColorClass = 'text-green-500';
+                            break;
+                        case 'in_use':
+                            StatusIconComponent = IconClockHour4;
+                            statusColorClass = 'text-yellow-500';
+                            break;
+                        case 'broken':
+                            StatusIconComponent = IconCircleX;
+                            statusColorClass = 'text-red-500';
+                            break;
+                        default:
+                            StatusIconComponent = () => <span className="text-xs">?</span>;
+                    }
+
+                    return (
+                        <div
+                            key={item.id}
+                            className={`bg-white rounded-lg shadow-md p-2 flex flex-col items-center justify-start cursor-pointer hover:shadow-lg hover:ring-1 hover:ring-orange-400 transition-all`}
+                            onClick={() => onStationClick(item.id, stationType)}
+                            title={item.name}
+                        >
+                            <p className="text-xs font-medium text-orange-700 truncate w-full text-center mb-1" title={item.name}>
+                                {item.name}
+                            </p>
+                            <div className="w-full h-32 sm:h-36 mb-1 flex items-center justify-center rounded overflow-hidden">
+                                {item.image ? (
+                                    <img src={item.image} alt={item.name} className="max-w-full max-h-full object-contain" />
+                                ) : (
+                                    <span className="text-gray-400 text-xs">No Img</span>
+                                )}
+                            </div>
+
+                            <div className="w-full flex justify-around items-center text-2xs sm:text-xs text-gray-600 px-0.5">
+                                <div className="flex items-center" title={`Status: ${item.status.replace('_', ' ')}`}>
+                                    <StatusIconComponent size={14} className={`mr-0.5 ${statusColorClass}`} />
+                                    <span className="hidden sm:inline">{item.status.replace('_', ' ')}</span>
+                                </div>
+                                <div title={`Capacity: ${item.capacity}`}>C:{item.capacity}</div>
+                                <div title={`Reliability: ${item.reliability}%`}>R:{item.reliability}%</div>
+                            </div>
+
+                            {process && (
+                                <div className="w-full mt-1 px-0.5">
+                                    <div className="w-full bg-gray-200 rounded-full h-1">
+                                        <div
+                                            className="bg-orange-500 h-1 rounded-full transition-all duration-300"
+                                            style={{ width: `${Math.min(process.progress, 100)}%` }}
+                                        />
                                     </div>
-                                    <div>{station.temperature}°</div>
-                                    {process && (
-                                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-300">
-                                            <div
-                                                className="h-1 bg-orange-500 transition-all duration-500"
-                                                style={{ width: `${Math.min(process.progress, 100)}%` }}
-                                            />
-                                        </div>
-                                    )}
                                 </div>
-                            )
-                        })}
-                    </div>
-                </div>
+                            )}
+                        </div>
+                    );
+                })}
             </div>
-
-            {/* Kitchen - Plating Stations (Bottom) */}
-            <div
-                className="absolute bg-purple-100 border-t border-purple-200"
-                style={{
-                    left: `${plateAreaStyle.x}%`,
-                    top: `${plateAreaStyle.y}%`,
-                    width: `${plateAreaStyle.width}%`,
-                    height: `${plateAreaStyle.height}%`
-                }}
-            >
-                <div className="p-2">
-                    <div className="text-sm font-bold text-purple-800 mb-2">🍽️ Plating</div>
-                    <div className="grid grid-cols-2 gap-2"> {/* Adjust grid columns as needed */}
-                        {platingStations.map((station) => (
-                            <div
-                                key={station.id}
-                                className={`w-16 h-12 rounded border-2 cursor-pointer flex flex-col items-center justify-center text-xs
-                                    ${station.status === 'busy' ? 'bg-purple-200 border-purple-500' : 'bg-pink-200 border-pink-500'}
-                                `}
-                                onClick={() => onStationClick(station.id, 'plating')}
-                            >
-                                <div className="text-lg">🍽️</div>
-                                <div>{station.status === 'busy' ? 'Busy' : 'Ready'}</div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </>
+        </div>
     );
 } 

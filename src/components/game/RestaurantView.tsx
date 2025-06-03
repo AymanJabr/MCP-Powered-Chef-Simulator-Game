@@ -76,9 +76,7 @@ export const AREAS = {
     QUEUE: { x: 0, y: 5, width: 15, height: 80 },
     DINING: { x: 15, y: 5, width: 45, height: 80 },
 
-    KITCHEN_PREP: { x: 60, y: 5, width: 40, height: 25.3 },
-    KITCHEN_COOK: { x: 80, y: 30.3, width: 20, height: 37.9 },
-    KITCHEN_PLATE: { x: 60, y: 68.2, width: 40, height: 16.8 },
+    KITCHEN: { x: 60, y: 5, width: 40, height: 80 },
 
     ORDERS: { x: 15, y: 85, width: 45, height: 15 },
 
@@ -94,20 +92,16 @@ export default function RestaurantView() {
     const [selection, setSelection] = useState<GameSelection>({ type: null, id: null })
     const [movingCustomers, setMovingCustomers] = useState<Record<string, MovingEntity>>({})
     const [showInventoryPanel, setShowInventoryPanel] = useState(false)
-    const initializedPosition = useRef(false); // Renamed for clarity
+    const initializedPosition = useRef(false);
 
     useEffect(() => {
-        // Set initial chef position in the dining area when the view loads.
         if (!initializedPosition.current) {
-            // Using x: 70, y: 45 as a starting point to the right of the tables.
-            // The player.position (which is the default {x:0,y:0,area:'kitchen'}) is passed as oldPosition.
-            // We only set if it's not already the target, to be absolutely sure, though initializedPosition.current is the main guard.
             if (player.position.x !== 70 || player.position.y !== 45 || player.position.area !== 'dining') {
                 playerActions.setPosition({ x: 70, y: 45, area: 'dining' }, player.position);
             }
             initializedPosition.current = true;
         }
-    }, [playerActions, player.position]); // player.position is now a dependency
+    }, [playerActions, player.position]);
 
     const moveChefTo = (newPos: { x: number, y: number }, targetArea: PlayerStorePosition['area']) => {
         playerActions.setPosition({ ...newPos, area: targetArea }, player.position);
@@ -121,8 +115,6 @@ export default function RestaurantView() {
         if (!tableId) return;
         const customerAtTable = restaurant.activeCustomers.find(c => c.id === customerId);
         if (customerAtTable && customerAtTable.status === 'seated' && !customerAtTable.order) {
-            // Customer is ready to order. Select them.
-            // The UI, possibly via SelectionInfoPanel, should now offer the option to take an order.
             console.log(`Selected customer ${customerId} at table ${tableId} who is ready to order.`);
             setSelection({ type: 'customer', id: customerId, data: { tableId } });
         } else {
@@ -153,8 +145,6 @@ export default function RestaurantView() {
                 setSelection({ type: null, id: null })
             }
         } else if (customerAtTable && customerAtTable.status === 'seated' && !customerAtTable.order) {
-            // Customer at the table is ready to order. Select the table.
-            // The UI, possibly via SelectionInfoPanel, should now offer the option to take an order.
             console.log(`Selected table ${tableId} with a customer ready to order.`);
             setSelection({ type: 'table', id: tableId });
         } else {
@@ -164,15 +154,7 @@ export default function RestaurantView() {
 
     const handleStationClick = (stationId: string, stationType: 'prep' | 'cooking' | 'plating') => {
         setSelection({ type: 'station', id: stationId, data: { type: stationType } })
-        // These X, Y are percentages relative to the overall view. They need to be mapped to player.position.area and specific coordinates within that area.
-        // For now, using 'kitchen' as the area. The actual x,y in the player store should ideally be normalized for that area or absolute.
-        if (stationType === 'prep') {
-            moveChefTo({ x: AREAS.KITCHEN_PREP.x + AREAS.KITCHEN_PREP.width / 2, y: AREAS.KITCHEN_PREP.y + AREAS.KITCHEN_PREP.height / 2 }, 'kitchen');
-        } else if (stationType === 'cooking') {
-            moveChefTo({ x: AREAS.KITCHEN_COOK.x + AREAS.KITCHEN_COOK.width / 2, y: AREAS.KITCHEN_COOK.y + AREAS.KITCHEN_COOK.height / 2 }, 'kitchen');
-        } else if (stationType === 'plating') {
-            moveChefTo({ x: AREAS.KITCHEN_PLATE.x + AREAS.KITCHEN_PLATE.width / 2, y: AREAS.KITCHEN_PLATE.y + AREAS.KITCHEN_PLATE.height / 2 }, 'kitchen');
-        }
+        moveChefTo({ x: AREAS.KITCHEN.x + AREAS.KITCHEN.width / 2, y: AREAS.KITCHEN.y + AREAS.KITCHEN.height / 2 }, 'kitchen');
     }
 
     const handleOrderClick = (orderId: string) => {
@@ -215,14 +197,9 @@ export default function RestaurantView() {
 
             {/* Kitchen Area */}
             <KitchenArea
-                prepStations={kitchen.prepStations}
-                cookingStations={kitchen.cookingStations}
-                platingStations={kitchen.platingStations}
                 activeCookingProcesses={kitchen.activeCookingProcesses}
                 onStationClick={handleStationClick}
-                prepAreaStyle={AREAS.KITCHEN_PREP}
-                cookAreaStyle={AREAS.KITCHEN_COOK}
-                plateAreaStyle={AREAS.KITCHEN_PLATE}
+                kitchenAreaStyle={AREAS.KITCHEN}
             />
 
             {/* Active Orders Area */}
