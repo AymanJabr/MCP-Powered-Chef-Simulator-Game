@@ -27,8 +27,8 @@ jest.mock('@/state/game/restaurantStore', () => {
     const mockRestaurantState: MockInventoryRestaurantState = {
         restaurant: {
             inventory: [
-                { id: 'ing_1', name: 'Tomato', quantity: 10, cost: 2, category: 'vegetable', quality: 0 },
-                { id: 'ing_2', name: 'Cheese', quantity: 3, cost: 5, category: 'dairy', quality: 0 },
+                { id: 'ing_1', name: 'Tomato', quantity: 10, cost: 2, category: 'vegetable' },
+                { id: 'ing_2', name: 'Cheese', quantity: 3, cost: 5, category: 'dairy' },
             ],
             funds: 50,
         },

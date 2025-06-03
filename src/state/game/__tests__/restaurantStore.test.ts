@@ -36,9 +36,9 @@ const mockIngredient: Ingredient = {
     id: 'ingredient_1',
     name: 'Test Ingredient',
     category: 'vegetable',
-    quality: 5,
     quantity: 10,
-    cost: 2
+    cost: 2,
+    image: 'test_image.jpg'
 }
 
 const mockEquipment: Equipment = {

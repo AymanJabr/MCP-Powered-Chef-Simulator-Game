@@ -147,7 +147,6 @@ describe('Entity Factories', () => {
             expect(ingredient.id).toContain('ingredient_');
             expect(ingredient.name).toBe('New Ingredient');
             expect(ingredient.category).toBe('vegetable');
-            expect(ingredient.quality).toBe(100);
             expect(ingredient.quantity).toBe(0);
             expect(ingredient.cost).toBe(5);
         });

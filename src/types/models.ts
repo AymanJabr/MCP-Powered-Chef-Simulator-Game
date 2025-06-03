@@ -75,7 +75,6 @@ export interface Ingredient {
     id: string
     name: string
     category: 'meat' | 'vegetable' | 'dairy' | 'grain' | 'sauce' | 'spice'
-    quality: number
     quantity: number
     cost: number
     image?: string

@@ -86,7 +86,6 @@ export function createIngredient(partial: Partial<Ingredient> = {}): Ingredient 
         id: `ingredient_${Date.now()}`,
         name: 'New Ingredient',
         category: 'vegetable',
-        quality: 100,
         quantity: 0,
         cost: 5,
         ...partial
