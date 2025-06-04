@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { IconToolsKitchen2, IconShoppingCart, IconListDetails } from '@tabler/icons-react'
+import { IconShoppingCart, IconBook } from '@tabler/icons-react'
 import InventoryPanel from '@/components/game/InventoryPanel'
 import MenuModal from './MenuModal'
 
@@ -63,25 +63,22 @@ export default function ControlsArea({
                     zIndex: 40
                 }}
             >
-                <div className="p-2 flex items-center justify-center h-full">
-                    <h2 className="text-lg font-semibold text-orange-700 mb-3 sticky top-0 bg-orange-50 py-2 z-10">Game Controls</h2>
-                    <div className="space-y-2">
-                        <button
-                            onClick={toggleInventory}
-                            className="w-full flex items-center justify-center px-4 py-2.5 bg-orange-500 hover:bg-orange-600 text-white rounded-md shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-opacity-50"
-                        >
-                            <IconShoppingCart size={20} className="mr-2" />
-                            Manage Inventory
-                        </button>
+                <div className="p-3 h-full flex items-center justify-center space-x-3">
+                    <button
+                        onClick={toggleMenuModal}
+                        className="flex items-center justify-center px-4 py-2.5 bg-teal-500 hover:bg-teal-600 text-white rounded-md shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50 min-w-[180px]"
+                    >
+                        <IconBook size={20} className="mr-2" />
+                        View Menu
+                    </button>
 
-                        <button
-                            onClick={toggleMenuModal}
-                            className="w-full flex items-center justify-center px-4 py-2.5 bg-teal-500 hover:bg-teal-600 text-white rounded-md shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50"
-                        >
-                            <IconListDetails size={20} className="mr-2" />
-                            View Menu
-                        </button>
-                    </div>
+                    <button
+                        onClick={toggleInventory}
+                        className="flex items-center justify-center px-4 py-2.5 bg-orange-500 hover:bg-orange-600 text-white rounded-md shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-opacity-50 min-w-[180px]"
+                    >
+                        <IconShoppingCart size={20} className="mr-2" />
+                        Manage Inventory
+                    </button>
                 </div>
             </div>
 

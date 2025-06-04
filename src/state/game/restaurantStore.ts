@@ -227,13 +227,13 @@ export const useRestaurantStore = create<RestaurantState>()(
 
                     const processedIngredients = rawIngredients.map(ing => ({
                         ...ing,
-                        image: ing.image ? `/assets/images/ingredients/${ing.image}` : undefined
+                        image: ing.image ? `/assets/images/ingredients${ing.image.startsWith('/') ? ing.image : '/' + ing.image}` : undefined
                     }));
 
                     set((state) => {
                         state.restaurant.inventory = processedIngredients;
                     });
-                    console.log('Restaurant inventory initialized from JSON.');
+                    console.log('Restaurant inventory initialized from JSON with corrected image paths.');
                 } catch (error) {
                     console.error("Failed to initialize inventory:", error);
                 }
