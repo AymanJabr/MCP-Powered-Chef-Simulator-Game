@@ -27,7 +27,7 @@
 - **Properties**:
   - `name`: Restaurant name
   - `level`: Current restaurant level
-  - `reputation`: Reputation score (affects customer patience and tips)
+  - `lostCustomers`: Number of customers lost due to dissatisfaction (replaces reputation)
   - `funds`: Available money
   - `customerCapacity`: Maximum number of customers
   - `activeCustomers`: Currently seated customers

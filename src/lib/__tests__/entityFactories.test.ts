@@ -272,7 +272,7 @@ describe('Entity Factories', () => {
 
             expect(restaurant.name).toBe('New Restaurant');
             expect(restaurant.level).toBe(1);
-            expect(restaurant.reputation).toBe(50);
+            expect(restaurant.lostCustomers).toBe(0);
             expect(restaurant.funds).toBe(1000);
             expect(restaurant.customerCapacity).toBe(10);
             expect(restaurant.activeCustomers).toEqual([]);

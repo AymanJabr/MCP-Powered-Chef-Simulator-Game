@@ -8,6 +8,7 @@
   - `customers`: Array of active customers
   - `queue`: Queue of waiting customers
   - `money`: Current funds
+  - `lostCustomers`: Number of customers lost due to dissatisfaction (replaces reputation)
   - `inventory`: Available ingredients and supplies
   - `equipment`: Available cooking equipment
   - `menuItems`: List of all possible dishes the restaurant *could* offer.

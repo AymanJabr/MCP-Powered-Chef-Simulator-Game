@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, Stack, Title, Text } from '@mantine/core';
 import { useGameStore } from '@/state/game/gameStore';
 import { useRestaurantStore } from '@/state/game/restaurantStore';
-import { resetCustomersLeftCounter } from '@/lib/gameLoop'; // Assuming this function exists and is exported
 
 const GameOverScreen = () => {
     const { resetGame } = useGameStore(state => state.actions);
@@ -14,7 +13,6 @@ const GameOverScreen = () => {
     const score = game.performanceMetrics.financialPerformance; // Example score
 
     const handlePlayAgain = () => {
-        resetCustomersLeftCounter(); // Reset counter in gameLoop
         resetGame(); // Resets game phase to preGame and other relevant states
         resetRestaurantState(); // Call the new reset action
     };

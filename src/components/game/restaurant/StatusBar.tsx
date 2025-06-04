@@ -1,6 +1,6 @@
 'use client'
 
-import { formatTime, formatCurrency, renderStars } from '@/utils/formatters'
+import { formatTime, formatCurrency } from '@/utils/formatters'
 
 interface AreaStyle {
     x: number;
@@ -15,17 +15,19 @@ interface StatusBarProps {
     timeElapsed: number;
     customerQueueLength: number;
     customerCapacity: number;
-    reputation: number;
+    lostCustomers: number;
     gameMode: 'mcp' | 'manual';
     areaStyle: AreaStyle;
 }
+
+const MAX_LOST_CUSTOMERS_BEFORE_GAMEOVER = 10;
 
 export default function StatusBar({
     funds,
     timeElapsed,
     customerQueueLength,
     customerCapacity,
-    reputation,
+    lostCustomers,
     gameMode,
     areaStyle
 }: StatusBarProps) {
@@ -52,11 +54,12 @@ export default function StatusBar({
                     <span className="text-blue-400">👥</span>
                     <span>{customerQueueLength}/{customerCapacity}</span>
                 </div>
-                <div className="flex items-center gap-1">
-                    <span className="text-yellow-400">⭐</span>
-                    <span>{renderStars(reputation)}</span>
-                    <span className="text-xs text-gray-300">({reputation.toFixed(1)})</span>
-                </div>
+                {lostCustomers > 0 && (
+                    <div className="flex items-center gap-1">
+                        <span className="text-red-400">😡</span>
+                        <span>{lostCustomers} Lost</span>
+                    </div>
+                )}
             </div>
             <div className="font-semibold">
                 Game Mode: {gameMode === 'mcp' ? 'MCP-Chef' : 'Human-Chef'}

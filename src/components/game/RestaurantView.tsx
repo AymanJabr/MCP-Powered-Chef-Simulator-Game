@@ -169,7 +169,7 @@ export default function RestaurantView() {
                 timeElapsed={game.timeElapsed}
                 customerQueueLength={restaurant.customerQueue.length}
                 customerCapacity={restaurant.customerCapacity}
-                reputation={restaurant.reputation}
+                lostCustomers={restaurant.lostCustomers}
                 gameMode={game.gameMode}
                 areaStyle={AREAS.STATUS}
             />

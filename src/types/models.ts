@@ -122,7 +122,7 @@ export interface Game {
 export interface Restaurant {  //TODO: maybe change from full Interfaces to just the IDs
     name: string
     level: number
-    reputation: number
+    lostCustomers: number
     funds: number
     customerCapacity: number
     activeCustomers: Customer[]
@@ -444,7 +444,7 @@ export type GameStateContext = {
 // Context for restaurant_state resource
 export type RestaurantStateContext = {
     funds: number;
-    reputation: number;
+    lostCustomers: number;
     queue: number;
     activeCustomers: Array<{
         id: string;

@@ -25,6 +25,7 @@ interface RestaurantState {
         initializeEquipment: () => Promise<void>;
         initializeRecipes: () => Promise<void>;
         resetRestaurantState: () => void;
+        incrementLostCustomers: () => void;
     }
 }
 
@@ -33,7 +34,7 @@ export const useRestaurantStore = create<RestaurantState>()(
         restaurant: {
             name: 'MCP-Powered Chef Restaurant',
             level: 1,
-            reputation: 2.5,
+            lostCustomers: 0,
             funds: 1000,
             customerCapacity: 8,
             activeCustomers: [] as Customer[],
@@ -195,8 +196,6 @@ export const useRestaurantStore = create<RestaurantState>()(
                     state.restaurant.activeCustomers[customerIndex].satisfaction = satisfactionScore
                     const tipPercentage = satisfactionScore / 100
                     state.restaurant.activeCustomers[customerIndex].tip = Math.floor(tipPercentage * 5)
-                    const reputationChange = (satisfactionScore - 50) / 10
-                    state.restaurant.reputation = Math.max(0, Math.min(5, state.restaurant.reputation + reputationChange))
                 }
             }),
 
@@ -300,7 +299,11 @@ export const useRestaurantStore = create<RestaurantState>()(
                 state.restaurant.activeOrders = [];
                 state.restaurant.completedOrders = [];
                 state.restaurant.funds = 1000; // Initial funds
-                state.restaurant.reputation = 2.5; // Initial reputation
+                state.restaurant.lostCustomers = 0; // Reset lostCustomers
+            }),
+
+            incrementLostCustomers: () => set((state) => {
+                state.restaurant.lostCustomers += 1;
             })
         }
     }))

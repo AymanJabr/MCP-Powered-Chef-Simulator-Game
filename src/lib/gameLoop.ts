@@ -38,7 +38,6 @@ export const calculateMaxOrderableDifficulty = (gameDifficulty: Game['difficulty
 
 let animationFrameId: number | null = null
 let lastTimestamp = 0
-let customersLeftCounter = 0 // running total used for game-over rule
 
 const SEC = 1000
 
@@ -56,7 +55,6 @@ function spawnInitialCustomer(): void {
 export function startGameLoop(): void {
     if (animationFrameId !== null) return // already running
 
-    customersLeftCounter = 0
     lastTimestamp = typeof performance !== 'undefined' ? performance.now() : Date.now()
 
     // Spawn one customer immediately when the game starts
@@ -78,10 +76,6 @@ export function stopGameLoop(): void {
 
 export function isGameLoopRunning(): boolean {
     return animationFrameId !== null
-}
-
-export function resetCustomersLeftCounter(): void {
-    customersLeftCounter = 0
 }
 
 // ---------------------------------------------------------------------------
@@ -156,12 +150,13 @@ function processCustomerPatience(deltaSeconds: number): void {
 
     // Batch update the store if there are any changes
     if (customersToUpdate.length > 0 || leftCustomerIds.length > 0) {
+        const restaurantActions = useRestaurantStore.getState().actions; // Get actions once
         useRestaurantStore.setState(state => {
             customersToUpdate.forEach(update => {
                 const customerArray = update.isQueued ? state.restaurant.customerQueue : state.restaurant.activeCustomers;
                 const customer = customerArray.find(c => c.id === update.customerId);
                 if (customer) {
-                    customer.patience = update.newPatience; // This is fine inside setState with immer
+                    customer.patience = update.newPatience;
                 }
             });
 
@@ -173,14 +168,23 @@ function processCustomerPatience(deltaSeconds: number): void {
                     state.restaurant.activeCustomers = state.restaurant.activeCustomers.filter(c => c.id !== customerId);
                 }
 
-                // Find satisfaction for the event, it might be stale if customer was already removed by patience update
-                const originalCustomer = restaurant.customerQueue.find(c => c.id === customerId) || restaurant.activeCustomers.find(c => c.id === customerId);
-                const satisfaction = originalCustomer ? originalCustomer.satisfaction : 0; // Default if not found (should not happen)
+                // Call incrementLostCustomers from the store
+                // Note: This setState is nested; consider if direct action call is better if not modifying other state here.
+                // For now, assuming incrementLostCustomers itself uses setState/immer correctly.
+                // Directly calling the action outside this setState might be cleaner if it doesn't depend on this specific state iteration.
+                // However, to ensure it's part of the same batched update implicitly: increment directly if safe.
+                // restaurantActions.incrementLostCustomers(); // This would be cleaner if called outside or if the action is pure.
+                // For now, modifying the state directly as it's within a setState batch.
+                state.restaurant.lostCustomers += 1; // Directly incrementing within the immer proxy
 
-                customersLeftCounter += 1;
+                const originalCustomer = restaurant.customerQueue.find(c => c.id === customerId) || restaurant.activeCustomers.find(c => c.id === customerId);
+                const satisfaction = originalCustomer ? originalCustomer.satisfaction : 0;
+
                 eventBus.emit('customer_left', { customerId: customerId, satisfaction });
             });
         });
+        // If incrementLostCustomers was not called inside setState, it would be called here for each left customer:
+        // leftCustomerIds.forEach(() => restaurantActions.incrementLostCustomers());
     }
 }
 
@@ -228,16 +232,15 @@ function processPlayerActions(): void {
 // Ending conditions
 // ---------------------------------------------------------------------------
 function checkGameEndingConditions(): void {
-    const restaurant = useRestaurantStore.getState().restaurant
+    const restaurantStoreState = useRestaurantStore.getState() // Get the whole store state
     const gameStoreState = useGameStore.getState()
 
-    const fundsDepleted = restaurant.funds < 0
-    const tooManyLeft = customersLeftCounter > 10
+    const fundsDepleted = restaurantStoreState.restaurant.funds < 0
+    const tooManyLeft = restaurantStoreState.restaurant.lostCustomers >= 10
 
     if (fundsDepleted || tooManyLeft) {
         const reasonText = fundsDepleted ? 'Funds depleted' : 'Too many customers left';
-        // For score, using restaurant.funds directly for now. This might need refinement.
-        const score = restaurant.funds;
+        const score = restaurantStoreState.restaurant.funds;
 
         gameStoreState.actions.setGamePhase('gameOver')
         eventBus.emit('game_over', {
