@@ -3,7 +3,7 @@
 import { GameSelection } from '../RestaurantView'
 import { useRestaurantStore } from '@/state/game/restaurantStore';
 import { useGameStore } from '@/state/game/gameStore';
-import { Customer, Dish, Order } from '@/types/models';
+import { Customer, Dish } from '@/types/models';
 import { calculateMaxOrderableDifficulty } from '@/lib/gameLoop';
 import { Button } from '@mantine/core'; // Assuming Mantine UI is used
 

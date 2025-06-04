@@ -4,6 +4,7 @@ import { Customer } from '@/types/models'
 import CustomerPatienceDisplay from '../CustomerPatienceDisplay'
 import CustomerSprite from '../CustomerSprite'
 import ChefSprite from '../ChefSprite'
+import Image from 'next/image'
 import type { GameSelection } from '../RestaurantView' // Assuming GameSelection and other types are available
 // import TableIcon from '../../icons/TableIcon' // If needed
 
@@ -114,10 +115,12 @@ export default function DiningArea({
                                     className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-10 h-10 bg-white rounded-full border-2 border-gray-300 shadow-md flex items-center justify-center"
                                     style={{ zIndex: 26 }} // Ensure it's above the customer sprite
                                 >
-                                    <img
+                                    <Image
                                         src={customer.order.dish.image}
                                         alt={customer.order.dish.name}
-                                        className="w-8 h-8 object-contain"
+                                        width={32}
+                                        height={32}
+                                        className="object-contain"
                                     />
                                 </div>
                             )}

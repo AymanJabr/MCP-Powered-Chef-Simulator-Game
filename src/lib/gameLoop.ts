@@ -150,7 +150,6 @@ function processCustomerPatience(deltaSeconds: number): void {
 
     // Batch update the store if there are any changes
     if (customersToUpdate.length > 0 || leftCustomerIds.length > 0) {
-        const restaurantActions = useRestaurantStore.getState().actions; // Get actions once
         useRestaurantStore.setState(state => {
             customersToUpdate.forEach(update => {
                 const customerArray = update.isQueued ? state.restaurant.customerQueue : state.restaurant.activeCustomers;

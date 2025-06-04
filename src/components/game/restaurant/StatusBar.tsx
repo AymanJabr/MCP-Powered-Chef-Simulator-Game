@@ -20,8 +20,6 @@ interface StatusBarProps {
     areaStyle: AreaStyle;
 }
 
-const MAX_LOST_CUSTOMERS_BEFORE_GAMEOVER = 10;
-
 export default function StatusBar({
     funds,
     timeElapsed,

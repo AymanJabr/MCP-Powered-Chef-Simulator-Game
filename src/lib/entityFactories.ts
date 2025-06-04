@@ -149,7 +149,7 @@ export function createRestaurant(partial: Partial<Restaurant> = {}): Restaurant 
     return {
         name: 'New Restaurant',
         level: 1,
-        reputation: 50,
+        lostCustomers: 0,
         funds: 1000,
         customerCapacity: 10,
         activeCustomers: [],
