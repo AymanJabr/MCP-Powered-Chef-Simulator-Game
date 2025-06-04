@@ -211,8 +211,9 @@ export default function RestaurantView() {
 
             {/* Control Panel */}
             <ControlsArea
-                onManageInventoryClick={() => setShowInventoryPanel(true)}
-                areaStyle={AREAS.CONTROLS}
+                onOpenInventory={() => setShowInventoryPanel(true)}
+                controlsAreaStyle={AREAS.CONTROLS}
+                kitchenAreaStyle={AREAS.KITCHEN}
             />
 
             {/* Selection Info Panel (overlay) */}

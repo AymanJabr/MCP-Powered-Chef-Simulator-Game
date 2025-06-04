@@ -121,10 +121,10 @@ export default function KitchenArea({
                                     </div>
                                     <div className={`w-full mb-1 flex items-center justify-center rounded overflow-hidden ${isBroken ? 'opacity-50' : ''}`} style={{ maxHeight: '9rem' }}>
                                         {item.image ? (
-                                            <Image 
-                                                src={item.image} 
-                                                alt={item.name} 
-                                                width={144} 
+                                            <Image
+                                                src={item.image}
+                                                alt={item.name}
+                                                width={144}
                                                 height={144}
                                                 className="max-w-full max-h-full object-contain"
                                             />
