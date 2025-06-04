@@ -129,19 +129,20 @@ export default function MenuModal({ isOpen, onClose }: MenuModalProps) {
                                                                         {step.ingredientIds.map(ingId => {
                                                                             const ingredient = getIngredientDetails(ingId)
                                                                             return ingredient ? (
-                                                                                <div key={ingId} className="flex flex-col items-center p-1 bg-teal-100 rounded text-center max-w-[60px]">
+                                                                                <div key={ingId} className="flex flex-col items-center p-2 bg-white rounded-md shadow-sm border border-gray-200 text-center w-24 h-28 justify-between">
                                                                                     {ingredient.image && (
-                                                                                        <Image
-                                                                                            src={ingredient.image}
-                                                                                            alt={ingredient.name}
-                                                                                            width={32}
-                                                                                            height={32}
-                                                                                            className="rounded object-contain mb-0.5"
-                                                                                        />
+                                                                                        <div className="relative w-16 h-16 mb-1">
+                                                                                            <Image
+                                                                                                src={ingredient.image}
+                                                                                                alt={ingredient.name}
+                                                                                                fill
+                                                                                                className="object-contain rounded"
+                                                                                            />
+                                                                                        </div>
                                                                                     )}
-                                                                                    <span className="text-3xs text-teal-700 truncate" title={ingredient.name}>{ingredient.name}</span>
+                                                                                    <span className="text-xs text-gray-700 w-full break-words">{ingredient.name}</span>
                                                                                 </div>
-                                                                            ) : <span key={ingId} className="text-3xs text-red-500">Unknown Ing.</span>
+                                                                            ) : <span key={ingId} className="text-xs text-red-500 p-2">Unknown Ing.</span>
                                                                         })}
                                                                     </div>
                                                                 </>

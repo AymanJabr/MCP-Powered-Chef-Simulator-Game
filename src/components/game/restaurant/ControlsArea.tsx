@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { IconShoppingCart, IconBook } from '@tabler/icons-react'
-import InventoryPanel from '@/components/game/InventoryPanel'
 import MenuModal from './MenuModal'
 
 interface AreaStyle {
@@ -14,8 +13,6 @@ interface AreaStyle {
 
 interface ControlsAreaProps {
     onOpenInventory: () => void;
-    onOpenRecipeBook?: () => void;
-    onOpenShop?: () => void;
     kitchenAreaStyle: {
         x: number;
         y: number;
@@ -32,20 +29,10 @@ interface ControlsAreaProps {
 
 export default function ControlsArea({
     onOpenInventory,
-    onOpenRecipeBook,
-    onOpenShop,
     kitchenAreaStyle,
     controlsAreaStyle
 }: ControlsAreaProps) {
-    const [isInventoryOpen, setIsInventoryOpen] = useState(false)
     const [isMenuModalOpen, setIsMenuModalOpen] = useState(false)
-
-    const toggleInventory = () => {
-        setIsInventoryOpen(!isInventoryOpen)
-        if (!isInventoryOpen) {
-            onOpenInventory()
-        }
-    }
 
     const toggleMenuModal = () => {
         setIsMenuModalOpen(!isMenuModalOpen)
@@ -73,7 +60,7 @@ export default function ControlsArea({
                     </button>
 
                     <button
-                        onClick={toggleInventory}
+                        onClick={onOpenInventory}
                         className="flex items-center justify-center px-4 py-2.5 bg-orange-500 hover:bg-orange-600 text-white rounded-md shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-opacity-50 min-w-[180px]"
                     >
                         <IconShoppingCart size={20} className="mr-2" />
@@ -81,13 +68,6 @@ export default function ControlsArea({
                     </button>
                 </div>
             </div>
-
-            {isInventoryOpen && (
-                <InventoryPanel
-                    isOpen={isInventoryOpen}
-                    onClose={toggleInventory}
-                />
-            )}
 
             <MenuModal
                 isOpen={isMenuModalOpen}
