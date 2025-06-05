@@ -1,8 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { IconShoppingCart, IconBook } from '@tabler/icons-react'
+import { IconShoppingCart, IconBook, IconToolsKitchen2 } from '@tabler/icons-react'
 import MenuModal from './MenuModal'
+import { Order } from '@/types/models'
 
 interface AreaStyle {
     x: number;
@@ -25,18 +26,30 @@ interface ControlsAreaProps {
         width: number;
         height: number;
     };
+    selectedOrder: Order | null;
+    onOpenDishPreparation: () => void;
 }
 
 export default function ControlsArea({
     onOpenInventory,
     kitchenAreaStyle,
-    controlsAreaStyle
+    controlsAreaStyle,
+    selectedOrder,
+    onOpenDishPreparation
 }: ControlsAreaProps) {
     const [isMenuModalOpen, setIsMenuModalOpen] = useState(false)
 
     const toggleMenuModal = () => {
         setIsMenuModalOpen(!isMenuModalOpen)
     }
+
+    const canPrepareOrder = selectedOrder && selectedOrder.status === 'received';
+
+    const handlePrepareClick = () => {
+        if (canPrepareOrder) {
+            onOpenDishPreparation();
+        }
+    };
 
     return (
         <>
@@ -65,6 +78,16 @@ export default function ControlsArea({
                     >
                         <IconShoppingCart size={20} className="mr-2" />
                         Manage Inventory
+                    </button>
+
+                    <button
+                        onClick={handlePrepareClick}
+                        disabled={!canPrepareOrder}
+                        className="flex items-center justify-center px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white rounded-md shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-opacity-50 min-w-[180px] disabled:bg-slate-400 disabled:cursor-not-allowed"
+                        title={canPrepareOrder ? `Prepare: ${selectedOrder?.dish.name}` : 'No order ready for preparation'}
+                    >
+                        <IconToolsKitchen2 size={20} className="mr-2" />
+                        Prepare Dish
                     </button>
                 </div>
             </div>

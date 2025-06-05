@@ -5,15 +5,16 @@ import { useRestaurantStore } from '@/state/game/restaurantStore'
 import { useKitchenStore } from '@/state/game/kitchenStore'
 import { usePlayerStore } from '@/state/player/playerStore'
 import { useState, useEffect, useRef } from 'react'
-import { Position as PlayerStorePosition } from '@/types/models'
+import { Position as PlayerStorePosition, Order } from '@/types/models'
 import InventoryPanel from './InventoryPanel'
 import StatusBar from './restaurant/StatusBar'
 import QueueArea from './restaurant/QueueArea'
 import DiningArea from './restaurant/DiningArea'
 import KitchenArea from './restaurant/KitchenArea'
-import OrdersArea from './restaurant/OrdersArea'
 import ControlsArea from './restaurant/ControlsArea'
 import SelectionInfoPanel from './restaurant/SelectionInfoPanel'
+import DishPreparationModal from './restaurant/DishPreparationModal'
+import { calculateMaxOrderableDifficulty } from '@/lib/gameLoop'
 
 // Define specific data payloads for each selection type
 interface CustomerSelectionData {
@@ -78,8 +79,6 @@ export const AREAS = {
 
     KITCHEN: { x: 60, y: 5, width: 40, height: 80 },
 
-    ORDERS: { x: 15, y: 85, width: 45, height: 15 },
-
     CONTROLS: { x: 0, y: 85, width: 100, height: 15 }
 }
 
@@ -92,6 +91,8 @@ export default function RestaurantView() {
     const [selection, setSelection] = useState<GameSelection>({ type: null, id: null })
     const [movingCustomers, setMovingCustomers] = useState<Record<string, MovingEntity>>({})
     const [showInventoryPanel, setShowInventoryPanel] = useState(false)
+    const [isDishPrepModalOpen, setIsDishPrepModalOpen] = useState(false)
+    const [orderForPreparation, setOrderForPreparation] = useState<Order | null>(null)
     const initializedPosition = useRef(false);
 
     useEffect(() => {
@@ -136,16 +137,13 @@ export default function RestaurantView() {
                         moveChefTo({ x: tablePos.x - 5, y: tablePos.y + 5 }, 'dining');
                     }, 500)
                     setTimeout(() => {
-                        moveChefTo({ x: 40, y: 50 }, 'dining');
-                    }, 2000)
-                    setTimeout(() => {
                         setMovingCustomers(prev => ({ ...prev, [selection.id!]: { ...prev[selection.id!], position: { x: tablePos.x, y: tablePos.y }, isMoving: false, targetPosition: undefined } }));
+                        setSelection({ type: 'table', id: tableId });
                     }, 1000)
                 }
-                setSelection({ type: null, id: null })
             }
         } else if (customerAtTable && customerAtTable.status === 'seated' && !customerAtTable.order) {
-            console.log(`Selected table ${tableId} with a customer ready to order.`);
+            console.log(`Selected table ${tableId} with a customer ready to order for SelectionInfoPanel.`);
             setSelection({ type: 'table', id: tableId });
         } else {
             setSelection({ type: 'table', id: tableId })
@@ -157,9 +155,43 @@ export default function RestaurantView() {
         moveChefTo({ x: AREAS.KITCHEN.x + AREAS.KITCHEN.width / 2, y: AREAS.KITCHEN.y + AREAS.KITCHEN.height / 2 }, 'kitchen');
     }
 
-    const handleOrderClick = (orderId: string) => {
-        setSelection({ type: 'order', id: orderId });
-    }
+    const handleOpenDishPreparationModal = (orderToPrepare: Order) => {
+        setOrderForPreparation(orderToPrepare);
+        setIsDishPrepModalOpen(true);
+    };
+
+    const initiateTakeOrderAndPrepare = (tableId: string) => {
+        const customer = restaurant.activeCustomers.find(c => c.tableId === tableId && c.status === 'seated' && !c.order);
+        if (!customer) {
+            console.warn("No customer ready to order at table:", tableId);
+            return;
+        }
+
+        const maxDifficulty = calculateMaxOrderableDifficulty(game.difficulty);
+        const orderableDishes = restaurant.menuItems?.filter(dish => dish.cookingDifficulty <= maxDifficulty) || [];
+
+        if (orderableDishes.length === 0) {
+            console.warn("No orderable dishes available at current difficulty.");
+            return;
+        }
+
+        const randomDish = orderableDishes[Math.floor(Math.random() * orderableDishes.length)];
+        if (!randomDish) {
+            console.error("Failed to select a random dish.");
+            return;
+        }
+
+        const result = restaurantActions.takeOrder(tableId, randomDish.id);
+        if (result.success && result.order) {
+            console.log(`Order taken for ${result.order.dish.name}, preparing directly.`);
+            setOrderForPreparation(result.order);
+            setIsDishPrepModalOpen(true);
+            setSelection({ type: 'order', id: result.order.id });
+            moveChefTo({ x: AREAS.KITCHEN.x + 10, y: AREAS.KITCHEN.y + 10 }, 'kitchen');
+        } else {
+            console.error("Failed to take order:", result.message);
+        }
+    };
 
     return (
         <div className="h-screen w-screen bg-amber-50 relative overflow-hidden">
@@ -202,18 +234,19 @@ export default function RestaurantView() {
                 kitchenAreaStyle={AREAS.KITCHEN}
             />
 
-            {/* Active Orders Area */}
-            <OrdersArea
-                activeOrders={restaurant.activeOrders}
-                onOrderSelect={handleOrderClick}
-                areaStyle={AREAS.ORDERS}
-            />
-
             {/* Control Panel */}
             <ControlsArea
                 onOpenInventory={() => setShowInventoryPanel(true)}
                 controlsAreaStyle={AREAS.CONTROLS}
                 kitchenAreaStyle={AREAS.KITCHEN}
+                selectedOrder={orderForPreparation}
+                onOpenDishPreparation={() => {
+                    if (orderForPreparation) {
+                        setIsDishPrepModalOpen(true);
+                    } else {
+                        console.warn("Attempted to open dish prep modal without an order for preparation.");
+                    }
+                }}
             />
 
             {/* Selection Info Panel (overlay) */}
@@ -221,14 +254,26 @@ export default function RestaurantView() {
                 <SelectionInfoPanel
                     selection={selection}
                     onClose={() => setSelection({ type: null, id: null })}
+                    onTakeOrderAndPrepare={initiateTakeOrderAndPrepare}
                 />
             )}
 
-            {/* Inventory Panel Modal - Rendered at the root of RestaurantView for proper modal behavior */}
+            {/* Inventory Panel Modal */}
             {showInventoryPanel && (
                 <InventoryPanel
                     isOpen={showInventoryPanel}
                     onClose={() => setShowInventoryPanel(false)}
+                />
+            )}
+
+            {/* Dish Preparation Modal */}
+            {isDishPrepModalOpen && (
+                <DishPreparationModal
+                    order={orderForPreparation}
+                    isOpen={isDishPrepModalOpen}
+                    onClose={() => {
+                        setIsDishPrepModalOpen(false);
+                    }}
                 />
             )}
         </div>

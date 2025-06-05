@@ -50,7 +50,7 @@ export const usePlayerStore = create<PlayerState>()(
             direction: 'down',
             animationState: 'idle',
             spriteConfig: chefSpriteConfig,
-        },
+        } as Player,
         isCarryingItem: false,
         actions: {
             setName: (name) => set((state) => {
