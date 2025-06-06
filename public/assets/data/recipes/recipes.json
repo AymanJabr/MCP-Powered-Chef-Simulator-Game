@@ -9,7 +9,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_strawberry",
                     "ingredient_cherries"
@@ -18,7 +18,7 @@
             },
             {
                 "type": "mix",
-                "duration": 30,
+                "duration": 3,
                 "ingredientIds": [
                     "ingredient_milk"
                 ],
@@ -38,7 +38,7 @@
         "cookingSteps": [
             {
                 "type": "grill",
-                "duration": 180,
+                "duration": 18,
                 "ingredientIds": [
                     "ingredient_meat"
                 ],
@@ -46,7 +46,7 @@
             },
             {
                 "type": "toast",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_bread"
                 ],
@@ -54,7 +54,7 @@
             },
             {
                 "type": "mix",
-                "duration": 30,
+                "duration": 3,
                 "ingredientIds": [
                     "ingredient_cheese_cut",
                     "ingredient_tomato_slice",
@@ -76,7 +76,7 @@
         "cookingSteps": [
             {
                 "type": "grill",
-                "duration": 180,
+                "duration": 18,
                 "ingredientIds": [
                     "ingredient_meat"
                 ],
@@ -84,7 +84,7 @@
             },
             {
                 "type": "toast",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_bread"
                 ],
@@ -92,7 +92,7 @@
             },
             {
                 "type": "mix",
-                "duration": 30,
+                "duration": 3,
                 "ingredientIds": [
                     "ingredient_tomato_slice",
                     "ingredient_onion_half",
@@ -115,7 +115,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 80,
+                "duration": 8,
                 "ingredientIds": [
                     "ingredient_strawberry",
                     "ingredient_cherries"
@@ -124,7 +124,7 @@
             },
             {
                 "type": "mix",
-                "duration": 30,
+                "duration": 3,
                 "ingredientIds": [
                     "ingredient_milk",
                     "ingredient_sugar",
@@ -135,7 +135,7 @@
             },
             {
                 "type": "bake",
-                "duration": 1200,
+                "duration": 120,
                 "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
@@ -154,7 +154,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_orange"
                 ],
@@ -162,7 +162,7 @@
             },
             {
                 "type": "mix",
-                "duration": 30,
+                "duration": 3,
                 "ingredientIds": [
                     "ingredient_cheese_cut",
                     "ingredient_cookie",
@@ -174,7 +174,7 @@
             },
             {
                 "type": "bake",
-                "duration": 1800,
+                "duration": 180,
                 "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
@@ -191,7 +191,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_raspberry"
                 ],
@@ -199,7 +199,7 @@
             },
             {
                 "type": "mix",
-                "duration": 30,
+                "duration": 3,
                 "ingredientIds": [
                     "ingredient_cheese_cut",
                     "ingredient_cookie",
@@ -209,7 +209,7 @@
             },
             {
                 "type": "bake",
-                "duration": 1800,
+                "duration": 180,
                 "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
@@ -226,7 +226,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_strawberry"
                 ],
@@ -234,7 +234,7 @@
             },
             {
                 "type": "mix",
-                "duration": 30,
+                "duration": 3,
                 "ingredientIds": [
                     "ingredient_cheese_cut",
                     "ingredient_cookie",
@@ -244,7 +244,7 @@
             },
             {
                 "type": "bake",
-                "duration": 1800,
+                "duration": 180,
                 "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
@@ -263,7 +263,7 @@
         "cookingSteps": [
             {
                 "type": "mix",
-                "duration": 600,
+                "duration": 60,
                 "ingredientIds": [
                     "ingredient_honey",
                     "ingredient_chocolate",
@@ -276,7 +276,7 @@
             },
             {
                 "type": "bake",
-                "duration": 1500,
+                "duration": 150,
                 "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
@@ -296,7 +296,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_lemon",
                     "ingredient_golden_berries",
@@ -306,7 +306,7 @@
             },
             {
                 "type": "mix",
-                "duration": 30,
+                "duration": 3,
                 "ingredientIds": [
                     "ingredient_sugar",
                     "ingredient_flour",
@@ -317,7 +317,7 @@
             },
             {
                 "type": "bake",
-                "duration": 1600,
+                "duration": 160,
                 "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
@@ -335,6 +335,7 @@
         "cookingSteps": [
             {
                 "type": "mix",
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_chocolate",
                     "ingredient_sugar",
@@ -346,7 +347,7 @@
             },
             {
                 "type": "bake",
-                "duration": 1500,
+                "duration": 150,
                 "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
@@ -366,7 +367,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_raspberry"
                 ],
@@ -374,7 +375,7 @@
             },
             {
                 "type": "mix",
-                "duration": 30,
+                "duration": 3,
                 "ingredientIds": [
                     "ingredient_cookie",
                     "ingredient_milk",
@@ -387,7 +388,7 @@
             },
             {
                 "type": "bake",
-                "duration": 900,
+                "duration": 90,
                 "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
@@ -404,7 +405,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 105,
+                "duration": 11,
                 "ingredientIds": [
                     "ingredient_potato",
                     "ingredient_onion_half",
@@ -414,7 +415,7 @@
             },
             {
                 "type": "boil",
-                "duration": 1500,
+                "duration": 150,
                 "ingredientIds": [
                     "ingredient_cheese_cut"
                 ],
@@ -432,7 +433,7 @@
         "cookingSteps": [
             {
                 "type": "mix",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_milk",
                     "ingredient_chocolate",
@@ -453,7 +454,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 150,
+                "duration": 15,
                 "ingredientIds": [
                     "ingredient_apple",
                     "ingredient_orange",
@@ -464,7 +465,7 @@
             },
             {
                 "type": "mix",
-                "duration": 120,
+                "duration": 12,
                 "ingredientIds": [],
                 "equipmentId": "equipment_beverage_dispenser"
             }
@@ -480,7 +481,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_lemon"
                 ],
@@ -488,7 +489,7 @@
             },
             {
                 "type": "mix",
-                "duration": 120,
+                "duration": 12,
                 "ingredientIds": [
                     "ingredient_sugar",
                     "ingredient_cocktail_mixer"
@@ -508,7 +509,7 @@
         "cookingSteps": [
             {
                 "type": "mix",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_lemon_half",
                     "ingredient_orange",
@@ -529,7 +530,7 @@
         "cookingSteps": [
             {
                 "type": "boil",
-                "duration": 120,
+                "duration": 12,
                 "ingredientIds": [
                     "ingredient_coffee",
                     "ingredient_milk",
@@ -550,7 +551,7 @@
         "cookingSteps": [
             {
                 "type": "simmer",
-                "duration": 300,
+                "duration": 30,
                 "ingredientIds": [
                     "ingredient_honey",
                     "ingredient_milk",
@@ -560,7 +561,7 @@
             },
             {
                 "type": "boil",
-                "duration": 120,
+                "duration": 12,
                 "ingredientIds": [
                     "ingredient_coffee"
                 ],
@@ -580,7 +581,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 100,
+                "duration": 10,
                 "ingredientIds": [
                     "ingredient_cucumber",
                     "ingredient_cabbage",
@@ -591,7 +592,7 @@
             },
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_lemon_half"
                 ],
@@ -611,7 +612,7 @@
         "cookingSteps": [
             {
                 "type": "mix",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_milk",
                     "ingredient_sugar",
@@ -623,7 +624,7 @@
             },
             {
                 "type": "bake",
-                "duration": 1200,
+                "duration": 120,
                 "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
@@ -640,7 +641,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_strawberry"
                 ],
@@ -648,7 +649,7 @@
             },
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_honey",
                     "ingredient_root_beer",
@@ -669,7 +670,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 70,
+                "duration": 7,
                 "ingredientIds": [
                     "ingredient_mushroom",
                     "ingredient_onion_half",
@@ -679,7 +680,7 @@
             },
             {
                 "type": "boil",
-                "duration": 400,
+                "duration": 40,
                 "ingredientIds": [
                     "ingredient_egg"
                 ],
@@ -698,7 +699,7 @@
         "cookingSteps": [
             {
                 "type": "fry",
-                "duration": 400,
+                "duration": 40,
                 "ingredientIds": [
                     "ingredient_rice",
                     "ingredient_egg",
@@ -708,7 +709,7 @@
             },
             {
                 "type": "mix",
-                "duration": 30,
+                "duration": 3,
                 "ingredientIds": [
                     "ingredient_salt_pepper"
                 ],
@@ -727,7 +728,7 @@
         "cookingSteps": [
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_lemon_half",
                     "ingredient_salt_pepper",
@@ -737,7 +738,7 @@
             },
             {
                 "type": "grill",
-                "duration": 900,
+                "duration": 90,
                 "ingredientIds": [
                     "ingredient_fish_fillet"
                 ],
@@ -758,7 +759,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_carrot",
                     "ingredient_potato"
@@ -767,7 +768,7 @@
             },
             {
                 "type": "mix",
-                "duration": 30,
+                "duration": 3,
                 "ingredientIds": [
                     "ingredient_lemon_half",
                     "ingredient_salt_pepper",
@@ -777,7 +778,7 @@
             },
             {
                 "type": "grill",
-                "duration": 900,
+                "duration": 90,
                 "ingredientIds": [
                     "ingredient_fish_fillet"
                 ],
@@ -785,7 +786,7 @@
             },
             {
                 "type": "bake",
-                "duration": 1200,
+                "duration": 120,
                 "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
@@ -802,7 +803,7 @@
         "cookingSteps": [
             {
                 "type": "mix",
-                "duration": 90,
+                "duration": 9,
                 "ingredientIds": [
                     "ingredient_coffee",
                     "ingredient_chocolate",
@@ -823,7 +824,7 @@
         "cookingSteps": [
             {
                 "type": "grill",
-                "duration": 300,
+                "duration": 30,
                 "ingredientIds": [
                     "ingredient_meat_sausage"
                 ],
@@ -831,7 +832,7 @@
             },
             {
                 "type": "toast",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_hotdog_bun"
                 ],
@@ -839,7 +840,7 @@
             },
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_ketchup"
                 ],
@@ -857,7 +858,7 @@
         "cookingSteps": [
             {
                 "type": "simmer",
-                "duration": 180,
+                "duration": 18,
                 "ingredientIds": [
                     "ingredient_sugar"
                 ],
@@ -865,7 +866,7 @@
             },
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_ice_cream",
                     "ingredient_chocolate"
@@ -882,7 +883,7 @@
         "cookingSteps": [
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_ice_cream"
                 ],
@@ -901,7 +902,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 30,
+                "duration": 3,
                 "ingredientIds": [
                     "ingredient_onion_half"
                 ],
@@ -909,7 +910,7 @@
             },
             {
                 "type": "grill",
-                "duration": 700,
+                "duration": 70,
                 "ingredientIds": [
                     "ingredient_meat_leg_4"
                 ],
@@ -917,7 +918,7 @@
             },
             {
                 "type": "bake",
-                "duration": 1000,
+                "duration": 100,
                 "ingredientIds": [
                     "ingredient_potato"
                 ],
@@ -925,7 +926,7 @@
             },
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_salt_pepper"
                 ],
@@ -944,7 +945,7 @@
         "cookingSteps": [
             {
                 "type": "grill",
-                "duration": 400,
+                "duration": 40,
                 "ingredientIds": [
                     "ingredient_meat_sausage",
                     "ingredient_meat_fat_lard"
@@ -953,7 +954,7 @@
             },
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_bread",
                     "ingredient_salt_pepper",
@@ -974,7 +975,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 270,
+                "duration": 27,
                 "ingredientIds": [
                     "ingredient_meat",
                     "ingredient_carrot",
@@ -985,7 +986,7 @@
             },
             {
                 "type": "boil",
-                "duration": 2000,
+                "duration": 200,
                 "ingredientIds": [],
                 "equipmentId": "equipment_pot"
             }
@@ -1001,7 +1002,7 @@
         "cookingSteps": [
             {
                 "type": "mix",
-                "duration": 90,
+                "duration": 9,
                 "ingredientIds": [
                     "ingredient_milk",
                     "ingredient_chocolate",
@@ -1022,7 +1023,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 30,
+                "duration": 3,
                 "ingredientIds": [
                     "ingredient_cookie"
                 ],
@@ -1030,7 +1031,7 @@
             },
             {
                 "type": "mix",
-                "duration": 100,
+                "duration": 10,
                 "ingredientIds": [
                     "ingredient_milk",
                     "ingredient_chocolate",
@@ -1051,7 +1052,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 120,
+                "duration": 12,
                 "ingredientIds": [
                     "ingredient_apple"
                 ],
@@ -1059,7 +1060,7 @@
             },
             {
                 "type": "mix",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_honey",
                     "ingredient_flour",
@@ -1069,7 +1070,7 @@
             },
             {
                 "type": "bake",
-                "duration": 2400,
+                "duration": 200,
                 "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
@@ -1086,7 +1087,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_tomato",
                     "ingredient_mushroom"
@@ -1095,7 +1096,7 @@
             },
             {
                 "type": "mix",
-                "duration": 30,
+                "duration": 3,
                 "ingredientIds": [
                     "ingredient_cheese_cut"
                 ],
@@ -1103,7 +1104,7 @@
             },
             {
                 "type": "bake",
-                "duration": 1000,
+                "duration": 100,
                 "ingredientIds": [
                     "ingredient_bread"
                 ],
@@ -1121,7 +1122,7 @@
         "cookingSteps": [
             {
                 "type": "mix",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_milk",
                     "ingredient_sugar",
@@ -1131,7 +1132,7 @@
             },
             {
                 "type": "freeze",
-                "duration": 1800,
+                "duration": 180,
                 "ingredientIds": [],
                 "equipmentId": "equipment_freezer"
             }
@@ -1147,7 +1148,7 @@
         "cookingSteps": [
             {
                 "type": "bake",
-                "duration": 600,
+                "duration": 60,
                 "ingredientIds": [
                     "ingredient_meat_steak_2",
                     "ingredient_bacon_raw"
@@ -1156,7 +1157,7 @@
             },
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_salt_pepper"
                 ],
@@ -1176,7 +1177,7 @@
         "cookingSteps": [
             {
                 "type": "simmer",
-                "duration": 600,
+                "duration": 60,
                 "ingredientIds": [
                     "ingredient_milk",
                     "ingredient_sugar",
@@ -1188,7 +1189,7 @@
             },
             {
                 "type": "freeze",
-                "duration": 1800,
+                "duration": 180,
                 "ingredientIds": [],
                 "equipmentId": "equipment_freezer"
             }
@@ -1206,7 +1207,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_raspberry"
                 ],
@@ -1214,7 +1215,7 @@
             },
             {
                 "type": "simmer",
-                "duration": 700,
+                "duration": 70,
                 "ingredientIds": [
                     "ingredient_milk",
                     "ingredient_sugar",
@@ -1234,7 +1235,7 @@
         "cookingSteps": [
             {
                 "type": "bake",
-                "duration": 2000,
+                "duration": 200,
                 "ingredientIds": [
                     "ingredient_meat_ribs"
                 ],
@@ -1242,7 +1243,7 @@
             },
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_honey"
                 ],
@@ -1260,7 +1261,7 @@
         "cookingSteps": [
             {
                 "type": "mix",
-                "duration": 120,
+                "duration": 12,
                 "ingredientIds": [
                     "ingredient_butter",
                     "ingredient_flour",
@@ -1270,7 +1271,7 @@
             },
             {
                 "type": "bake",
-                "duration": 1200,
+                "duration": 120,
                 "ingredientIds": [],
                 "equipmentId": "equipment_oven"
             }
@@ -1287,7 +1288,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 80,
+                "duration": 8,
                 "ingredientIds": [
                     "ingredient_avocado_half",
                     "ingredient_cucumber"
@@ -1296,7 +1297,7 @@
             },
             {
                 "type": "mix",
-                "duration": 30,
+                "duration": 3,
                 "ingredientIds": [
                     "ingredient_lemon_half"
                 ],
@@ -1304,7 +1305,7 @@
             },
             {
                 "type": "grill",
-                "duration": 700,
+                "duration": 70,
                 "ingredientIds": [
                     "ingredient_fish_fillet"
                 ],
@@ -1325,7 +1326,7 @@
         "cookingSteps": [
             {
                 "type": "toast",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_bread"
                 ],
@@ -1333,7 +1334,7 @@
             },
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_meat",
                     "ingredient_cheese_cut",
@@ -1355,7 +1356,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 80,
+                "duration": 8,
                 "ingredientIds": [
                     "ingredient_onion_half",
                     "ingredient_tomato_slice"
@@ -1364,7 +1365,7 @@
             },
             {
                 "type": "grill",
-                "duration": 600,
+                "duration": 60,
                 "ingredientIds": [
                     "ingredient_meat"
                 ],
@@ -1382,7 +1383,7 @@
         "cookingSteps": [
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_cola",
                     "ingredient_honey",
@@ -1402,7 +1403,7 @@
         "cookingSteps": [
             {
                 "type": "grill",
-                "duration": 500,
+                "duration": 50,
                 "ingredientIds": [
                     "ingredient_meat_steak",
                     "ingredient_butter"
@@ -1411,7 +1412,7 @@
             },
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_salt_pepper"
                 ],
@@ -1430,7 +1431,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_cabbage"
                 ],
@@ -1438,7 +1439,7 @@
             },
             {
                 "type": "grill",
-                "duration": 500,
+                "duration": 50,
                 "ingredientIds": [
                     "ingredient_meat_steak",
                     "ingredient_butter"
@@ -1447,7 +1448,7 @@
             },
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_salt_pepper"
                 ],
@@ -1467,7 +1468,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 80,
+                "duration": 8,
                 "ingredientIds": [
                     "ingredient_tomato",
                     "ingredient_cabbage"
@@ -1476,7 +1477,7 @@
             },
             {
                 "type": "grill",
-                "duration": 500,
+                "duration": 50,
                 "ingredientIds": [
                     "ingredient_meat_steak",
                     "ingredient_butter"
@@ -1485,7 +1486,7 @@
             },
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_salt_pepper"
                 ],
@@ -1504,7 +1505,7 @@
         "cookingSteps": [
             {
                 "type": "mix",
-                "duration": 60,
+                "duration": 6,
                 "ingredientIds": [
                     "ingredient_sugar",
                     "ingredient_flour"
@@ -1513,7 +1514,7 @@
             },
             {
                 "type": "grill",
-                "duration": 500,
+                "duration": 50,
                 "ingredientIds": [
                     "ingredient_meat"
                 ],
@@ -1521,7 +1522,7 @@
             },
             {
                 "type": "boil",
-                "duration": 900,
+                "duration": 90,
                 "ingredientIds": [
                     "ingredient_bread"
                 ],
@@ -1539,7 +1540,7 @@
         "cookingSteps": [
             {
                 "type": "boil",
-                "duration": 180,
+                "duration": 18,
                 "ingredientIds": [
                     "ingredient_egg"
                 ],
@@ -1547,7 +1548,7 @@
             },
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_rice_ball",
                     "ingredient_salt_pepper"
@@ -1566,7 +1567,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 120,
+                "duration": 12,
                 "ingredientIds": [
                     "ingredient_fish_fillet"
                 ],
@@ -1574,7 +1575,7 @@
             },
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_rice_ball",
                     "ingredient_avocado_half"
@@ -1595,7 +1596,7 @@
         "cookingSteps": [
             {
                 "type": "chop",
-                "duration": 80,
+                "duration": 8,
                 "ingredientIds": [
                     "ingredient_tomato_slice",
                     "ingredient_cabbage"
@@ -1604,7 +1605,7 @@
             },
             {
                 "type": "grill",
-                "duration": 300,
+                "duration": 30,
                 "ingredientIds": [
                     "ingredient_meat"
                 ],
@@ -1612,7 +1613,7 @@
             },
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_bread",
                     "ingredient_cheese_cut"
@@ -1630,7 +1631,7 @@
         "cookingSteps": [
             {
                 "type": "boil",
-                "duration": 180,
+                "duration": 18,
                 "ingredientIds": [
                     "ingredient_lemon_half",
                     "ingredient_honey"
@@ -1649,7 +1650,7 @@
         "cookingSteps": [
             {
                 "type": "bake",
-                "duration": 2000,
+                "duration": 200,
                 "ingredientIds": [
                     "ingredient_chicken_breast",
                     "ingredient_butter"
@@ -1658,7 +1659,7 @@
             },
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_salt_pepper"
                 ],
@@ -1678,7 +1679,7 @@
         "cookingSteps": [
             {
                 "type": "mix",
-                "duration": 40,
+                "duration": 4,
                 "ingredientIds": [
                     "ingredient_flour",
                     "ingredient_egg",
@@ -1689,13 +1690,13 @@
             },
             {
                 "type": "toast",
-                "duration": 180,
+                "duration": 18,
                 "ingredientIds": [],
                 "equipmentId": "equipment_toaster"
             },
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_honey"
                 ],
@@ -1716,7 +1717,7 @@
         "cookingSteps": [
             {
                 "type": "mix",
-                "duration": 120,
+                "duration": 12,
                 "ingredientIds": [
                     "ingredient_flour",
                     "ingredient_egg",
@@ -1727,13 +1728,13 @@
             },
             {
                 "type": "toast",
-                "duration": 180,
+                "duration": 18,
                 "ingredientIds": [],
                 "equipmentId": "equipment_toaster"
             },
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_honey",
                     "ingredient_ketchup"
@@ -1751,7 +1752,7 @@
         "cookingSteps": [
             {
                 "type": "bake",
-                "duration": 2000,
+                "duration": 200,
                 "ingredientIds": [
                     "ingredient_meat_leg_3"
                 ],
@@ -1759,7 +1760,7 @@
             },
             {
                 "type": "mix",
-                "duration": 20,
+                "duration": 2,
                 "ingredientIds": [
                     "ingredient_salt_pepper"
                 ],

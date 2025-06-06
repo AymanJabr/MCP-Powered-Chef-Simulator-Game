@@ -212,7 +212,7 @@ export default function ManageDishesModal({ initialSelectedOrderId, isOpen, onCl
                                                         Step {index + 1}: {step.type.replace(/_/g, ' ')}
                                                     </h5>
                                                     <div className="text-xs space-y-0.5 text-sky-600 mb-2">
-                                                        <p><IconHourglassHigh size={14} className="inline mr-1 text-yellow-500" />Duration: {step.duration / 1000}s</p>
+                                                        <p><IconHourglassHigh size={14} className="inline mr-1 text-yellow-500" />Duration: {step.duration}s</p>
                                                         <p>
                                                             <IconToolsKitchen2 size={14} className="inline mr-1 text-amber-500" />
                                                             Equip: {generalEquipmentInfo?.name || stationDetails?.id || 'Unknown'}
