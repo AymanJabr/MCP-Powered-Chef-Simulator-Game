@@ -13,7 +13,7 @@ import DiningArea from './restaurant/DiningArea'
 import KitchenArea from './restaurant/KitchenArea'
 import ControlsArea from './restaurant/ControlsArea'
 import SelectionInfoPanel from './restaurant/SelectionInfoPanel'
-import DishPreparationModal from './restaurant/DishPreparationModal'
+import ManageDishesModal from './restaurant/ManageDishesModal'
 import { calculateMaxOrderableDifficulty } from '@/lib/gameLoop'
 
 // Define specific data payloads for each selection type
@@ -91,8 +91,8 @@ export default function RestaurantView() {
     const [selection, setSelection] = useState<GameSelection>({ type: null, id: null })
     const [movingCustomers, setMovingCustomers] = useState<Record<string, MovingEntity>>({})
     const [showInventoryPanel, setShowInventoryPanel] = useState(false)
-    const [isDishPrepModalOpen, setIsDishPrepModalOpen] = useState(false)
-    const [orderForPreparation, setOrderForPreparation] = useState<Order | null>(null)
+    const [isManageDishesModalOpen, setIsManageDishesModalOpen] = useState(false)
+    const [orderToFocusInModal, setOrderToFocusInModal] = useState<string | null>(null)
     const initializedPosition = useRef(false);
 
     useEffect(() => {
@@ -155,12 +155,7 @@ export default function RestaurantView() {
         moveChefTo({ x: AREAS.KITCHEN.x + AREAS.KITCHEN.width / 2, y: AREAS.KITCHEN.y + AREAS.KITCHEN.height / 2 }, 'kitchen');
     }
 
-    const handleOpenDishPreparationModal = (orderToPrepare: Order) => {
-        setOrderForPreparation(orderToPrepare);
-        setIsDishPrepModalOpen(true);
-    };
-
-    const initiateTakeOrderAndPrepare = (tableId: string) => {
+    const initiateTakeOrderAndOpenManageModal = (tableId: string) => {
         const customer = restaurant.activeCustomers.find(c => c.tableId === tableId && c.status === 'seated' && !c.order);
         if (!customer) {
             console.warn("No customer ready to order at table:", tableId);
@@ -184,9 +179,8 @@ export default function RestaurantView() {
         const result = restaurantActions.takeOrder(tableId, randomDish.id);
         if (result.success && result.order) {
             console.log(`Order taken for ${result.order.dish.name}, preparing directly.`);
-            setOrderForPreparation(result.order);
-            setIsDishPrepModalOpen(true);
-            setSelection({ type: 'order', id: result.order.id });
+            setOrderToFocusInModal(result.order.id);
+            setIsManageDishesModalOpen(true);
             moveChefTo({ x: AREAS.KITCHEN.x + 10, y: AREAS.KITCHEN.y + 10 }, 'kitchen');
         } else {
             console.error("Failed to take order:", result.message);
@@ -239,13 +233,9 @@ export default function RestaurantView() {
                 onOpenInventory={() => setShowInventoryPanel(true)}
                 controlsAreaStyle={AREAS.CONTROLS}
                 kitchenAreaStyle={AREAS.KITCHEN}
-                selectedOrder={orderForPreparation}
-                onOpenDishPreparation={() => {
-                    if (orderForPreparation) {
-                        setIsDishPrepModalOpen(true);
-                    } else {
-                        console.warn("Attempted to open dish prep modal without an order for preparation.");
-                    }
+                onOpenManageDishesModal={() => {
+                    setOrderToFocusInModal(null);
+                    setIsManageDishesModalOpen(true);
                 }}
             />
 
@@ -254,7 +244,7 @@ export default function RestaurantView() {
                 <SelectionInfoPanel
                     selection={selection}
                     onClose={() => setSelection({ type: null, id: null })}
-                    onTakeOrderAndPrepare={initiateTakeOrderAndPrepare}
+                    onTakeOrderAndPrepare={initiateTakeOrderAndOpenManageModal}
                 />
             )}
 
@@ -266,13 +256,14 @@ export default function RestaurantView() {
                 />
             )}
 
-            {/* Dish Preparation Modal */}
-            {isDishPrepModalOpen && (
-                <DishPreparationModal
-                    order={orderForPreparation}
-                    isOpen={isDishPrepModalOpen}
+            {/* Manage Dishes Modal */}
+            {isManageDishesModalOpen && (
+                <ManageDishesModal
+                    initialSelectedOrderId={orderToFocusInModal}
+                    isOpen={isManageDishesModalOpen}
                     onClose={() => {
-                        setIsDishPrepModalOpen(false);
+                        setIsManageDishesModalOpen(false);
+                        setOrderToFocusInModal(null);
                     }}
                 />
             )}

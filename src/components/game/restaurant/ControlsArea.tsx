@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { IconShoppingCart, IconBook, IconToolsKitchen2 } from '@tabler/icons-react'
+import { IconShoppingCart, IconBook, IconToolsKitchen2, IconListDetails } from '@tabler/icons-react'
 import MenuModal from './MenuModal'
 import { Order } from '@/types/models'
 
@@ -26,16 +26,14 @@ interface ControlsAreaProps {
         width: number;
         height: number;
     };
-    selectedOrder: Order | null;
-    onOpenDishPreparation: () => void;
+    onOpenManageDishesModal: () => void;
 }
 
 export default function ControlsArea({
     onOpenInventory,
     kitchenAreaStyle,
     controlsAreaStyle,
-    selectedOrder,
-    onOpenDishPreparation
+    onOpenManageDishesModal
 }: ControlsAreaProps) {
     const [isMenuModalOpen, setIsMenuModalOpen] = useState(false)
 
@@ -43,12 +41,8 @@ export default function ControlsArea({
         setIsMenuModalOpen(!isMenuModalOpen)
     }
 
-    const canPrepareOrder = selectedOrder && selectedOrder.status === 'received';
-
-    const handlePrepareClick = () => {
-        if (canPrepareOrder) {
-            onOpenDishPreparation();
-        }
+    const handleManageDishesClick = () => {
+        onOpenManageDishesModal();
     };
 
     return (
@@ -81,13 +75,12 @@ export default function ControlsArea({
                     </button>
 
                     <button
-                        onClick={handlePrepareClick}
-                        disabled={!canPrepareOrder}
-                        className="flex items-center justify-center px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white rounded-md shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-opacity-50 min-w-[180px] disabled:bg-slate-400 disabled:cursor-not-allowed"
-                        title={canPrepareOrder ? `Prepare: ${selectedOrder?.dish.name}` : 'No order ready for preparation'}
+                        onClick={handleManageDishesClick}
+                        className="flex items-center justify-center px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white rounded-md shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-opacity-50 min-w-[180px]"
+                        title="Manage active dishes and kitchen tasks"
                     >
-                        <IconToolsKitchen2 size={20} className="mr-2" />
-                        Prepare Dish
+                        <IconListDetails size={20} className="mr-2" />
+                        Manage Dishes
                     </button>
                 </div>
             </div>
