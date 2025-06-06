@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
-import { PrepStation, PreparationTask, CookingStation, CookingProcess, PlatingStation, PlatingTask } from '@/types/models'
+import { PrepStation, PreparationTask, CookingStation, CookingProcess, PlatingStation, PlatingTask, CookingStep } from '@/types/models'
+import { useRestaurantStore } from './restaurantStore'
 
 // Basic types for kitchen elements used in preparation system
 export interface KitchenState {
@@ -21,6 +22,7 @@ export interface KitchenState {
         addItemToPlate: (platingId: string, itemId: string) => void
         addGarnishToPlate: (platingId: string, garnishId: string) => void
         completePlating: (platingId: string, qualityScore: number) => void
+        assignCookingStep: (orderId: string, step: CookingStep, stepIndex: number) => { success: boolean; message: string };
     }
 }
 
@@ -45,6 +47,8 @@ export const useKitchenStore = create<KitchenState>()(
             {
                 id: 'cooking_demo_001',
                 stationId: 'cook_1',
+                orderId: 'demo_order_1',
+                stepIndex: 0,
                 ingredients: ['beef_patty'],
                 type: 'fry',
                 startTime: Date.now() - 60000, // Started 1 minute ago
@@ -55,6 +59,8 @@ export const useKitchenStore = create<KitchenState>()(
             {
                 id: 'cooking_demo_002',
                 stationId: 'cook_3',
+                orderId: 'demo_order_2',
+                stepIndex: 1,
                 ingredients: ['chicken_breast'],
                 type: 'grill',
                 startTime: Date.now() - 90000, // Started 1.5 minutes ago
@@ -69,6 +75,67 @@ export const useKitchenStore = create<KitchenState>()(
         ],
         activePlating: {},
         actions: {
+            assignCookingStep: (orderId, step, stepIndex) => {
+                const { restaurant, actions: restaurantActions } = useRestaurantStore.getState();
+
+                // 1. Check Ingredient Availability
+                for (const ingId of step.ingredientIds) {
+                    const inventoryItem = restaurant.inventory.find(item => item.id === ingId);
+                    if (!inventoryItem || inventoryItem.quantity <= 0) {
+                        return { success: false, message: `Not enough ${inventoryItem?.name || ingId} in stock.` };
+                    }
+                }
+
+                // 2. Check Equipment Availability
+                const equipment = restaurant.equipment.find(eq => eq.id === step.equipmentId);
+                if (!equipment) {
+                    return { success: false, message: 'Required equipment not found.' };
+                }
+                if (equipment.status === 'broken') {
+                    return { success: false, message: `${equipment.name} is broken.` };
+                }
+
+                const activeProcessesOnEquipment = useKitchenStore.getState().activeCookingProcesses.filter(
+                    p => p.stationId === step.equipmentId
+                ).length;
+
+                if (activeProcessesOnEquipment >= equipment.capacity) {
+                    return { success: false, message: `${equipment.name} is at full capacity.` };
+                }
+
+                // 3. If all checks pass, proceed
+                // Consume ingredients
+                step.ingredientIds.forEach(ingId => {
+                    restaurantActions.updateIngredientQuantity(ingId, -1);
+                });
+
+                // Create and start cooking process
+                const processId = `process_${orderId}_${stepIndex}`;
+                const optimalTimeMs = step.duration * 1000; // Duration is now directly in seconds
+
+                set(state => {
+                    state.activeCookingProcesses.push({
+                        id: processId,
+                        stationId: step.equipmentId,
+                        orderId: orderId,
+                        stepIndex: stepIndex,
+                        ingredients: step.ingredientIds,
+                        type: step.type,
+                        startTime: Date.now(),
+                        optimalCookingTime: optimalTimeMs,
+                        progress: 0,
+                        status: 'in_progress',
+                    });
+                });
+
+                // Apply wear and tear to equipment
+                restaurantActions.useEquipment(step.equipmentId);
+
+                // Update equipment status to 'in_use'
+                restaurantActions.updateEquipmentStatus(step.equipmentId, 'in_use');
+
+                return { success: true, message: 'Cooking started!' };
+            },
             addPrepStation: (station) => set((state) => {
                 state.prepStations.push(station)
             }),
@@ -117,6 +184,16 @@ export const useKitchenStore = create<KitchenState>()(
                     proc.qualityScore = qualityScore
                     const station = state.cookingStations.find((s) => s.id === proc.stationId)
                     if (station) station.status = 'idle'
+
+                    // Free up capacity on the main equipment object
+                    const { restaurant, actions: restaurantActions } = useRestaurantStore.getState();
+                    const activeProcessesOnEquipment = state.activeCookingProcesses.filter(
+                        p => p.stationId === proc.stationId && p.status === 'in_progress'
+                    ).length;
+                    const equipment = restaurant.equipment.find(eq => eq.id === proc.stationId);
+                    if (equipment && equipment.status !== 'broken' && activeProcessesOnEquipment === 0) {
+                        restaurantActions.updateEquipmentStatus(proc.stationId, 'idle');
+                    }
                 }
             }),
             startPlating: (stationId, orderId, platingId) => set((state) => {

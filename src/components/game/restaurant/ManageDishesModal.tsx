@@ -28,6 +28,12 @@ export default function ManageDishesModal({ initialSelectedOrderId, isOpen, onCl
     const [focusedTaskId, setFocusedTaskId] = useState<string | null>(initialSelectedOrderId || null);
     const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null)
     const [allocatedIngredients, setAllocatedIngredients] = useState<Record<string, number>>({});
+    const [feedbackMessage, setFeedbackMessage] = useState<{ text: string, type: 'success' | 'error' } | null>(null);
+
+    const showFeedback = (text: string, type: 'success' | 'error') => {
+        setFeedbackMessage({ text, type });
+        setTimeout(() => setFeedbackMessage(null), 3000); // Hide after 3 seconds
+    };
 
     // When focusedTaskId changes, try to find its recipe
     useEffect(() => {
@@ -128,6 +134,12 @@ export default function ManageDishesModal({ initialSelectedOrderId, isOpen, onCl
                         </button>
                     </div>
 
+                    {feedbackMessage && (
+                        <div className={`p-2 mb-3 text-sm rounded-md text-center ${feedbackMessage.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                            {feedbackMessage.text}
+                        </div>
+                    )}
+
                     <div className="flex-grow flex space-x-4 overflow-hidden">
                         {/* Left Pane: List of Active Orders/Tasks */}
                         <div className="w-1/3 border-r border-sky-200 pr-4 manage-dishes-scroll-area overflow-y-auto">
@@ -206,6 +218,12 @@ export default function ManageDishesModal({ initialSelectedOrderId, isOpen, onCl
                                             let stationDetails: PrepStation | CookingStation | undefined =
                                                 prepStations.find(s => s.id === step.equipmentId) ||
                                                 cookingStations.find(s => s.id === step.equipmentId);
+
+                                            const processId = `process_${focusedOrder.id}_${index}`;
+                                            const activeProcess = activeCookingProcesses.find(p => p.id === processId);
+
+                                            const isPreviousStepComplete = index === 0 || activeCookingProcesses.find(p => p.id === `process_${focusedOrder.id}_${index - 1}`)?.status === 'completed';
+
                                             return (
                                                 <div key={index} className="bg-white p-3 rounded-lg mb-2.5 shadow-sm border border-sky-200">
                                                     <h5 className="text-sm font-semibold text-sky-700 mb-1.5 capitalize">
@@ -236,9 +254,33 @@ export default function ManageDishesModal({ initialSelectedOrderId, isOpen, onCl
                                                         </div>
                                                     )}
                                                     <div className="mt-2 text-right">
-                                                        <button className="px-2.5 py-1 bg-sky-600 hover:bg-sky-700 text-white text-xs rounded shadow-sm">
-                                                            Assign (TODO)
-                                                        </button>
+                                                        {!activeProcess && (
+                                                            <button
+                                                                onClick={() => {
+                                                                    const result = kitchenActions.assignCookingStep(focusedOrder.id, step, index);
+                                                                    showFeedback(result.message, result.success ? 'success' : 'error');
+                                                                }}
+                                                                disabled={!isPreviousStepComplete}
+                                                                className="px-2.5 py-1 bg-sky-600 hover:bg-sky-700 text-white text-xs rounded shadow-sm disabled:bg-slate-400 disabled:cursor-not-allowed"
+                                                                title={!isPreviousStepComplete ? "Complete previous step first" : "Assign this step"}
+                                                            >
+                                                                Assign
+                                                            </button>
+                                                        )}
+                                                        {activeProcess && activeProcess.status === 'in_progress' && (
+                                                            <div className="w-full bg-slate-200 rounded-full h-2.5">
+                                                                <div
+                                                                    className="bg-green-500 h-2.5 rounded-full"
+                                                                    style={{ width: `${activeProcess.progress}%` }}
+                                                                ></div>
+                                                            </div>
+                                                        )}
+                                                        {activeProcess && activeProcess.status === 'completed' && (
+                                                            <p className="text-xs text-green-600 font-semibold flex items-center justify-end">
+                                                                <IconCircleCheck size={14} className="mr-1" />
+                                                                Step Complete
+                                                            </p>
+                                                        )}
                                                     </div>
                                                 </div>
                                             );

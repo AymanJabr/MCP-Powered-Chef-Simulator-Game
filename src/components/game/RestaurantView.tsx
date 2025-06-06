@@ -15,6 +15,7 @@ import ControlsArea from './restaurant/ControlsArea'
 import SelectionInfoPanel from './restaurant/SelectionInfoPanel'
 import ManageDishesModal from './restaurant/ManageDishesModal'
 import { calculateMaxOrderableDifficulty } from '@/lib/gameLoop'
+import useGameLoop from '@/hooks/useGameLoop'
 
 // Define specific data payloads for each selection type
 interface CustomerSelectionData {
@@ -94,6 +95,9 @@ export default function RestaurantView() {
     const [isManageDishesModalOpen, setIsManageDishesModalOpen] = useState(false)
     const [orderToFocusInModal, setOrderToFocusInModal] = useState<string | null>(null)
     const initializedPosition = useRef(false);
+
+    // Initialize the game loop
+    useGameLoop();
 
     useEffect(() => {
         if (!initializedPosition.current) {

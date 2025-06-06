@@ -662,5 +662,13 @@
         "quantity": 10,
         "cost": 0.45,
         "image": "/hotdog_bun.png"
+    },
+    {
+        "id": "ingredient_milk",
+        "name": "Milk",
+        "category": "dairy",
+        "quantity": 10,
+        "cost":4,
+        "image": "/milk.png"
     }
 ]

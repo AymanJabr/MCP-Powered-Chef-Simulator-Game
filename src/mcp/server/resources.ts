@@ -26,7 +26,6 @@ export const resources = [
             const { restaurant } = useRestaurantStore.getState()
             return {
                 funds: restaurant.funds,
-                reputation: restaurant.reputation,
                 queue: restaurant.customerQueue.length,
                 activeCustomers: restaurant.activeCustomers.map((c) => ({
                     id: c.id,
@@ -69,8 +68,7 @@ export const resources = [
             return menu.map((dish: Dish) => ({
                 id: dish.id,
                 name: dish.name,
-                cookingDifficulty: dish.cookingDifficulty,
-                unlockDifficulty: dish.unlockDifficulty ?? 1
+                cookingDifficulty: dish.cookingDifficulty
             }))
         }
     },

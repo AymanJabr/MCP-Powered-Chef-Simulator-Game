@@ -93,7 +93,7 @@
         "basePrice": 8.00,
         "recipeId": "recipe_cheese_potato_soup",
         "cookingDifficulty": 2,
-        "image": "/assets/images/dishes/cheese_potato_soup.png"
+        "image": "/assets/images/dishes/cheese_potato_tofu_soup.png"
     },
     {
         "id": "dish_chocolate_milk_shake_root_beer",

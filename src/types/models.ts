@@ -86,7 +86,6 @@ export interface Equipment {
     name: string
     status: 'idle' | 'in_use' | 'broken'
     capacity: number
-    efficiency: number
     reliability: number
     image?: string;
 }
@@ -366,6 +365,8 @@ export type CookingProcessStatus = 'in_progress' | 'completed' | 'failed'
 export interface CookingProcess {
     id: string
     stationId: string
+    orderId: string
+    stepIndex: number
     ingredients: string[]
     type: CookingActionType
     startTime: number

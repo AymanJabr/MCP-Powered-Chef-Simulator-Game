@@ -26,6 +26,7 @@ interface RestaurantState {
         initializeRecipes: () => Promise<void>;
         resetRestaurantState: () => void;
         incrementLostCustomers: () => void;
+        useEquipment: (equipmentId: string) => void;
     }
 }
 
@@ -214,6 +215,21 @@ export const useRestaurantStore = create<RestaurantState>()(
                 )
                 if (equipmentIndex !== -1) {
                     state.restaurant.equipment[equipmentIndex].status = status
+                }
+            }),
+
+            useEquipment: (equipmentId: string) => set((state) => {
+                const equipment = state.restaurant.equipment.find(e => e.id === equipmentId);
+                if (equipment) {
+                    // Decrease reliability by a small amount
+                    equipment.reliability -= 0.1;
+
+                    // If reliability hits 0, the equipment breaks
+                    if (equipment.reliability <= 0) {
+                        equipment.reliability = 0; // Prevent it from going negative
+                        equipment.status = 'broken';
+                        console.warn(`${equipment.name} has broken!`);
+                    }
                 }
             }),
 
