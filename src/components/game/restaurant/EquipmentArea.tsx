@@ -2,6 +2,7 @@
 
 import { Equipment, CookingProcess } from '@/types/models';
 import { useRestaurantStore } from '@/state/game/restaurantStore';
+import { useKitchenStore } from '@/state/game/kitchenStore';
 import { IconStack2, IconTool } from '@tabler/icons-react';
 import Image from 'next/image';
 
@@ -12,10 +13,9 @@ interface AreaStyle {
     height: number;
 }
 
-interface KitchenAreaProps {
-    activeCookingProcesses: CookingProcess[];
+interface EquipmentAreaProps {
     onStationClick: (id: string, type: 'prep' | 'cooking' | 'plating') => void;
-    kitchenAreaStyle: AreaStyle;
+    equipmentAreaStyle: AreaStyle;
 }
 
 const inferStationType = (equipmentId: string): 'prep' | 'cooking' | 'plating' => {
@@ -29,13 +29,20 @@ const inferStationType = (equipmentId: string): 'prep' | 'cooking' | 'plating' =
     return 'cooking';
 };
 
-export default function KitchenArea({
-    activeCookingProcesses,
+export default function EquipmentArea({
     onStationClick,
-    kitchenAreaStyle
-}: KitchenAreaProps) {
+    equipmentAreaStyle
+}: EquipmentAreaProps) {
     const { restaurant } = useRestaurantStore();
+    const { activeCookingProcesses } = useKitchenStore();
     const allEquipment = restaurant.equipment;
+
+    const stationUsage = activeCookingProcesses.reduce((acc, process) => {
+        if (process.status === 'in_progress') {
+            acc[process.stationId] = (acc[process.stationId] || 0) + 1;
+        }
+        return acc;
+    }, {} as Record<string, number>);
 
     const scrollbarStyles = `
         .kitchen-scroll-area::-webkit-scrollbar {
@@ -59,10 +66,10 @@ export default function KitchenArea({
             <div
                 className="absolute bg-orange-100 border border-orange-300 p-3 rounded-lg shadow-md flex flex-col"
                 style={{
-                    left: `${kitchenAreaStyle.x}%`,
-                    top: `${kitchenAreaStyle.y}%`,
-                    width: `${kitchenAreaStyle.width}%`,
-                    height: `${kitchenAreaStyle.height}%`,
+                    left: `${equipmentAreaStyle.x}%`,
+                    top: `${equipmentAreaStyle.y}%`,
+                    width: `${equipmentAreaStyle.width}%`,
+                    height: `${equipmentAreaStyle.height}%`,
                     boxSizing: 'border-box'
                 }}
             >
@@ -74,6 +81,9 @@ export default function KitchenArea({
                     )}
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3">
                         {allEquipment.map((item: Equipment) => {
+                            const usage = stationUsage[item.id] || 0;
+                            const availableCapacity = item.capacity - usage;
+
                             const process = activeCookingProcesses.find(p => p.stationId === item.id);
                             const stationType = inferStationType(item.id);
 
@@ -111,12 +121,12 @@ export default function KitchenArea({
                                         <p className="text-xs font-semibold text-orange-800 truncate text-left" title={item.name}>
                                             {item.name}
                                         </p>
-                                        <div className="flex items-center text-2xs sm:text-xs text-gray-700" title={`Capacity: ${isBroken ? 0 : item.capacity}`}>
+                                        <div className="flex items-center text-2xs sm:text-xs text-gray-700" title={`Capacity: ${isBroken ? 0 : availableCapacity}/${item.capacity}`}>
                                             {needsAttention && !isBroken && (
                                                 <IconTool size={14} className="mr-0.5 text-yellow-600" title="Needs attention" />
                                             )}
                                             <IconStack2 size={14} className="mr-0.5 text-blue-500" />
-                                            <span>{isBroken ? 0 : item.capacity}</span>
+                                            <span>{isBroken ? 0 : availableCapacity}</span>
                                         </div>
                                     </div>
                                     <div className={`w-full mb-1 flex items-center justify-center rounded overflow-hidden ${isBroken ? 'opacity-50' : ''}`} style={{ maxHeight: '9rem' }}>
@@ -140,12 +150,17 @@ export default function KitchenArea({
                                         ></div>
                                     </div>
 
-                                    {process && (
+                                    {activeCookingProcesses.some(p => p.stationId === item.id && p.status === 'in_progress') && (
                                         <div className={`w-full mt-auto mb-0.5 px-1 ${isBroken ? 'opacity-50' : ''}`}>
                                             <div className="w-full bg-gray-200 rounded-full h-1.5">
                                                 <div
                                                     className="bg-orange-500 h-1.5 rounded-full transition-all duration-300"
-                                                    style={{ width: `${Math.min(process.progress, 100)}%` }}
+                                                    style={{
+                                                        width: `${Math.min(
+                                                            activeCookingProcesses.find(p => p.stationId === item.id)?.progress || 0,
+                                                            100
+                                                        )}%`
+                                                    }}
                                                 />
                                             </div>
                                         </div>

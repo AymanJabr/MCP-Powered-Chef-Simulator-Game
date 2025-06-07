@@ -182,8 +182,6 @@ export const useKitchenStore = create<KitchenState>()(
                     const proc = state.activeCookingProcesses[procIndex]
                     proc.status = 'completed'
                     proc.qualityScore = qualityScore
-                    const station = state.cookingStations.find((s) => s.id === proc.stationId)
-                    if (station) station.status = 'idle'
 
                     // Free up capacity on the main equipment object
                     const { restaurant, actions: restaurantActions } = useRestaurantStore.getState();

@@ -2,7 +2,6 @@
 
 import { useGameStore } from '@/state/game/gameStore'
 import { useRestaurantStore } from '@/state/game/restaurantStore'
-import { useKitchenStore } from '@/state/game/kitchenStore'
 import { usePlayerStore } from '@/state/player/playerStore'
 import { useState, useEffect, useRef } from 'react'
 import { Position as PlayerStorePosition, Order } from '@/types/models'
@@ -10,12 +9,12 @@ import InventoryPanel from './InventoryPanel'
 import StatusBar from './restaurant/StatusBar'
 import QueueArea from './restaurant/QueueArea'
 import DiningArea from './restaurant/DiningArea'
-import KitchenArea from './restaurant/KitchenArea'
 import ControlsArea from './restaurant/ControlsArea'
 import SelectionInfoPanel from './restaurant/SelectionInfoPanel'
 import ManageDishesModal from './restaurant/ManageDishesModal'
 import { calculateMaxOrderableDifficulty } from '@/lib/gameLoop'
 import useGameLoop from '@/hooks/useGameLoop'
+import EquipmentArea from './restaurant/EquipmentArea'
 
 // Define specific data payloads for each selection type
 interface CustomerSelectionData {
@@ -86,7 +85,6 @@ export const AREAS = {
 export default function RestaurantView() {
     const { game } = useGameStore()
     const { restaurant, actions: restaurantActions } = useRestaurantStore()
-    const kitchen = useKitchenStore()
     const { player, actions: playerActions } = usePlayerStore()
 
     const [selection, setSelection] = useState<GameSelection>({ type: null, id: null })
@@ -225,11 +223,10 @@ export default function RestaurantView() {
                 areaStyle={AREAS.DINING}
             />
 
-            {/* Kitchen Area */}
-            <KitchenArea
-                activeCookingProcesses={kitchen.activeCookingProcesses}
+            {/* Equipment Area */}
+            <EquipmentArea
                 onStationClick={handleStationClick}
-                kitchenAreaStyle={AREAS.KITCHEN}
+                equipmentAreaStyle={AREAS.KITCHEN}
             />
 
             {/* Control Panel */}
