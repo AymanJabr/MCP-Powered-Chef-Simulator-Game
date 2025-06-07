@@ -670,5 +670,30 @@
         "quantity": 10,
         "cost":4,
         "image": "/milk.png"
+    },
+    {
+        "id": "ingredient_ice_cream",
+        "name": "Ice Cream",
+        "category": "dairy",
+        "quantity": 10,
+        "cost": 2.00,
+        "image": "/ice_cream.png"
+    },
+    {
+        "id": "ingredient_meat_sausage",
+        "name": "Sausage",
+        "category": "meat",
+        "quantity": 10,
+        "cost": 2.00,
+        "image": "/meat_sausage.png"
+    },
+    {
+        "id": "ingredient_cola",
+        "name": "Cola",
+        "category": "soda",
+        "quantity": 10,
+        "cost": 1.00,
+        "image": "/cola.png"
     }
+    
 ]

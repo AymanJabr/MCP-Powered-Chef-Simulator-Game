@@ -185,6 +185,19 @@ export const useKitchenStore = create<KitchenState>()(
 
                     // Free up capacity on the main equipment object
                     const { restaurant, actions: restaurantActions } = useRestaurantStore.getState();
+
+                    // Check if all steps for this order are now complete
+                    const orderRecipe = restaurant.allRecipes?.find(r => r.id === restaurant.activeOrders.find(o => o.id === proc.orderId)?.dish.recipeId);
+                    if (orderRecipe) {
+                        const completedStepsForOrder = state.activeCookingProcesses.filter(
+                            p => p.orderId === proc.orderId && p.status === 'completed'
+                        ).length;
+
+                        if (completedStepsForOrder === orderRecipe.cookingSteps.length) {
+                            restaurantActions.updateOrderStatus(proc.orderId, 'plated');
+                        }
+                    }
+
                     const activeProcessesOnEquipment = state.activeCookingProcesses.filter(
                         p => p.stationId === proc.stationId && p.status === 'in_progress'
                     ).length;

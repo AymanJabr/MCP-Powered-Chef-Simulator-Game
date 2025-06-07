@@ -3,7 +3,7 @@
 import { Order, Recipe, Ingredient as IngredientType, CookingStep, Equipment, PrepStation, CookingStation } from '@/types/models'
 import { useRestaurantStore } from '@/state/game/restaurantStore'
 import { useKitchenStore } from '@/state/game/kitchenStore'
-import { IconX, IconToolsKitchen2, IconChefHat, IconCircleCheck, IconCircleDashed, IconHourglassHigh, IconFlame, IconAssembly, IconInfoCircle, IconListDetails } from '@tabler/icons-react'
+import { IconX, IconToolsKitchen2, IconChefHat, IconCircleCheck, IconCircleDashed, IconHourglassHigh, IconFlame, IconAssembly, IconInfoCircle, IconListDetails, IconPaperBag } from '@tabler/icons-react'
 import { useState, useEffect, MouseEvent } from 'react'
 
 // Renamed props for clarity for the new modal
@@ -21,7 +21,7 @@ function isPrepStation(station: PrepStation | CookingStation): station is PrepSt
 
 // Renamed component
 export default function ManageDishesModal({ initialSelectedOrderId, isOpen, onClose }: ManageDishesModalProps) {
-    const { restaurant } = useRestaurantStore()
+    const { restaurant, actions: restaurantActions } = useRestaurantStore()
     const { prepStations, cookingStations, activePreparations, activeCookingProcesses, actions: kitchenActions } = useKitchenStore()
 
     // State for the currently selected/focused order/task ID within this modal
@@ -296,11 +296,31 @@ export default function ManageDishesModal({ initialSelectedOrderId, isOpen, onCl
 
                     <div className="mt-auto pt-4 border-t border-sky-200 flex justify-end">
                         <button
-                            disabled={!focusedOrder || !selectedRecipe} // Basic disable logic
+                            onClick={() => {
+                                if (focusedOrder?.status === 'plated') {
+                                    const result = restaurantActions.serveOrderToCustomer(focusedOrder.id);
+                                    showFeedback(result.message, result.success ? 'success' : 'error');
+                                    if (result.success) {
+                                        // If served, close the modal or clear focus
+                                        onClose();
+                                    }
+                                }
+                            }}
+                            disabled={!focusedOrder || focusedOrder.status !== 'plated'}
                             className="px-5 py-2 sm:px-6 sm:py-2.5 bg-green-600 hover:bg-green-700 text-white rounded-md shadow-sm flex items-center text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+                            title={focusedOrder?.status === 'plated' ? 'Serve this dish to the customer' : 'Dish is not ready to be served'}
                         >
-                            <IconCircleCheck size={20} className="mr-2" />
-                            Mark Focused as Complete (TODO)
+                            {focusedOrder?.status === 'plated' ? (
+                                <>
+                                    <IconPaperBag size={20} className="mr-2" />
+                                    Serve Dish
+                                </>
+                            ) : (
+                                <>
+                                    <IconCircleCheck size={20} className="mr-2" />
+                                    Mark as Complete (Not Ready)
+                                </>
+                            )}
                         </button>
                     </div>
                 </div>

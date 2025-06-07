@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import {
     Player, PlayerAction, Position, SavedCommand, PlayerActionType,
-    PlayerDirection, ChefAnimationType
+    PlayerDirection, ChefAnimationType, ChefSpriteConfig
 } from '@/types/models'
 import { chefSpriteConfig } from '@/config/chefAnimations'
 
@@ -25,6 +25,9 @@ interface PlayerState {
         _updateAnimationState: () => void
         setPlayerDirection: (direction: PlayerDirection) => void
         setCarryingItem: (isCarrying: boolean) => void
+        setDirection: (direction: PlayerDirection) => void
+        setAnimationState: (animationState: ChefAnimationType) => void
+        loadSpriteConfig: (config: ChefSpriteConfig) => void
     }
 }
 
@@ -65,8 +68,8 @@ export const usePlayerStore = create<PlayerState>()(
                 else if (newPosition.y < prevPos.y) state.player.direction = 'up'
                 get().actions._updateAnimationState()
             }),
-            addScore: (points) => set((state) => {
-                state.player.score += points
+            addScore: (amount) => set((state) => {
+                state.player.score += amount
             }),
             startAction: (actionType, targetId, duration) => {
                 const actionId = `action_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`
@@ -233,6 +236,18 @@ export const usePlayerStore = create<PlayerState>()(
                         state.player.animationState = isCarryingItem ? 'idle' : 'idle' // Consider if this should be running_lifting_idle or similar
                     }
                 }
+            }),
+            setDirection: (direction) => set((state) => {
+                state.player.direction = direction
+                get().actions._updateAnimationState()
+            }),
+            setAnimationState: (animationState) => set((state) => {
+                state.player.animationState = animationState
+                get().actions._updateAnimationState()
+            }),
+            loadSpriteConfig: (config) => set((state) => {
+                state.player.spriteConfig = config
+                get().actions._updateAnimationState()
             }),
         }
     }))

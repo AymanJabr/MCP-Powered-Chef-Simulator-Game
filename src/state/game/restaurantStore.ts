@@ -3,6 +3,7 @@ import { immer } from 'zustand/middleware/immer'
 import { Restaurant, Customer, Order, Ingredient, Equipment, Dish, Recipe } from '@/types/models'
 import { useGameStore } from '@/state/game/gameStore'
 import { calculateMaxOrderableDifficulty } from '@/lib/gameLoop'
+import { usePlayerStore } from '../player/playerStore'
 
 interface RestaurantState {
     restaurant: Restaurant
@@ -27,6 +28,7 @@ interface RestaurantState {
         resetRestaurantState: () => void;
         incrementLostCustomers: () => void;
         useEquipment: (equipmentId: string) => void;
+        serveOrderToCustomer: (orderId: string) => { success: boolean, message: string };
     }
 }
 
@@ -320,7 +322,67 @@ export const useRestaurantStore = create<RestaurantState>()(
 
             incrementLostCustomers: () => set((state) => {
                 state.restaurant.lostCustomers += 1;
-            })
+            }),
+
+            serveOrderToCustomer: (orderId) => {
+                let result = { success: false, message: "An unknown error occurred." };
+                const { getState, setState } = useRestaurantStore;
+
+                setState((state) => {
+                    const order = state.restaurant.activeOrders.find(o => o.id === orderId);
+                    if (!order) {
+                        result = { success: false, message: "Order not found." };
+                        return;
+                    }
+                    if (order.status !== 'plated') {
+                        result = { success: false, message: "Dish is not ready to be served yet." };
+                        return;
+                    }
+
+                    const customer = state.restaurant.activeCustomers.find(c => c.id === order.customerId);
+                    if (!customer) {
+                        result = { success: false, message: "Customer could not be found." };
+                        return;
+                    }
+                    const customerId = customer.id; // Capture primitive ID here
+
+                    // Calculations
+                    const patienceFactor = Math.max(0, customer.patience) / 100.0;
+                    const finalSatisfaction = 50 + (50 * patienceFactor);
+                    const tipAmount = order.dish.basePrice * (patienceFactor * 0.25);
+                    const timeTakenMs = Date.now() - order.startTime;
+                    const speedBonus = Math.max(0, 60000 - timeTakenMs) / 1000;
+                    const scoreGained = Math.round(order.dish.basePrice + finalSatisfaction + speedBonus);
+                    const totalFundsGained = order.dish.basePrice + tipAmount;
+
+                    // Update funds and score in other stores
+                    usePlayerStore.getState().actions.addScore(scoreGained);
+                    state.restaurant.funds += totalFundsGained;
+
+                    // Update customer and order
+                    customer.satisfaction = finalSatisfaction;
+                    customer.status = 'served';
+                    order.completionTime = Date.now();
+                    order.status = 'served';
+                    order.tip = tipAmount;
+                    order.qualityScore = finalSatisfaction;
+
+                    // Move order to completed
+                    state.restaurant.completedOrders.push(order);
+                    state.restaurant.activeOrders = state.restaurant.activeOrders.filter(o => o.id !== orderId);
+
+                    // Schedule customer departure
+                    setTimeout(() => {
+                        useRestaurantStore.setState(draftState => {
+                            draftState.restaurant.activeCustomers = draftState.restaurant.activeCustomers.filter(c => c.id !== customerId);
+                        });
+                    }, 4000);
+
+                    result = { success: true, message: `Served! +$${totalFundsGained.toFixed(2)} | +${scoreGained} score` };
+                });
+
+                return result;
+            }
         }
     }))
 ) 
